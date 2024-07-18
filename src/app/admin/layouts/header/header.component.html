@@ -1,0 +1,87 @@
+<header class="bg-white py-3 px-8 shadow-[0_5px_5px_-5px] shadow-gray-200 sticky top-0 admin-navbar">
+    <div class="flex justify-between items-center">
+        <div class="flex justify-start items-center gap-x-3"></div>
+        <div class="flex justify-end items-center gap-x-3">
+<!--            <div class="relative inline-block">-->
+<!--                <button type="button" class="text-xl text-light rounded-full w-10 h-10 transition hover:bg-slate-200">-->
+<!--                    <i class="bi bi-moon-stars text-amber-600"></i>-->
+<!--                </button>-->
+<!--            </div>-->
+
+<!--        NOTIFICATION -->
+            <div class="relative inline-block notification-dropdown">
+                <div class="relative inline-block">
+                    <button type="button" class="text-xl text-light rounded-full w-10 h-10 transition hover:bg-slate-200" (click)="onClickNotification()">
+                        <i class="bi bi-bell text-amber-600"></i>
+                    </button>
+                </div>
+
+                <div class="notification-dropdown-list" aria-expanded="false">
+                    <div class="flex flex-col text-sm">
+                        <a href="#" class="flex items-center gap-3 rounded-md p-2 hover:bg-slate-200">
+                            <span>Um fornecedor enviou uma proposta para seu projeto</span>
+                        </a>
+
+                        <div class="border-t border-slate-500/30"></div>
+
+                        <a href="#" class="flex items-center gap-3 rounded-md p-2 hover:bg-slate-200">
+                            <span>Um fornecedor enviou uma proposta para seu projeto</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+<!--        PROFILE -->
+            <div class="relative inline-block profile-dropdown">
+                <div class="flex items-center cursor-pointer shadow rounded-full px-4" (click)="onClickProfile()">
+<!--                    <button type="button" (click)="onClickProfile()"-->
+<!--                        class="flex w-10 h-10 overflow-hidden rounded-full border-2 border-emerald-600 shadow">-->
+<!--                        <img src={{userOne}} alt="john doe" class="w-full object-cover">-->
+<!--                    </button>-->
+                    <div class="text-right ml-3">
+                        <p>{{userLogged?.nome}}</p>
+                        <p class="text-light text-xs">{{userLogged?.tipoUsuario}}</p>
+                    </div>
+                </div>
+
+                <div class="profile-dropdown-list" aria-expanded="false">
+                    <div class="flex gap-3 items-center">
+<!--                        <div-->
+<!--                            class="flex items-center justify-center rounded-full h-12 w-12 overflow-hidden border-2 border-emerald-600">-->
+<!--                            <img class="w-full object-cover" src={{userOne}} alt="Profile">-->
+<!--                        </div>-->
+                        <div>
+                            <div class="flex gap-1 text-sm font-semibold">
+                                <span>{{userLogged?.nome}}</span>
+                                <span class="text-emerald-600">
+                                    <i class="bi bi-check2-circle"></i>
+                                </span>
+                            </div>
+                            <div class="text-xs text-slate-400">{{userLogged?.email}}</div>
+                        </div>
+                    </div>
+                    <div class="border-t border-slate-500/30"></div>
+                    <div class="flex flex-col text-sm">
+                        <a [routerLink]="commonService.prepareRoute(appRoutes.Admin, adminRoutes.Settings, settingRoutes.Profile)" class="flex items-center gap-3 rounded-md p-2 hover:bg-slate-200">
+                            <i class="bi bi-person-circle"></i>
+                            <span>Perfil</span>
+                        </a>
+<!--                        <a href="#" class="flex items-center gap-3 rounded-md p-2 hover:bg-slate-200">-->
+<!--                            <i class="bi bi-info-circle"></i>-->
+<!--                            <span>Help Center</span>-->
+<!--                        </a>-->
+                    </div>
+                    <div class="border-t border-slate-500/30"></div>
+                    <div class="">
+                        <button type="button"
+                            class="w-full p-2 text-left text-sm text-red-400 font-semibold rounded transition hover:bg-slate-200"
+                            (click)="authService.logout()">
+                            <i class="bi bi-power"></i>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

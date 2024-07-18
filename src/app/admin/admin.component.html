@@ -1,0 +1,25 @@
+<div *ngIf="isLoading" class="flex items-center justify-center min-h-screen p-5 bg-gray-100 min-w-screen">
+  <div class="flex space-x-2 animate-pulse">
+    <div class="w-6 h-6 bg-amber-500 rounded-full"></div>
+    <div class="w-6 h-6 bg-amber-500 rounded-full"></div>
+    <div class="w-6 h-6 bg-amber-500 rounded-full"></div>
+  </div>
+</div>
+
+<div *ngIf="!isLoading" class="flex w-full items-start font-sans bg-slate-100">
+  <app-sidebar
+      class="sidebar"
+      aria-expanded="true"
+      [userLogged]="userLogged"
+  ></app-sidebar>
+
+  <div class="flex-1">
+    <app-header [userLogged]="userLogged"></app-header>
+    <main class="min-h-screen p-8">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
+
+
+

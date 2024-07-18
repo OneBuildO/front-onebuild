@@ -1,0 +1,70 @@
+<app-modalRemove [show]="showModalConfirmRemove"
+                 (closeModal)="handleShowRemoveModal()"
+                 (confirmRemove)="onConfirmRemove()"
+>
+  <div class="sm:flex sm:items-start">
+    <div
+      class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+      <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+           stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+      </svg>
+    </div>
+    <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+      <h3 class="text-base font-semibold leading-6 text-gray-900">
+        Remoção de projeto
+      </h3>
+      <div class="mt-2">
+        <p class="text-sm text-gray-500">Tem certeza que deseja remover este projeto?</p>
+        <p class="text-sm font-bold text-gray-500">({{ projetoSeleciodado?.categoria }})</p>
+      </div>
+    </div>
+  </div>
+</app-modalRemove>
+
+<div class="card p-5 ">
+  <div class="card-title" *ngIf="titleTable">
+    <h3 class="text-xl font-bold leading-none mb-8">{{ titleTable }}</h3>
+  </div>
+  <div class="mt-3">
+    <div class=" sm:rounded-lg">
+      <div class="data-table">
+        <div class="table-container">
+          <table class="ng-wind-table relative">
+            <thead class="ng-wind-table-header">
+            <tr>
+              <th scope="col" class="ng-wind-header-item text-center">Categoria</th>
+              <th scope="col" class="ng-wind-header-item text-center">Data Limite</th>
+              <th scope="col" class="ng-wind-header-item text-center">Local</th>
+              <th scope="col" class="ng-wind-header-item text-center">Cidade</th>
+              <th scope="col" class="ng-wind-header-item text-center">Visibilidade</th>
+              <th scope="col" class="ng-wind-header-item text-center">Ações</th>
+            </tr>
+            </thead>
+
+            <tbody>
+              @for (projeto of rowData; track projeto?.id) {
+                <tr class="bg-white border-b  hover:bg-gray-50">
+                  <td class="ng-wind-data-item text-center">
+                    <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline" (click)="redirectProjectoDetails(projeto?.id)">{{ projeto?.categoria }}</button>
+                  </td>
+
+                  <td class="ng-wind-data-item text-center">{{ formatDatePTBR(projeto?.dataLimiteOrcamento?.toString()) }}</td>
+                  <td class="ng-wind-data-item text-center">{{ projeto?.local ? projeto?.local : '-' }}</td>
+                  <td class="ng-wind-data-item text-center">{{ projeto?.cidade ? projeto?.cidade : '-'}}</td>
+                  <td class="ng-wind-data-item text-center">{{ projeto?.publico ? 'Público' : 'Privado' }}</td>
+
+                  <td class="ng-wind-data-item text-center">
+                    <i class="bi bi-pencil-fill text-xl px-2 text-blue-700" (click)="onEditItem(projeto)"></i>
+                    <i class="bi bi-trash3-fill text-xl px-2 text-amber-700 cursor-pointer" (click)="handleShowRemoveModal(projeto)"></i>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
