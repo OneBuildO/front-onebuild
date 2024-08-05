@@ -13,6 +13,7 @@ import {LoginModelDTO} from "../../../_core/models/login.model";
 @Component({
   selector: 'app-signin',
   templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
   animations: [pageTransition],
 })
 export class LoginComponent {
