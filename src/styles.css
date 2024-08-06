@@ -4,6 +4,26 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+:root {
+  /* cores principais */
+  --primary-color: #EDC245;
+  --accent-color: #CB8642;
+  --gradient-primary: linear-gradient(45deg, #CB8642, #EDC245);
+  --secundary-color: #251825;
+  /* cores background */
+  --bg-color-light: #FAFAFA;
+  --bg-color-dark: #0F1212;
+  --bg-surface-white: #FFFFFF;
+   /* cores texto */
+  --font-color-dark: #040404;
+  --font-color-light: #FDFDFD;
+   /* cores sistema */
+   --color-error: #C71100;
+   --color-sucess: #2C8807;
+   --color-warning: #F2880B;
+   --color-info: #004590;
+}
+
 @layer components {
   * {
     font-family: "Inter", sans-serif !important;
@@ -205,3 +225,5 @@
 .notyf__message {
   font-size: 0.875rem !important;
 }
+
+

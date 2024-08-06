@@ -1,6 +1,7 @@
 export const environment = {
-  production: true,
-  apiUrl: 'https://api.onebuild.com.br',
-  webUrl: 'https://onebuild.com.br',
+  production: false,
+  // apiUrl: 'https://api.onebuild.com.br',
+  apiUrl: 'https://back-onebuild.onrender.com',
+  webUrl: 'https://onebuild.vercel.app/',
   version: '0.0.99',
 };
