@@ -17,6 +17,7 @@ import {EMessages} from "src/app/_core/enums/e-messages";
 @Component({
   selector: 'app-signup',
   templateUrl: './cadastro.component.html',
+  styleUrls: ['./cadastro.component.css'],
   animations: [pageTransition]
 })
 export class CadastroComponent {
@@ -46,6 +47,7 @@ export class CadastroComponent {
     cnpj: new FormControl( '', { validators: [Validators.required] }),
     senha: new FormControl( '', { validators: [Validators.required] }),
     confirmPassword: new FormControl( '', { validators: [Validators.required] }),
+    terms: new FormControl(false, { validators: [Validators.requiredTrue] }) // Adicionando o campo de termos
   });
 
   urlParams = new URL(window.location.href);
