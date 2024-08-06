@@ -79,10 +79,16 @@
   padding: 10px 20px;
   border-radius: 16px;
   cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.button-primary:hover {
+  background: var(--gradient-secondary);
 }
 
 .button-primary span {
   color: var(--font-color-dark);
+  font-weight: 600;
 }
 
 .esqueci-senha {
@@ -94,4 +100,20 @@
     cursor: pointer;
     font-weight: 600;
   }
+}
+
+.password-container button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding-right: 16px;
+}
+
+.password-container button i {
+  font-size: 1.2rem; /* Ajuste o tamanho conforme necessário */
+  color: var(--bg-color-dark);
 }

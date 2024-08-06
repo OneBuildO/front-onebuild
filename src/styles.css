@@ -9,7 +9,8 @@
   --primary-color: #EDC245;
   --accent-color: #CB8642;
   --gradient-primary: linear-gradient(45deg, #CB8642, #EDC245);
-  --secundary-color: #251825;
+  --gradient-secondary: linear-gradient(45deg, #bf7d3c, #dab139);
+  --secondary-color: #251825;
   /* cores background */
   --bg-color-light: #FAFAFA;
   --bg-color-dark: #0F1212;
