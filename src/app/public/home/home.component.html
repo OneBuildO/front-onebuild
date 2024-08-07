@@ -12,7 +12,7 @@
   <div class="text-left flex justify-center w-full image-container">
     <div class="w-1/2 flex flex-col justify-center sm:w-full sm:px-1 sm:mx-5 lg:ml-24">
       <div>
-        <h1 class="text-5xl font-bold tracking-tight text-neutro-50 sm:text-4xl">
+        <h1 class="text-5xl font-semi-bold tracking-tight text-neutro-50 sm:text-4xl">
           Descomplicando a gestão de projetos e obras!
         </h1>
         <p class="mt-6 text-lg leading-6 text-neutro-200">
@@ -22,12 +22,13 @@
       </div>
 
       <div class="mt-10 flex items-center justify-start gap-x-6">
-        <a [routerLink]="PublicRoutes.Cadastro"
-           class="text-gray-900 bg-neutral-100 border border-gray-300 focus:outline-none hover:bg-neutral-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-2xl text-sm px-5 py-2.5">
-          Cadastrar-se
-        </a>
-        <a [routerLink]="publicRoutes.Login" class="text-sm font-semibold leading-6 text-neutral-100">
-          Login <span aria-hidden="true">→</span></a>
+        <div>
+          <a [routerLink]="PublicRoutes.Cadastro">
+            <button type="button" class="button-primary">
+              Cadastre-se
+            </button>
+          </a>
+        </div>
       </div>
     </div>
     <div class="w-1/2 sm:hidden"></div>
