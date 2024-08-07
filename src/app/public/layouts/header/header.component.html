@@ -1,8 +1,7 @@
-<header class="bg-primary shadow fixed top-0 w-full z-10 h-20 content-center border-b-2 sm:border-b-1">
-  <nav class="container flex items-center justify-between px-6 py-2 lg:px-8" aria-label="Global">
-    <div class="flex lg:flex-1">
+<header class="header-navbar fixed top-0 w-full z-10 h-20 content-center">
+  <nav class="flex items-center justify-between px-6 py-2 lg:px-8" aria-label="Global">
+    <div class="logo-header flex lg:flex-1">
       <a href="#" class="-m-1.5 p-1.5">
-        <span class="sr-only">One Build</span>
         <img class="h-8 w-auto" src={{mainLogo}} alt="">
       </a>
     </div>
@@ -23,20 +22,25 @@
     </div>
 
     <div *ngIf="!isUserLogged" class="hidden lg:flex lg:flex-1 lg:justify-end content-center items-center">
-      <a [routerLink]="commonService.prepareRoute(publicRoutes.Login)"
+      <div>
+        <a [routerLink]="commonService.prepareRoute(publicRoutes.Cadastro)"
          class="text-sm font-semibold leading-6 text-branco mr-4">
-        Login
-      </a>
-      <a [routerLink]="commonService.prepareRoute(publicRoutes.Cadastro)"
-         class="text-sm font-semibold leading-6 text-branco mr-4">
-        <button type="button"
-                class="text-gray-900 bg-secondary border border-gray-300 focus:outline-none hover:bg-neutral-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-2xl text-sm px-5 py-2.5">
+        <button type="button" class="button-secondary">
           Cadastre-se
         </button>
       </a>
+      </div>
+      <div>
+        <a [routerLink]="commonService.prepareRoute(publicRoutes.Login)"
+         class="text-sm font-semibold leading-6 text-branco mr-4">
+        <button type="button" class="button-primary">
+          Login
+        </button>
+      </a>
+      </div>
     </div>
 
-    <div *ngIf="isUserLogged" class="hidden lg:flex lg:flex-1 lg:justify-end">
+    <!-- <div *ngIf="isUserLogged" class="hidden lg:flex lg:flex-1 lg:justify-end">
       <a [routerLink]="commonService.prepareRoute(appRoutes.Admin, adminRoutes.Dashboard)"
          class="text-sm font-semibold leading-6 text-branco">
         <button type="button"
@@ -44,7 +48,7 @@
           Dashboard
         </button>
       </a>
-    </div>
+    </div> -->
   </nav>
 
   <!-- Mobile menu, show/hide based on menu open state. -->

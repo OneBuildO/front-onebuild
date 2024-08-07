@@ -12,7 +12,8 @@ import {NgIf} from "@angular/common";
   selector: 'public-header',
   standalone: true,
   imports: [RouterLink, NgIf],
-  templateUrl: './header.component.html'
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css'],
 })
 export class PublicHeaderComponent implements OnInit{
   public mainLogo: string = Images.mainLogo;

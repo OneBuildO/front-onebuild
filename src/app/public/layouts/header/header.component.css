@@ -1,0 +1,48 @@
+.header-navbar {
+  background: rgba(1, 2, 2, 0.752);
+  backdrop-filter: blur(10px); /* Efeito de desfoque */
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.logo-header img {
+  width: 130px;
+  height: auto;
+}
+
+/* Botôes do header */
+.button-primary {
+  background: var(--gradient-primary);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 164px;
+  height: 48px;
+  color: var(--font-color-dark);
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.button-primary:hover {
+  background: var(--gradient-secondary);
+}
+
+.button-secondary {
+  background: transparent;
+  border: 2px solid var(--primary-color);
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 164px;
+  height: 48px;
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.button-secondary:hover {
+  color: var(--font-color-light);
+  border:2px solid var(--font-color-light);
+}
