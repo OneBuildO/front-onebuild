@@ -20,7 +20,7 @@
         [type]="tipoAlerta"
       ></app-alert>
 
-      <form class="forms-cadastro" [formGroup]="cadastroForm" (submit)="onFormSubmitHandler($event)">
+      <form class="forms-cadastro" [formGroup]="cadastroForm" (ngSubmit)="onFormSubmitHandler($event)">
 
         <!-- NOME -->
         <div class="form-group">
@@ -58,8 +58,8 @@
               <option [value]="''">Selectione</option>
               <option *ngFor="let categoria of CategoriaProjetoArr" [value]="categoria">{{ categoria }}</option>
             </select>
-            <small *ngIf="submited && !cadastroForm.get('categoria')?.value?.toString()"
-                   class="text-red-500 text-left">{{ ERROR_MESSAGES.required() }}</small>
+            <small *ngIf="submited && cadastroForm.get('categoria')?.invalid && (cadastroForm.get('tipoUsuario')?.value === ETipoUsuario.FORNECEDOR || cadastroForm.get('tipoUsuario')?.value === ETipoUsuario.OUTROS)"
+                  class="text-red-500 text-left">{{ ERROR_MESSAGES.required() }}</small>
           </div>
         </div>
 
@@ -83,7 +83,7 @@
         <div class="form-group">
           <label class="form-label required" for="contato">Contato</label>
           <div class="relative">
-            <input type="number" id="contato" class="form-control w-full ps-10"
+            <input type="text" id="contato" class="form-control w-full ps-10"
                    formControlName="contato" placeholder="informe seu contato">
             <span class="absolute top-2 left-0 ps-3 text-gray-400"><i class="bi bi-phone"></i></span>
           </div>
@@ -97,7 +97,7 @@
         <div class="form-group">
           <label class="form-label required" for="cnpj">CNPJ</label>
           <div class="relative">
-            <input type="number" id="cnpj" class="form-control w-full ps-10"
+            <input type="text" id="cnpj" class="form-control w-full ps-10"
                    formControlName="cnpj" placeholder="informe seu CNPJ">
             <span class="absolute top-2 left-0 ps-3 text-gray-400"><i class="bi bi-person-vcard"></i></span>
           </div>
@@ -147,12 +147,13 @@
           </p>
         </div>
 
-        <button type="submit" class="button-primary w-full" [disabled]="isLoading">
+        <button type="button" class="button-primary w-full" [disabled]="cadastroForm.invalid || isLoading" (click)="onFormSubmitHandler()">
           <btn-spinner *ngIf="isLoading" [show]="isLoading"></btn-spinner>
           <span class="text-branco" [ngClass]="{'translate-x-0.5': isLoading}">
             Cadastrar-se
           </span>
         </button>
+        
       </form>
     </div>
     <div class="footer-login">
