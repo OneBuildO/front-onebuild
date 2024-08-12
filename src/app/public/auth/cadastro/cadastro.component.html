@@ -51,14 +51,14 @@
 
         <!-- CATEGORIA -->
         <div class="col-span-12 md:col-span-6"
-             *ngIf="cadastroForm.controls.tipoUsuario.value === ETipoUsuario.FORNECEDOR || cadastroForm.controls.tipoUsuario.value === ETipoUsuario.OUTROS">
+             *ngIf="cadastroForm.controls.tipoUsuario.value === ETipoUsuario.FORNECEDOR">
           <div class="form-group">
             <label for="categoria" class="form-label required text-left">Categoria:</label>
             <select id="categoria" class="form-select" formControlName="categoria">
               <option [value]="''">Selectione</option>
               <option *ngFor="let categoria of CategoriaProjetoArr" [value]="categoria">{{ categoria }}</option>
             </select>
-            <small *ngIf="submited && cadastroForm.get('categoria')?.invalid && (cadastroForm.get('tipoUsuario')?.value === ETipoUsuario.FORNECEDOR || cadastroForm.get('tipoUsuario')?.value === ETipoUsuario.OUTROS)"
+            <small *ngIf="submited && cadastroForm.get('categoria')?.invalid && (cadastroForm.get('tipoUsuario')?.value === ETipoUsuario.FORNECEDOR)">
                   class="text-red-500 text-left">{{ ERROR_MESSAGES.required() }}</small>
           </div>
         </div>

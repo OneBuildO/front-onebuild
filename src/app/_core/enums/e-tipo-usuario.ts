@@ -3,7 +3,7 @@ export enum ETipoUsuario {
   CONSTRUTORA = 'Construtora',
   DESIGN_INTERIORES = 'Design de interiores',
   FORNECEDOR = 'Fornecedor',
-  OUTROS = 'Outros',
+  // OUTROS = 'Outros',
 }
 
 export const TipoUsuarioArr: string[] = [
@@ -11,5 +11,5 @@ export const TipoUsuarioArr: string[] = [
   ETipoUsuario.CONSTRUTORA,
   ETipoUsuario.DESIGN_INTERIORES,
   ETipoUsuario.FORNECEDOR,
-  ETipoUsuario.OUTROS,
+  // ETipoUsuario.OUTROS,
 ];

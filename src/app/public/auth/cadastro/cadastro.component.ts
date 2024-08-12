@@ -56,7 +56,7 @@ export class CadastroComponent {
 
   ngOnInit() {
     this.cadastroForm.get('tipoUsuario')?.valueChanges.subscribe(value => {
-      if (value === ETipoUsuario.FORNECEDOR || value === ETipoUsuario.OUTROS) {
+      if (value === ETipoUsuario.FORNECEDOR) {
         this.cadastroForm.get('categoria')?.setValidators([Validators.required]);
       } else {
         this.cadastroForm.get('categoria')?.clearValidators();
