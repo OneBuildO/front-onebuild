@@ -13,6 +13,7 @@ import {LoginModelDTO} from "../../../_core/models/login.model";
 @Component({
   selector: 'app-redefinicaoSenha',
   templateUrl: './redefinicaoSenha.component.html',
+  styleUrls: ['./redefinicaoSenha.component.css'],
   animations: [pageTransition],
 })
 export class RedefinicaoSenhaComponent {

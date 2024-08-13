@@ -12,6 +12,7 @@ import {ValidacaoEmailDTO} from "src/app/_core/models/usuario.model";
 @Component({
   selector: 'app-validacao-email',
   templateUrl: './validacaoEmail.component.html',
+  styleUrls: ['./validacaoEmail.component.css'],
   animations: [pageTransition],
 })
 export class ValidacaoEmailComponent implements OnInit, OnDestroy {

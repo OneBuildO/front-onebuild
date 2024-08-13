@@ -1,4 +1,4 @@
-.container-login {
+.container-cadastro {
   background-image: url("/assets/images/BG-img/bg-one-b.png");
   background-repeat: no-repeat;
   background-size: cover;
@@ -10,14 +10,14 @@
   margin: 0;
 }
 
-.card-login {
+.card-cadastro {
   margin-bottom: 1rem;
   height: 100%;
   border-radius: 0.75rem;
   background: var(--bg-surface-white);
 }
 
-.header-login {
+.header-cadastro {
   background: var(--bg-color-dark);
   width: 100%;
   height: 80px;
@@ -35,7 +35,6 @@
 
 .content-card {
   padding: 32px;
-  padding-bottom: 16px;
   gap: 8px;
 }
 
@@ -45,32 +44,34 @@
   font-weight: 500;
 }
 
-.forms-login {
+.forms-cadastro {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.footer-login {
-  background: var(--bg-color-dark);
-  width: 100%;
-  height: 48px;
-  padding: 0;
-  border-radius: 0 0 10px 10px; /* top-left, top-right, bottom-right, bottom-left */
+/* Estilo para o container do checkbox de termos de uso */
+.terms-container {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
+  margin-bottom: 1rem;
+
+  p {
+    font-size: 14px;
+    color: var(--font-color-dark);
+  }
+
+  a {
+    color: var(--color-info);
+    cursor: pointer;
+    font-weight: 600;
+  }
 }
 
-.text-footer {
-  color: var(--font-color-light);
-  font-size: 14px;
-}
-
-.link-primary {
-  color: var(--primary-color);
-  font-weight: 500;
-  text-decoration: underline;
+.terms-container input[type="checkbox"] {
+  margin-right: 0.5rem;
+  cursor: pointer;
 }
 
 .button-primary {
@@ -91,29 +92,35 @@
   background: var(--gradient-secondary);
 }
 
-.esqueci-senha {
-  color: var(--font-color-dark);
-  text-align: center;
+.footer-login {
+  background: var(--bg-color-dark);
+  width: 100%;
+  height: 48px;
+  padding: 0;
+  border-radius: 0 0 10px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  a {
-    color: var(--color-info);
-    cursor: pointer;
-    font-weight: 600;
+.text-footer {
+  color: var(--font-color-light);
+  font-size: 14px;
+}
+
+.link-primary {
+  color: var(--primary-color);
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.label-senha {
+  display: flex;
+  align-items: baseline;
+
+  span {
+    margin-left: 4px;
+    font-size: 12px;
+    color: var(--font-color-dark);
   }
-}
-
-.password-container button {
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 100%;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding-right: 16px;
-}
-
-.password-container button i {
-  font-size: 1.2rem; /* Ajuste o tamanho conforme necessário */
-  color: var(--bg-color-dark);
 }

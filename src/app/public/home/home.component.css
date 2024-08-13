@@ -1,8 +1,27 @@
 .image-container {
-  height: calc(100vh - 10rem);
-  background-image: url("/assets/images/homepage/backgoundhome_clean00.png");
+  height: 100vh;
+  background-image: url("/assets/images/BG-img/banner-ob.png");
   background-size: cover; /* Cobrir toda a área da div */
   background-position: center; /* Centralizar a imagem */
+}
+
+/* Botão do header */
+.button-primary {
+  background: var(--gradient-primary);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 200px;
+  height: 48px;
+  color: var(--font-color-dark);
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.button-primary:hover {
+  background: var(--gradient-secondary);
 }
 
 @media only screen and (max-width: 600px) {
