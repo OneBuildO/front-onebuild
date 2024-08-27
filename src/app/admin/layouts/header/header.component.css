@@ -1,5 +1,10 @@
 .admin-navbar {
     z-index: 10;
+    background: var(--bg-color-dark);
+}
+
+.btn-drop {
+  background: var(--bg-color-light);
 }
 
 .profile-dropdown-list {

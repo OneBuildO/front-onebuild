@@ -3,8 +3,7 @@
     position: sticky;
     top: 0px;
     min-height: 100vh;
-    --tw-bg-opacity: 1;
-    background-color: var(--bg-color-dark);
+    background: var(--bg-opacity-dark);
     padding-right: 0.75rem;
     padding-top: 1.25rem;
     transition-property: all;
