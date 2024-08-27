@@ -192,3 +192,9 @@ app-sidebar[aria-expanded="false"] .brand {
 .sidebar[aria-expanded=true] #sidebar-collapse-btn:hover .collapsible-bottom-icon {
     @apply rotate-[-15deg]
 }
+
+@media screen and (max-width: 768px) {
+    .menu-item span {
+        font-size: 14px;
+    }
+}
