@@ -20,19 +20,21 @@ export class AdminComponent implements OnInit{
       private ServiceAuth : AuthService,
       private servicesetShared: SharedService,
   ) { }
-
   @HostListener('click', ['$event.target']) onClick(e: Element) {
     const profileDropdown = this.element.nativeElement.querySelector('.profile-dropdown') as Element;
-    if (!profileDropdown.contains(e)) {
+    if (profileDropdown && !profileDropdown.contains(e)) {
       const profileDropdownList = this.element.nativeElement.querySelector('.profile-dropdown-list');
-      this.rendered.setAttribute(profileDropdownList, 'aria-expanded', 'false')
+      if (profileDropdownList) {
+        this.rendered.setAttribute(profileDropdownList, 'aria-expanded', 'false');
+      }
     }
 
-
     const notificationDropdown = this.element.nativeElement.querySelector('.notification-dropdown') as Element;
-    if (!notificationDropdown.contains(e)) {
+    if (notificationDropdown && !notificationDropdown.contains(e)) {
       const notificationDropdownList = this.element.nativeElement.querySelector('.notification-dropdown-list');
-      this.rendered.setAttribute(notificationDropdownList, 'aria-expanded', 'false')
+      if (notificationDropdownList) {
+        this.rendered.setAttribute(notificationDropdownList, 'aria-expanded', 'false');
+      }
     }
   }
 
