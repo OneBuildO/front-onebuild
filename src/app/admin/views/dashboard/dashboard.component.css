@@ -21,7 +21,7 @@
 
 .card-dashboard {
   border-radius: 8px;
-  padding: 24px;
+  padding: 16px;
   background: var(--gradient-primary);
   margin-bottom: 16px;
   display: flex;
@@ -49,7 +49,7 @@
 }
 
 .card-dashboard span {
-  width: 100%;
+  width: auto;
   display: flex;
   justify-content: center;
   align-items: center;
