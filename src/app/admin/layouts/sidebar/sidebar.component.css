@@ -1,7 +1,19 @@
 /* Sidebar */
 .sidebar {
-    @apply sticky top-0 px-3 bg-slate-900 min-h-screen pt-5 transition-all duration-300
+    position: sticky;
+    top: 0px;
+    min-height: 100vh;
+    background: var(--bg-opacity-dark);
+    padding-right: 0.75rem;
+    padding-top: 1.25rem;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
 }
+
+/* .sidebar {
+    @apply sticky top-0 px-3 bg-slate-900 min-h-screen pt-5 transition-all duration-300
+} */
 
 .sidebar[aria-expanded=true] {
     @apply w-60
@@ -12,7 +24,12 @@
 }
 
 .brand-wrapper {
-    @apply flex items-center min-h-[2rem] justify-between
+    display: flex;
+    padding-left: 1rem;
+}
+
+.brand-wrapper, .logo-ob{
+    width: 120px;
 }
 
 .brand {
@@ -28,41 +45,81 @@ app-sidebar[aria-expanded="false"] .brand {
 }
 
 /* Sidebar Links */
+
 .menu-links {
-    @apply flex flex-col gap-y-3 pt-5 font-medium;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.menu-links-item{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.menu-section{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.menu-section h2 {
+    font-size: 18px;
+    font-weight: 300;
+    padding-left: 1rem;
+    color: var(--font-color-light);
+    font-family: 'Montserrat', sans-serif; 
 }
 
 .menu-item {
-    @apply inline-flex w-full gap-x-2 items-center px-2 py-1 text-gray-500 transition duration-300 ease-in-out rounded overflow-hidden
+    display: inline-flex;
+    width: 100%;
+    column-gap: 1rem;
+    align-items: center;
+    padding-left: 1rem; /* 8px */
+    padding-right: 0.5rem; 
+    padding-top: 0.25rem; /* 4px */
+    padding-bottom: 0.25rem; 
+    color: var(--font-color-light);
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+    border-radius: 0.25rem;
+    overflow: hidden;
 }
 
 .menu-item span {
-    @apply text-sm
+    font-size: 16px;
+    font-weight: normal;
 }
 
-.sidebar[aria-expanded=false] .menu-links .menu-item span {
+/* .sidebar[aria-expanded=false] .menu-links .menu-item span {
     @apply hidden
-}
+} */
 
 .menu-item.active {
-    @apply text-amber-600
+    color: var(--font-color-dark);
+    background: var(--gradient-primary);
 }
 
 .menu-item:hover {
-    @apply bg-slate-800 text-amber-600
+    color: var(--font-color-dark);
+    background: var(--gradient-primary);
 }
 
-.menu-item i::before {
+/* .menu-item i::before {
     @apply inline
-}
+} */
 
 .sub-menu {
     position: relative;
 }
 
-.sub-menu[aria-expanded=true] {
+/* .sub-menu[aria-expanded=true] {
     @apply text-gray-300
-}
+} */
 
 .sub-menu::after {
     font-family: "Bootstrap-Icons";
@@ -133,4 +190,10 @@ app-sidebar[aria-expanded="false"] .brand {
 
 .sidebar[aria-expanded=true] #sidebar-collapse-btn:hover .collapsible-bottom-icon {
     @apply rotate-[-15deg]
+}
+
+@media screen and (max-width: 768px) {
+    .menu-item span {
+        font-size: 14px;
+    }
 }

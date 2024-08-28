@@ -1,4 +1,4 @@
-<header class="bg-white py-3 px-8 shadow-[0_5px_5px_-5px] shadow-gray-200 sticky top-0 admin-navbar">
+<header class="py-3 px-8 shadow-[0_5px_5px_-5px] shadow-gray-200 sticky top-0 admin-navbar">
     <div class="flex justify-between items-center">
         <div class="flex justify-start items-center gap-x-3"></div>
         <div class="flex justify-end items-center gap-x-3">
@@ -8,32 +8,9 @@
 <!--                </button>-->
 <!--            </div>-->
 
-<!--        NOTIFICATION -->
-            <div class="relative inline-block notification-dropdown">
-                <div class="relative inline-block">
-                    <button type="button" class="text-xl text-light rounded-full w-10 h-10 transition hover:bg-slate-200" (click)="onClickNotification()">
-                        <i class="bi bi-bell text-amber-600"></i>
-                    </button>
-                </div>
-
-                <div class="notification-dropdown-list" aria-expanded="false">
-                    <div class="flex flex-col text-sm">
-                        <a href="#" class="flex items-center gap-3 rounded-md p-2 hover:bg-slate-200">
-                            <span>Um fornecedor enviou uma proposta para seu projeto</span>
-                        </a>
-
-                        <div class="border-t border-slate-500/30"></div>
-
-                        <a href="#" class="flex items-center gap-3 rounded-md p-2 hover:bg-slate-200">
-                            <span>Um fornecedor enviou uma proposta para seu projeto</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
 <!--        PROFILE -->
             <div class="relative inline-block profile-dropdown">
-                <div class="flex items-center cursor-pointer shadow rounded-full px-4" (click)="onClickProfile()">
+                <div class="flex items-center cursor-pointer shadow rounded-full px-4 btn-drop" (click)="onClickProfile()">
 <!--                    <button type="button" (click)="onClickProfile()"-->
 <!--                        class="flex w-10 h-10 overflow-hidden rounded-full border-2 border-emerald-600 shadow">-->
 <!--                        <img src={{userOne}} alt="john doe" class="w-full object-cover">-->
@@ -77,7 +54,7 @@
                             class="w-full p-2 text-left text-sm text-red-400 font-semibold rounded transition hover:bg-slate-200"
                             (click)="authService.logout()">
                             <i class="bi bi-power"></i>
-                            Logout
+                            Sair
                         </button>
                     </div>
                 </div>
