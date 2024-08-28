@@ -10,6 +10,7 @@ Chart.register(...registerables);
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css'],
   animations: [pageTransition]
 })
 export class DashboardComponent implements OnInit {
