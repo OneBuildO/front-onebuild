@@ -1,40 +1,49 @@
 <div [@pageTransition]>
+  <div class="title-header">
+    <h1>
+      <span>|</span>
+      Painel de Controle
+    </h1>
+  </div>
   <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-    <div class="card flex items-center gap-3">
-      <div class="bg-gradient-to-br from-emerald-500 to-emerald-700 py-2 px-3 rounded-lg text-white">
-        <span class="bi bi-people-fill text-3xl"></span>
+    <div class="card flex items-center card-dashboard">
+      <div class="info-card">
+        <h4>{{ dadosPerfil.qtdTotalClientes }}</h4>
+        <p>Total de Clientes</p>
       </div>
-      <div>
-        <h4 class="text-xl font-bold">{{ dadosPerfil.qtdTotalClientes }}</h4>
-        <p class="text-md text-gray-400">Total Clientes</p>
-      </div>
+      <span class="text-3xl">
+        <img src="assets/icons/users.svg" alt="Clientes">
+      </span>
     </div>
-    <div class="card flex items-center gap-3">
-      <div class="bg-gradient-to-br from-orange-500 to-orange-700 py-2 px-3 rounded-lg text-white">
-        <span class="bi bi-ticket-perforated text-3xl"></span>
-      </div>
-      <div>
+
+    <div class="card flex items-center card-dashboard">
+      <div class="info-card">
         <h4 class="text-xl font-bold">{{ dadosPerfil.qtdTotalProjetos }}</h4>
-        <p class="text-md text-gray-400">Total Projetos</p>
+        <p class="text-md text-gray-400">Total de Projetos</p>
       </div>
+      <span class="text-3xl">
+        <img src="assets/icons/clipboard-pen.svg" alt="Prancheta com Caneta">
+      </span>
     </div>
-    <div class="card flex items-center gap-3">
-      <div class="bg-gradient-to-br from-violet-500 to-violet-700 py-2 px-3 rounded-lg text-white">
-        <span class="bi bi-calendar-event text-3xl"></span>
+
+    <div class="card flex items-center card-dashboard">
+      <div class="info-card">
+        <h4>{{ dadosPerfil.qtdProjetosEmAndamento }}</h4>
+        <p>Projetos em andamento</p>
       </div>
-      <div>
-        <h4 class="text-xl font-bold">{{ dadosPerfil.qtdProjetosEmAndamento }}</h4>
-        <p class="text-md text-gray-400">Projetos em andamento</p>
-      </div>
+      <span class="text-3xl">
+        <img src="assets/icons/clipboard-user.svg" alt="Prancheta com cliente">
+      </span>
     </div>
-    <div class="card flex items-center gap-3">
-      <div class="bg-gradient-to-br from-cyan-500 to-cyan-700 py-2 px-3 rounded-lg text-white">
-        <span class="bi bi-cash-stack text-3xl"></span>
+
+    <div class="card flex items-center card-dashboard">
+      <div class="info-card">
+        <h4>{{ dadosPerfil.qtdTotalFornecedores }}</h4>
+        <p>Fornecedores</p>
       </div>
-      <div>
-        <h4 class="text-xl font-bold">{{ dadosPerfil.qtdTotalFornecedores }}</h4>
-        <p class="text-md text-gray-400">Total Fornecedores</p>
-      </div>
+      <span class="text-3xl">
+        <img src="assets/icons/store.svg" alt="store">
+      </span>
     </div>
   </section>
 
