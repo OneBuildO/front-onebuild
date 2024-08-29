@@ -35,6 +35,24 @@
     box-sizing: border-box;
   }
 
+   /* Custom Scrollbar */
+   ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-color-light);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--gradient-primary);
+    border-radius: 16px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--gradient-secondary);
+  }
+
   /* Text color */
   .text-light {
     @apply text-slate-400;
