@@ -37,7 +37,7 @@
 
    /* Custom Scrollbar */
    ::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
   }
 
   ::-webkit-scrollbar-track {
@@ -45,8 +45,9 @@
   }
 
   ::-webkit-scrollbar-thumb {
+    /* background: var(--bg-opacity-dark); */
     background: var(--gradient-primary);
-    border-radius: 16px;
+    border-radius: 8px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
