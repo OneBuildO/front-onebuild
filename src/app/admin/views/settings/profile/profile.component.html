@@ -9,9 +9,9 @@
     ></app-alert>
 
     <form class="my-5" [formGroup]="cadastroForm" (submit)="onFormSubmitHandler($event)">
-      <!-- NOME -->
+      <!-- RAZAO SOCIAL -->
       <div class="form-group">
-        <label class="form-label" for="nome" *ngIf="tipoCadastro === ETipoUsuario.ARQUITETO">Nome Completo</label>
+        <label class="form-label" for="nome" *ngIf="tipoCadastro === ETipoUsuario.ARQUITETO">Razão Social</label>
         <label class="form-label" for="nome" *ngIf="tipoCadastro !== ETipoUsuario.ARQUITETO">Nome Empresa</label>
         <div class="relative">
           <input type="text" id="nome" class="form-control w-full ps-10"
