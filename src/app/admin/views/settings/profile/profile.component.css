@@ -1,3 +1,7 @@
+.container-principal{
+  padding: 48px;
+}
+
 .title-header h1 {
   font-size: 1.3em;
   font-weight: 400;
@@ -10,6 +14,79 @@
   padding-right: 8px;
 }
 
+.container-perfil{
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  margin: 16px;
+}
+
+.container-photo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 16px;
+}
+
+.image-container {
+  display: flex;
+  padding-top: 8px;
+  position: relative;
+  display: inline-block;
+}
+
+.profile-photo {
+  width: 150px;
+  height: 145px;
+  border-radius: 15%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+.edit-profile-photo {
+  margin-top: 10px;
+}
+
+.edit-profile-photo button {
+  background: transparent;
+  border: none;
+  color: var(--color-info);
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  font-size: 14px;
+}
+
+.edit-profile-photo button:hover {
+  color: #0d6ace;
+}
+
+.profile-photo.editable {
+  cursor: pointer;
+}
+
+.edit-icon {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: transparent;
+  border-radius: 50%;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.edit-icon img {
+  width: 35px;
+  height: 35px;
+}
+
+.container-form{
+  width: 80%;
+}
+
 .button-primary {
   background: var(--gradient-primary);
   color: var(--color-text-dark);
@@ -18,7 +95,7 @@
   border-radius: 16px;
 }
 
-.button-container{
+.button-container {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -44,6 +121,11 @@
 
 /* Media query para telas menores */
 @media (max-width: 768px) {
+
+  .container-principal{
+    padding: 16px;
+  }
+
   .button-container {
     flex-direction: column;
     align-items: flex-start;
@@ -52,5 +134,19 @@
   .button-confirm,
   .button-cancel {
     width: 100%;
+  }
+
+  .container-perfil{
+    flex-direction: column;
+    gap: 24px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container-form{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
   }
 }
