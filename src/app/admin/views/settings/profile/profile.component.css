@@ -1,5 +1,56 @@
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
-  -webkit-appearance: none !important;
-  margin: 0;
+.title-header h1 {
+  font-size: 1.3em;
+  font-weight: 400;
+  color: var(--font-color-dark);
+}
+
+.title-header span {
+  font-weight: 700;
+  color: var(--accent-color);
+  padding-right: 8px;
+}
+
+.button-primary {
+  background: var(--gradient-primary);
+  color: var(--color-text-dark);
+  width: 160px;
+  height: 40px;
+  border-radius: 16px;
+}
+
+.button-container{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  gap: 16px;
+}
+
+.button-confirm {
+  background: var(--color-sucess);
+  color: var(--font-color-light);
+  width: 160px;
+  height: 40px;
+  border-radius: 16px;
+}
+
+.button-cancel {
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  width: 160px;
+  height: 40px;
+  border-radius: 16px;
+}
+
+/* Media query para telas menores */
+@media (max-width: 768px) {
+  .button-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .button-confirm,
+  .button-cancel {
+    width: 100%;
+  }
 }

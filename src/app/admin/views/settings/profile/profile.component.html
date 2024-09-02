@@ -1,5 +1,9 @@
 <div [@pageTransition]>
   <div class="card p-5 w-10/12 lg:w-full">
+    <div class="title-header">
+      <h1><span>|</span>{{ isEditing ? 'Editar perfil' : 'Meu perfil' }}</h1>
+    </div>
+
     <app-alert
       (hideAlert)="onAlertCloseHandler($event)"
       [dismissible]="true"
@@ -8,114 +12,116 @@
       [type]="tipoAlerta"
     ></app-alert>
 
-    <form class="my-5" [formGroup]="cadastroForm" (submit)="onFormSubmitHandler($event)">
-      <!-- RAZAO SOCIAL -->
-      <div class="form-group">
-        <label class="form-label" for="nome" *ngIf="tipoCadastro === ETipoUsuario.ARQUITETO">Razão Social</label>
-        <label class="form-label" for="nome" *ngIf="tipoCadastro !== ETipoUsuario.ARQUITETO">Nome Empresa</label>
-        <div class="relative">
-          <input type="text" id="nome" class="form-control w-full ps-10"
-                 formControlName="nome" [placeholder]="tipoCadastro === ETipoUsuario.ARQUITETO ? 'informe seu nome completo' : 'informe o nome da empresa'"
-                 [disabled]="!isEditing">
-          <span class="absolute top-2 left-0 ps-3 text-gray-400"><i class="bi bi-person"></i></span>
+    <div class="container-filho">
+      <form class="my-5" [formGroup]="cadastroForm" (submit)="onFormSubmitHandler($event)">
+        <!-- RAZAO SOCIAL -->
+        <div class="form-group">
+          <label class="form-label" for="nome" *ngIf="tipoCadastro === ETipoUsuario.ARQUITETO">Razão Social</label>
+          <label class="form-label" for="nome" *ngIf="tipoCadastro !== ETipoUsuario.ARQUITETO">Nome Empresa</label>
+          <div class="relative">
+            <input type="text" id="nome" class="form-control w-full ps-10"
+                   formControlName="nome" [placeholder]="tipoCadastro === ETipoUsuario.ARQUITETO ? 'informe seu nome completo' : 'informe o nome da empresa'"
+                   [disabled]="!isEditing">
+            <span class="absolute top-2 left-0 ps-3 text-gray-400"><i class="bi bi-person"></i></span>
+          </div>
+          <validation-error
+            [submited]="submited"
+            [valueValidation]="cadastroForm.get('nome')?.value?.toString()"
+          ></validation-error>
         </div>
-        <validation-error
-          [submited]="submited"
-          [valueValidation]="cadastroForm.get('nome')?.value?.toString()"
-        ></validation-error>
-      </div>
-
-      <!-- EMAIL -->
-      <div class="form-group">
-        <label class="form-label" for="email">E-mail</label>
-        <div class="relative">
-          <input type="email" id="email" class="form-control w-full ps-10"
-                 formControlName="email" placeholder="informe seu email"
-                 [disabled]="!isEditing">
-          <span class="absolute top-2 left-0 ps-3 text-gray-400"><i class="bi bi-envelope-at"></i></span>
+  
+        <!-- EMAIL -->
+        <div class="form-group">
+          <label class="form-label" for="email">E-mail</label>
+          <div class="relative">
+            <input type="email" id="email" class="form-control w-full ps-10"
+                   formControlName="email" placeholder="informe seu email"
+                   [disabled]="!isEditing">
+            <span class="absolute top-2 left-0 ps-3 text-gray-400"><i class="bi bi-envelope-at"></i></span>
+          </div>
+          <validation-error
+            [submited]="submited"
+            [valueValidation]="cadastroForm.get('email')?.value?.toString()"
+          ></validation-error>
         </div>
-        <validation-error
-          [submited]="submited"
-          [valueValidation]="cadastroForm.get('email')?.value?.toString()"
-        ></validation-error>
-      </div>
-
-      <!-- CONTATO -->
-      <div class="form-group">
-        <label class="form-label" for="contato">Contato</label>
-        <div class="relative">
-          <input type="number" id="contato" class="form-control w-full ps-10 no-spinners"
-                 formControlName="contato" placeholder="informe seu contato"
-                 [disabled]="!isEditing">
-          <span class="absolute top-2 left-0 ps-3 text-gray-400"><i class="bi bi-phone"></i></span>
+  
+        <!-- CONTATO -->
+        <div class="form-group">
+          <label class="form-label" for="contato">Contato</label>
+          <div class="relative">
+            <input type="text" id="contato" class="form-control w-full ps-10 no-spinners"
+                   formControlName="contato" placeholder="informe seu contato"
+                   [disabled]="!isEditing">
+            <span class="absolute top-2 left-0 ps-3 text-gray-400"><i class="bi bi-phone"></i></span>
+          </div>
+          <validation-error
+            [submited]="submited"
+            [valueValidation]="cadastroForm.get('contato')?.value?.toString()"
+          ></validation-error>
         </div>
-        <validation-error
-          [submited]="submited"
-          [valueValidation]="cadastroForm.get('contato')?.value?.toString()"
-        ></validation-error>
-      </div>
-
-      <!-- CNPJ -->
-      <div class="form-group">
-        <label class="form-label" for="cnpj">CNPJ</label>
-        <div class="relative">
-          <input type="number" id="cnpj" class="form-control w-full ps-10"
-                 formControlName="cnpj" placeholder="informe seu CNPJ"
-                 [disabled]="!isEditing">
-          <span class="absolute top-2 left-0 ps-3 text-gray-400"><i class="bi bi-person-vcard"></i></span>
+  
+        <!-- CNPJ -->
+        <div class="form-group">
+          <label class="form-label" for="cnpj">CNPJ</label>
+          <div class="relative">
+            <input type="text" id="cnpj" class="form-control w-full ps-10"
+                   formControlName="cnpj" placeholder="informe seu CNPJ"
+                   [disabled]="!isEditing">
+            <span class="absolute top-2 left-0 ps-3 text-gray-400"><i class="bi bi-person-vcard"></i></span>
+          </div>
+          <validation-error
+            [submited]="submited"
+            [valueValidation]="cadastroForm.get('cnpj')?.value?.toString()"
+          ></validation-error>
         </div>
-        <validation-error
-          [submited]="submited"
-          [valueValidation]="cadastroForm.get('cnpj')?.value?.toString()"
-        ></validation-error>
-      </div>
-
-      <!-- SENHA -->
-      <div class="form-group">
-        <label class="form-label" for="senha">Senha <small>(mínimo de 8 caracteres)</small></label>
-        <div class="relative">
-          <input type="password" id="senha" class="form-control w-full ps-10"
-                 formControlName="senha" placeholder="informe uma senha"
-                 [disabled]="!isEditing" (change)="handleChange()">
-          <span class="absolute top-2 left-0 ps-3 text-gray-400"><i class="bi bi-shield-lock"></i></span>
+  
+        <!-- SENHA -->
+        <div class="form-group">
+          <label class="form-label" for="senha">Senha <small>(mínimo de 8 caracteres)</small></label>
+          <div class="relative">
+            <input type="password" id="senha" class="form-control w-full ps-10"
+                   formControlName="senha" placeholder="informe uma senha"
+                   [disabled]="!isEditing" (change)="handleChange()">
+            <span class="absolute top-2 left-0 ps-3 text-gray-400"><i class="bi bi-shield-lock"></i></span>
+          </div>
+          <validation-error
+            [submited]="submited"
+            [valueValidation]="cadastroForm.get('senha')?.value?.toString()"
+          ></validation-error>
         </div>
-        <validation-error
-          [submited]="submited"
-          [valueValidation]="cadastroForm.get('senha')?.value?.toString()"
-        ></validation-error>
-      </div>
-
-      <!-- CONFIRMAR SENHA -->
-      <div class="form-group">
-        <label class="form-label" for="confirmPassword">Confirmar Senha</label>
-        <div class="relative">
-          <input type="password" id="confirmPassword" class="form-control w-full ps-10"
-                 formControlName="confirmPassword" placeholder="confirme sua senha"
-                 [disabled]="!isEditing" (change)="handleChange()">
-          <span class="absolute top-2 left-0 ps-3 text-gray-400"><i class="bi bi-shield-lock"></i></span>
+  
+        <!-- CONFIRMAR SENHA -->
+        <div class="form-group">
+          <label class="form-label" for="confirmPassword">Confirmar Senha</label>
+          <div class="relative">
+            <input type="password" id="confirmPassword" class="form-control w-full ps-10"
+                   formControlName="confirmPassword" placeholder="confirme sua senha"
+                   [disabled]="!isEditing" (change)="handleChange()">
+            <span class="absolute top-2 left-0 ps-3 text-gray-400"><i class="bi bi-shield-lock"></i></span>
+          </div>
+          <validation-error
+            [submited]="submited"
+            [valueValidation]="cadastroForm.get('confirmPassword')?.value?.toString()"
+          ></validation-error>
         </div>
-        <validation-error
-          [submited]="submited"
-          [valueValidation]="cadastroForm.get('confirmPassword')?.value?.toString()"
-        ></validation-error>
-      </div>
-
-      <div class="my-5"></div>
-
-      <div *ngIf="isEditing">
-        <button type="submit" class="btn w-full bg-green-600" [disabled]="isLoading">
-          <btn-spinner *ngIf="isLoading" [show]="isLoading"></btn-spinner>
-          <span class="text-branco" [ngClass]="{'translate-x-0.5': isLoading}">
-            Atualizar
-          </span>
+  
+        <div class="my-5"></div>
+  
+        <div *ngIf="isEditing" class="button-container">
+          <button type="submit" class="btn button-confirm" [disabled]="isLoading">
+            <btn-spinner *ngIf="isLoading" [show]="isLoading"></btn-spinner>
+            <span class="text-branco" [ngClass]="{'translate-x-0.5': isLoading}">
+              Atualizar
+            </span>
+          </button>
+          <button type="button" class="btn button-cancel" (click)="onCancel()">
+            Cancelar
+          </button>
+        </div>
+        <button *ngIf="!isEditing" type="button" class="btn w-full button-primary" (click)="onEdit()">
+          Editar
         </button>
-        <button type="button" class="btn w-full bg-red-600" (click)="onCancel()">
-          Cancelar
-        </button>
-      </div>
-      <button *ngIf="!isEditing" type="button" class="btn w-full bg-blue-600" (click)="onEdit()">
-        Editar
-      </button>
-    </form>
+      </form>
+    </div>
   </div>
 </div>
