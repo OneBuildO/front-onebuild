@@ -46,7 +46,9 @@ export class ProfileComponent implements OnInit {
           contato: data.contato,
           cnpj: data.cnpj
         });
-        this.tipoCadastro = data.tipoUsuario;
+        // if (this.tipoCadastro !== data.tipoUsuario) {
+        //   this.tipoCadastro = data.tipoUsuario;
+        // }
         this.initialFormValues = this.cadastroForm.getRawValue(); // Guardar valores iniciais
       },
       error: (err) => {
