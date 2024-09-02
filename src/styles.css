@@ -45,13 +45,13 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    /* background: var(--bg-opacity-dark); */
-    background: var(--gradient-primary);
+    background: var(--bg-opacity-dark);
+    /* background: var(--gradient-primary); */
     border-radius: 8px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--gradient-secondary);
+    background: var(--gradient-primary);
   }
 
   /* Text color */
