@@ -19,6 +19,19 @@
   color: var(--accent-color);
 }
 
+.container-btn{
+  display: flex;
+}
+
+.button-convite{
+  background: var(--gradient-primary);
+  font-weight: 700;
+}
+
+.button-convite:hover{
+  background: var(--gradient-secondary);
+}
+
 .card-dashboard {
   border-radius: 8px;
   padding: 16px;
