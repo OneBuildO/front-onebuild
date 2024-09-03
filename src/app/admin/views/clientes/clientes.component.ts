@@ -21,6 +21,7 @@ Chart.register(...registerables);
 @Component({
   selector: 'app-clientes',
   templateUrl: './clientes.component.html',
+  styleUrls: ['./clientes.component.css'],
   standalone: true,
   imports: [
     ModalComponent,
