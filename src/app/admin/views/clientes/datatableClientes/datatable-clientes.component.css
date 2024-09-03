@@ -50,7 +50,7 @@
 }
 
 .itens-tr{
-  background: var(--bg-color-light);
+  background: var(--bg-surface-white);
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 1rem;

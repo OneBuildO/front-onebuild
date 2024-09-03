@@ -34,7 +34,13 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    background: none;
   }
+
+  main {
+    background-color: var(--bg-color-light);
+  }
+
 
    /* Custom Scrollbar */
    ::-webkit-scrollbar {
