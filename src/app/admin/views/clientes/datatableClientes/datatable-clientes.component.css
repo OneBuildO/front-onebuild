@@ -1,20 +1,3 @@
-/* sticky table */
-/*.data-table {*/
-/*  .table-container {*/
-/*    height: 350px;*/
-/*    max-height: 412px;*/
-/*    overflow: auto;*/
-/*  }*/
-/*  .th {*/
-/*    @apply bg-slate-50;*/
-/*  }*/
-
-/*  & th[scope="col"] {*/
-/*    position: sticky;*/
-/*    top: 0;*/
-/*  }*/
-/*}*/
-
 .table-container::-webkit-scrollbar {
   width: 3px;
   height: 5px;
@@ -37,18 +20,58 @@
 }
 
 /* table  */
+.tabela-body{
+  /* max-width: 100%; */
+  overflow-x: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
 
 .ng-wind-table {
-  @apply w-full text-xs text-left text-gray-500;
+  /* @apply w-full text-xs text-left text-gray-500; */
+  width: 100%;
+  font-size: 14px;
 }
+
+.grid-col{
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+}
+
 .ng-wind-table-header {
-  @apply text-xs text-gray-700 uppercase bg-gray-50 z-50;
+  /* @apply text-xs text-gray-700 uppercase bg-gray-50 z-50; */
+  background-color: var(--accent-color);
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 8px;
 }
+
+.container-itens{
+  width: 100%;
+}
+
+.itens-tr{
+  background: var(--bg-color-light);
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+.itens-tr:hover{
+  background: var(--bg-grey-light-color);
+}
+
 .ng-wind-header-item {
   @apply px-4 py-3;
 }
+
 .ng-wind-data-item {
-  @apply px-4 py-3;
+  padding: 0.75rem 1rem;
+  text-align: center;
 }
 
 /* pagination */
