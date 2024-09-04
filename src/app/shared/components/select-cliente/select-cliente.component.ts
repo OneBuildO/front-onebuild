@@ -13,6 +13,7 @@ import {NgForOf, NgIf} from "@angular/common";
     NgIf
   ],
   templateUrl: './select-cliente.component.html',
+  styleUrls: ['./select-cliente.component.css']
 })
 export class SelectClienteComponent implements OnInit{
   @Output() onClientIdEmitter = new EventEmitter<number>();
@@ -36,20 +37,29 @@ export class SelectClienteComponent implements OnInit{
     this.clienteService.getAllForUser()
       .subscribe({
         next: (data: any) => {
-          this.listaClientes = data
-          this.onClienteChange()
+          this.listaClientes = data;
           this.isLoading = false;
+  
+          const clienteSelectElement = document.querySelector('select') as HTMLSelectElement;
+  
+          this.onClienteChange(clienteSelectElement);
         },
         error: (err) => {
+          // Lide com erros se necessário
         }
       });
   }
+  
 
-  onClienteChange(){
-    const idSelecionado = Number(this.clienteSelecionadoForm.value.id)
-    const clienteEncontrato = this.listaClientes.find(clie => clie.id == idSelecionado)
-
-    this.onClientIdEmitter.emit(idSelecionado)
-    this.onClientDataEmitter.emit(clienteEncontrato)
-  }
+  onClienteChange(clienteSelect: HTMLSelectElement) {
+    const idSelecionado = Number(this.clienteSelecionadoForm.value.id);
+    const clienteEncontrado = this.listaClientes.find(clie => clie.id === idSelecionado);
+  
+    this.onClientIdEmitter.emit(idSelecionado);
+    this.onClientDataEmitter.emit(clienteEncontrado);
+  
+    // Remover o foco do select após a seleção
+    clienteSelect.blur();
+  }  
+  
 }

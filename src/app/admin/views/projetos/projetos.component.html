@@ -1,21 +1,15 @@
 <div [@pageTransition]>
-  <div class="card p-5">
-    <div class="mt-5">
-      <app-select-cliente
-        (onClientIdEmitter)="onClientIdHandler($event)"
-        (onClientDataEmitter)="onClienteSelectedHandler($event)"
-      />
+  <div class="title-header">
+    <h1>
+      <span>|</span>
+      Projetos
+    </h1>
+    <div class="container-btn">
+        <app-select-cliente (onClientIdEmitter)="onClientIdHandler($event)" (onClientDataEmitter)="onClienteSelectedHandler($event)"/>
+      <button *ngIf="idClienteSelecionado != 0" type="button" class="btn button-adicionar" (click)="handleModal()">
+        Adicionar +
+      </button>
     </div>
-
-    <button *ngIf="idClienteSelecionado != 0" type="button" class="btn btn-success btn-icon ml-5"
-            (click)="handleModal()">
-      Adicionar projeto
-      <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-           fill="none" viewBox="0 0 14 10">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"/>
-      </svg>
-    </button>
   </div>
 
   <app-modal [show]="showModal"
