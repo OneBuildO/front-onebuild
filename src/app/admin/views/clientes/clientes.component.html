@@ -11,80 +11,71 @@
     </div>
   </div>
 
-  <app-modal [show]="showModalAdd"
-             [footer]="false"
-             (closeModal)="onModalCloseHandler($event)"
-  >
-    <div class="sm:flex sm:items-start">
-      <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-        <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">
-          Novo cliente
+  <app-modal [show]="showModalAdd" size="max-w-7xl" [footer]="false" (closeModal)="onModalCloseHandler($event)">
+    <div class="container-modal sm:items-start">
+      <div class="modal-header">
+        <div class="close-modal">
+          <button type="button" class="close" aria-label="Close" (click)="handleModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <h3 id="modal-title">
+          Cadastrar cliente
         </h3>
+        <hr>
+      </div>
 
-        <app-alert
-          (hideAlert)="onAlertCloseHandler($event)"
-          [dismissible]="true"
-          [messages]="serverMessages"
-          [show]="serverMessages.length > 0"
-          [type]="tipoAlerta"
-        ></app-alert>
+      <app-alert (hideAlert)="onAlertCloseHandler($event)" [dismissible]="true" [messages]="serverMessages" [show]="serverMessages.length > 0" [type]="tipoAlerta">
+      </app-alert>
 
-        <form class="card p-4" [formGroup]="clienteForm">
-          <div class="grid grid-cols-12 gap-x-6 space-y-4">
-            <div class="col-span-12 md:col-span-6">
-              <div class="form-group">
-                <label for="nome" class="form-label required text-left">Cliente:</label>
-                <input type="text" id="nome" formControlName="nome" placeholder="Ex: Caio Fonseca" class="form-control"/>
-                <small *ngIf="submited && !clienteForm.get('nome')?.value?.toString()" class="text-red-500 text-left">{{ ERROR_MESSAGES.required() }}</small>
-              </div>
-            </div>
-
-            <div class="col-span-12 md:col-span-6">
-              <div class="form-group">
-                <label for="nome" class="form-label required text-left">Projeto:</label>
-                <input type="text" id="projeto" formControlName="projeto" placeholder="Ex: Casa Alphaville" class="form-control"/>
-                <small *ngIf="submited && !clienteForm.get('projeto')?.value?.toString()" class="text-red-500 text-left">{{ ERROR_MESSAGES.required() }}</small>
-              </div>
-            </div>
-
-            <div class="col-span-12 md:col-span-6">
-              <div class="form-group">
-                <label for="contato" class="form-label required text-left">Contato:</label>
-                <input type="number" id="contato" formControlName="contato" placeholder="Ex: (11) 99999-9999" class="form-control"/>
-                <small *ngIf="submited && !clienteForm.get('contato')?.value?.toString()" class="text-red-500 text-left">{{ ERROR_MESSAGES.required() }}</small>
-              </div>
-            </div>
-
-            <div class="col-span-12 md:col-span-6">
-              <div class="form-group">
-                <label for="estado" class="form-label required text-left">Estado:</label>
-                <select id="estado" class="form-select" formControlName="estado" (change)="obterCidadePorEstado(clienteForm.controls.estado.value?.toString())">
-                  <option [value]="''">Selectione</option>
-                  <option *ngFor="let estado of listaEstados" [value]="estado.sigla">{{ estado.nome }}</option>
-                </select>
-                <small *ngIf="submited && !clienteForm.get('estado')?.value?.toString()" class="text-red-500 text-left">{{ ERROR_MESSAGES.required() }}</small>
-              </div>
+      <form [formGroup]="clienteForm">
+        <div class="grid grid-cols-12 gap-x-6 space-y-4">
+          <div class="col-span-12 md:col-span-6">
+            <div class="form-group">
+              <label for="nome" class="form-label required text-left">Nome</label>
+              <input type="text" id="nome" formControlName="nome" placeholder="Ex: Caio Fonseca" class="form-control"/>
+              <small *ngIf="submited && !clienteForm.get('nome')?.value?.toString()" class="text-red-500 text-left">{{ ERROR_MESSAGES.required() }}</small>
             </div>
           </div>
-        </form>
-      </div>
+
+          <div class="col-span-12 md:col-span-6">
+            <div class="form-group">
+              <label for="nome" class="form-label required text-left">Projeto</label>
+              <input type="text" id="projeto" formControlName="projeto" placeholder="Ex: Casa Alphaville" class="form-control"/>
+              <small *ngIf="submited && !clienteForm.get('projeto')?.value?.toString()" class="text-red-500 text-left">{{ ERROR_MESSAGES.required() }}</small>
+            </div>
+          </div>
+
+          <div class="col-span-12 md:col-span-6">
+            <div class="form-group">
+              <label for="contato" class="form-label text-left">Contato <span>(opcional)</span></label>
+              <input type="text" id="contato" formControlName="contato" placeholder="Ex: (xx) xxxxx-xxxx" class="form-control"/>
+            </div>
+          </div>
+
+          <div class="col-span-12 md:col-span-6">
+            <div class="form-group">
+              <label for="estado" class="form-label required text-left">Estado</label>
+              <select id="estado" class="form-select" formControlName="estado" (change)="obterCidadePorEstado(clienteForm.controls.estado.value?.toString())">
+                <option [value]="''">Selectione</option>
+                <option *ngFor="let estado of listaEstados" [value]="estado.sigla">{{ estado.nome }}</option>
+              </select>
+              <small *ngIf="submited && !clienteForm.get('estado')?.value?.toString()" class="text-red-500 text-left">{{ ERROR_MESSAGES.required() }}</small>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
 
-    <div class="bg-slate-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-      <button type="button"
-              class="inline-flex w-full justify-center rounded-md bg-sucesso-700 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-sucesso-900 sm:ml-3 sm:w-auto"
-              (click)="onFormSubmitHandler()"
-              [disabled]="isLoading">
+    <div class="button-container">
+      <button type="button" class="btn button-cancel" (click)="handleModal()">
+        Cancelar
+      </button>
+      <button type="button" class="btn button-confirm" (click)="onFormSubmitHandler()" [disabled]="isLoading">
         <btn-spinner *ngIf="isLoading" [show]="isLoading"></btn-spinner>
         <span class="text-branco" [ngClass]="{'translate-x-0.5': isLoading}">
           Salvar
         </span>
-      </button>
-
-      <button type="button"
-              class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-              (click)="handleModal()">
-        Cancelar
       </button>
     </div>
   </app-modal>
@@ -93,8 +84,7 @@
                       [listaClientes]="listaClientes"
                       (showModal)="onModalCloseHandler($event)"
                       (onEditClientEmitter)="onEditClientHandler($event)"
-                      (onDeleteClientEmitter)="onDeleteClientHandler($event)"
-  />
+                      (onDeleteClientEmitter)="onDeleteClientHandler($event)"/>
 
   <p class="" *ngIf="listaClientes.length == 0">Nenhum cliente cadastrado</p>
 </div>

@@ -60,10 +60,11 @@ export class ClientesComponent implements OnInit {
     id: new FormControl(0,),
     nome: new FormControl('', {validators: [Validators.required]}),
     projeto: new FormControl('', {validators: [Validators.required]}),
-    contato: new FormControl('',),
+    contato: new FormControl('',),  // Contato é opcional, sem Validators.required
     estado: new FormControl('',),
     cidade: new FormControl('',),
   });
+  
 
   ngOnInit(): void {
     this.isEmailValidado = this.servicesetShared.getUserSharedData().emailValidado
@@ -100,22 +101,22 @@ export class ClientesComponent implements OnInit {
         id: new FormControl(cliente.id),
         nome: new FormControl(cliente.nome, {validators: [Validators.required]}),
         projeto: new FormControl(cliente.projeto, {validators: [Validators.required]}),
-        contato: new FormControl(cliente.contato,),
+        contato: new FormControl(cliente.contato,),  // Contato é opcional
         estado: new FormControl(cliente.estado,),
         cidade: new FormControl(cliente.cidade,),
       });
-    }else{
+    } else {
       this.clienteForm = this.formBuilder.group({
         id: new FormControl(0,),
         nome: new FormControl('', {validators: [Validators.required]}),
         projeto: new FormControl('', {validators: [Validators.required]}),
-        contato: new FormControl('',),
+        contato: new FormControl('',),  // Contato é opcional
         estado: new FormControl('',),
         cidade: new FormControl('',),
       });
     }
   }
-
+  
   onModalCloseHandler(event: boolean) {
     this.showModalAdd = event;
   }

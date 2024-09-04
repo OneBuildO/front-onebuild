@@ -11,6 +11,7 @@
   --gradient-primary: linear-gradient(45deg, #CB8642, #EDC245);
   --gradient-secondary: linear-gradient(45deg, #bf7d3c, #dab139);
   --secondary-color: #251825;
+  --grey-50: #979D9D;
   /* cores background */
   --bg-color-light: #FAFAFA;
   --bg-color-dark: #0F1212;
