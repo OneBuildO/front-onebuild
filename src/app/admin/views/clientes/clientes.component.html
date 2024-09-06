@@ -71,7 +71,7 @@
       <button type="button" class="btn button-cancel" (click)="handleModal()">
         Cancelar
       </button>
-      <button type="button" class="btn button-confirm" (click)="onFormSubmitHandler()" [disabled]="isLoading">
+      <button type="button" class="btn button-confirm" (click)="onFormSubmitHandler()" [disabled]="clienteForm.invalid || isLoading">
         <btn-spinner *ngIf="isLoading" [show]="isLoading"></btn-spinner>
         <span class="text-branco" [ngClass]="{'translate-x-0.5': isLoading}">
           Salvar
