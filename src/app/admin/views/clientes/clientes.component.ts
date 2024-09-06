@@ -104,8 +104,8 @@ export class ClientesComponent implements OnInit {
         nome: new FormControl(cliente.nome, {validators: [Validators.required]}),
         projeto: new FormControl(cliente.projeto, {validators: [Validators.required]}),
         contato: new FormControl(cliente.contato,),  // Contato é opcional
-        estado: new FormControl(cliente.estado,),
-        cidade: new FormControl(cliente.cidade,),
+        estado: new FormControl(cliente.estado, {validators: [Validators.required]}),
+        cidade: new FormControl(cliente.cidade, {validators: [Validators.required]}),
       });
     } else {
       this.clienteForm = this.formBuilder.group({
@@ -113,8 +113,8 @@ export class ClientesComponent implements OnInit {
         nome: new FormControl('', {validators: [Validators.required]}),
         projeto: new FormControl('', {validators: [Validators.required]}),
         contato: new FormControl('',),  // Contato é opcional
-        estado: new FormControl('',),
-        cidade: new FormControl('',),
+        estado: new FormControl('', {validators: [Validators.required]}),
+        cidade: new FormControl('',{validators: [Validators.required]}),
       });
     }
   }
