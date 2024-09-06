@@ -3,7 +3,7 @@ import {Chart, registerables} from 'chart.js';
 import {pageTransition} from 'src/app/shared/utils/animations';
 import {ModalComponent} from "src/app/shared/components/modal/modal.component";
 import {DatatableClientesComponent} from "./datatableClientes/datatable-clientes.component";
-import {NgClass, NgIf} from "@angular/common";
+import {CommonModule, NgClass, NgIf} from "@angular/common";
 import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
 import {SpinnerComponent} from "src/app/shared/components/spinner/spinner.component";
 import {AlertComponent} from "src/app/shared/components/alert/alert.component";
@@ -31,7 +31,8 @@ Chart.register(...registerables);
     SpinnerComponent,
     NgClass,
     AlertComponent,
-    ModalRemoveComponent
+    ModalRemoveComponent,
+    CommonModule
   ],
   animations: [pageTransition]
 })
@@ -48,6 +49,7 @@ export class ClientesComponent implements OnInit {
   }
 
   public listaClientes: ClienteResumoDTO[] = []
+  public listaCidades: any[] = [];
   showModalAdd: boolean = false;
   submited: boolean = false;
   isLoading: boolean = false;
@@ -184,13 +186,22 @@ export class ClientesComponent implements OnInit {
     }
   };
 
+  onEstadoChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const estadoSigla = selectElement.value;
+    this.obterCidadePorEstado(estadoSigla);
+  }
+
   obterCidadePorEstado(estadoSigla: string | undefined){
     if(estadoSigla){
       this.serviceLocalidade.getCidadesByEstado(estadoSigla).subscribe(data => {
+        this.listaCidades = data;
       });
+    } else {
+      this.listaCidades = [];
     }
   }
-
+  
   protected onAlertCloseHandler = (e: any) => {
     this.serverMessages = [];
   };

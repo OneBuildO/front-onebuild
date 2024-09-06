@@ -56,11 +56,22 @@
           <div class="col-span-12 md:col-span-6">
             <div class="form-group">
               <label for="estado" class="form-label required text-left">Estado</label>
-              <select id="estado" class="form-select" formControlName="estado" (change)="obterCidadePorEstado(clienteForm.controls.estado.value?.toString())">
-                <option [value]="''">Selectione</option>
+              <select id="estado" class="form-select" formControlName="estado" (change)="onEstadoChange($event)">
+                <option [value]="''">Selecione</option>
                 <option *ngFor="let estado of listaEstados" [value]="estado.sigla">{{ estado.nome }}</option>
               </select>
               <small *ngIf="submited && !clienteForm.get('estado')?.value?.toString()" class="text-red-500 text-left">{{ ERROR_MESSAGES.required() }}</small>
+            </div>
+          </div>
+
+          <div class="col-span-12 md:col-span-6">
+            <div class="form-group">
+              <label for="cidade" class="form-label required text-left">Cidade</label>
+              <select id="cidade" class="form-select" formControlName="cidade">
+                <option [value]="''">Selecione</option>
+                <option *ngFor="let cidade of listaCidades" [value]="cidade.nome">{{ cidade.nome }}</option>
+              </select>
+              <small *ngIf="submited && !clienteForm.get('cidade')?.value?.toString()" class="text-red-500 text-left">{{ ERROR_MESSAGES.required() }}</small>
             </div>
           </div>
         </div>
