@@ -32,4 +32,8 @@ export const iconsArray: customIcon[] = [
     iconName: 'logout',
     iconPath: './assets/icons/sair.svg',
   },
+  {
+    iconName: 'alert-red',
+    iconPath: './assets/icons/alert-red.svg',
+  },
 ];

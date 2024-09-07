@@ -44,11 +44,12 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUserLogged().subscribe({
       next: (data: any) => {
+        console.log('Dados do usuário:', data); // Adicione um log para verificar os dados retornados
         this.cadastroForm.patchValue({
-          nome: data.nome,
-          email: data.email,
-          contato: data.contato,
-          cnpj: data.cnpj
+          nome: data.nome ?? '',
+          email: data.email ?? '',
+          contato: data.contato ?? '',
+          cnpj: data.cnpj ?? ''
         });
         // if (this.tipoCadastro !== data.tipoUsuario) {
         //   this.tipoCadastro = data.tipoUsuario;

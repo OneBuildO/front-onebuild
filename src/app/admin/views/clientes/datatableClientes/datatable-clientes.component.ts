@@ -4,11 +4,12 @@ import {ClienteResumoDTO} from "src/app/_core/models/clienteResumo";
 import {ModalRemoveComponent} from "src/app/shared/components/modalRemove/modalRemove.component";
 import {AlertComponent} from "src/app/shared/components/alert/alert.component";
 import {onRedrectForWhatsApp, redirectProjectoClient} from "src/app/shared/utils/Utils";
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'datatable-clientes',
   standalone: true,
-  imports: [NgClass, NgIf, ModalRemoveComponent, AlertComponent],
+  imports: [NgClass, NgIf, ModalRemoveComponent, AlertComponent, MatIconModule],
   templateUrl: './datatable-clientes.component.html',
   styleUrl: './datatable-clientes.component.css',
 })

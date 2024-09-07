@@ -103,7 +103,7 @@
   }
 
   .button-confirm:hover {
-    background: #2C8807;
+    background: var(--color-green);
     color: var(--font-color-light);
   }
 

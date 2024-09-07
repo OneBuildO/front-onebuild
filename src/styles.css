@@ -23,7 +23,9 @@
   --font-color-light: #fdfdfd;
   /* cores sistema */
   --color-error: #c71100;
+  --color-delete: #8E170C;
   --color-sucess: #3F991B;
+  --color-green: #2C8807;
   --color-warning: #f2880b;
   --color-info: #004590;
 }
