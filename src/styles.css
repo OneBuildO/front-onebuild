@@ -6,26 +6,28 @@
 
 :root {
   /* cores principais */
-  --primary-color: #EDC245;
-  --accent-color: #CB8642;
-  --gradient-primary: linear-gradient(45deg, #CB8642, #EDC245);
+  --primary-color: #edc245;
+  --accent-color: #cb8642;
+  --gradient-primary: linear-gradient(45deg, #cb8642, #edc245);
   --gradient-secondary: linear-gradient(45deg, #bf7d3c, #dab139);
   --secondary-color: #251825;
-  --grey-50: #979D9D;
+  --grey-50: #979d9d;
   /* cores background */
-  --bg-color-light: #FAFAFA;
-  --bg-color-dark: #0F1212;
-  --bg-surface-white: #FFFFFF;
-  --bg-opacity-dark: #181B1B;
-  --bg-grey-light-color: #E8E8E8;
-   /* cores texto */
+  --bg-color-light: #fafafa;
+  --bg-color-dark: #0f1212;
+  --bg-surface-white: #ffffff;
+  --bg-opacity-dark: #181b1b;
+  --bg-grey-light-color: #e8e8e8;
+  /* cores texto */
   --font-color-dark: #040404;
-  --font-color-light: #FDFDFD;
-   /* cores sistema */
-   --color-error: #C71100;
-   --color-sucess: #2C8807;
-   --color-warning: #F2880B;
-   --color-info: #004590;
+  --font-color-light: #fdfdfd;
+  /* cores sistema */
+  --color-error: #c71100;
+  --color-delete: #8E170C;
+  --color-sucess: #3F991B;
+  --color-green: #2C8807;
+  --color-warning: #f2880b;
+  --color-info: #004590;
 }
 
 @layer components {
@@ -42,9 +44,20 @@
     background-color: var(--bg-color-light);
   }
 
+  /* Define o tamanho padrão para todos os mat-icon */
+  mat-icon {
+    width: 20px; /* Ajuste o tamanho conforme necessário */
+    height: 20px; /* Ajuste o tamanho conforme necessário */
+    display: inline-block; /* Garante que o ícone seja exibido corretamente */
+  }
 
-   /* Custom Scrollbar */
-   ::-webkit-scrollbar {
+  ::ng-deep mat-icon svg {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
     width: 8px;
   }
 

@@ -22,7 +22,7 @@
         <li>
           <a [routerLink]="commonServices.prepareRoute(appRoutes.Admin, adminRoutes.Dashboard)"
              routerLinkActive="active" class="menu-item" ariaCurrentWhenActive="page">
-             <i class="bi bi-columns-gap"></i>
+             <mat-icon class="menu-icon" svgIcon="painel"></mat-icon>
             <span>Painel de Controle</span>
           </a>
         </li>
@@ -38,7 +38,7 @@
             <li *ngIf="userLogged?.perfilUsuario == EPerfilUsuario.PROJETISTA">
               <a class="menu-item" [routerLink]="commonServices.prepareRoute(appRoutes.Admin, adminRoutes.Clientes)"
                  routerLinkActive="active" ariaCurrentWhenActive="page">
-                <i class="bi bi-person-lines-fill"></i>
+                 <mat-icon class="menu-icon" svgIcon="clientes"></mat-icon>
                 <span>Clientes</span>
               </a>
             </li>
@@ -46,7 +46,7 @@
             <li *ngIf="userLogged?.perfilUsuario == EPerfilUsuario.PROJETISTA">
               <a class="menu-item" [routerLink]="commonServices.prepareRoute(appRoutes.Admin, adminRoutes.Projetos)"
                  routerLinkActive="active" ariaCurrentWhenActive="page">
-                <i class="bi bi-calendar4-event"></i>
+                 <mat-icon class="menu-icon" svgIcon="project"></mat-icon>
                 <span>Projetos</span>
               </a>
             </li>
@@ -55,7 +55,7 @@
             <li *ngIf="userLogged?.perfilUsuario == EPerfilUsuario.PROJETISTA">
               <a class="menu-item" [routerLink]="commonServices.prepareRoute(appRoutes.Admin, adminRoutes.Fornecedores)"
                  routerLinkActive="active" ariaCurrentWhenActive="page">
-                <i class="bi bi-people-fill"></i>
+                 <mat-icon class="menu-icon" svgIcon="fornecedores"></mat-icon>
                 <span>Fornecedores</span>
               </a>
             </li>
@@ -73,14 +73,15 @@
         <li>
           <a href="javascript:void(0)" class="menu-item sub-menu" aria-expanded="false"
              (click)="subMenuToggleHandler($event)">
-            <i class="bi bi-sliders2-vertical"></i>
+             <mat-icon class="menu-icon" svgIcon="config"></mat-icon>
             <span>Configurações</span>
           </a>
           <ul class="sub-menu-item">
             <li>
-              <a class="menu-item"
+              <a class="menu-item sub-menu-config"
                  [routerLink]="commonServices.prepareRoute(appRoutes.Admin, adminRoutes.Settings, settingRoutes.Profile)"
                  routerLinkActive="active" ariaCurrentWhenActive="page">
+                 <mat-icon class="menu-icon" svgIcon="perfil-white"></mat-icon>
                 <span>Perfil</span>
               </a>
             </li>

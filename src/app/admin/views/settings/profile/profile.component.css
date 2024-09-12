@@ -119,6 +119,16 @@
   border-radius: 16px;
 }
 
+.button-confirm:hover {
+  background: #2C8807;
+  color: var(--font-color-light);
+}
+
+.button-cancel:hover {
+  background: var(--accent-color);
+  color: var(--font-color-light);
+}
+
 /* Media query para telas menores */
 @media (max-width: 768px) {
 

@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+
 
 interface Estado {
   nome: string;
@@ -48,6 +51,11 @@ export class CidadesService {
 
   getCidadesByEstado(estadoId: string): Observable<any[]> {
     const url = `${this._apiBaseUrl}/estados/${estadoId}/municipios`;
-    return this.http.get<any[]>(url);
+    return this.http.get<any[]>(url).pipe(
+      catchError(error => {
+        console.error('Erro ao buscar cidades', error);
+        return of([]); // Retorna um array vazio em caso de erro
+      })
+    );
   }
 }

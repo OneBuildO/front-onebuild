@@ -5,6 +5,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarCollapseDirective } from './sidebar/sidebar-collapse.directive';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { MatIconModule } from '@angular/material/icon'; // Importar MatIconModule
 
 
 
@@ -17,7 +18,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
   imports: [
     CommonModule,
     RouterModule,
-    SidebarCollapseDirective
+    SidebarCollapseDirective,
+    MatIconModule
   ],
   exports: [
     HeaderComponent,

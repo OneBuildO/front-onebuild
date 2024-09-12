@@ -1,35 +1,78 @@
 .modal {
-    @apply relative z-10
+  @apply relative z-10;
 }
 
-.modal[aria-modal=false]{
-    @apply invisible ease-in duration-500 opacity-0
+.modal[aria-modal="false"] {
+  @apply invisible ease-in duration-500 opacity-0;
 }
 
-.modal[aria-modal=true] {
-    @apply visible ease-out duration-300 opacity-100
+.modal[aria-modal="true"] {
+  @apply visible ease-out duration-300 opacity-100;
 }
 
 .modal-backdrop {
-    @apply fixed inset-0 bg-slate-900 bg-opacity-75 transition-opacity
+  @apply fixed inset-0 bg-slate-900 bg-opacity-75 transition-opacity;
 }
 
 .modal-wrapper {
-    @apply fixed inset-0 z-10 w-screen overflow-y-auto
+  @apply fixed inset-0 z-10 w-screen overflow-y-auto;
 }
 
 .modal-container {
-    @apply flex min-h-full items-center justify-center p-4 text-center
+  @apply flex min-h-full items-center justify-center p-4 text-center;
+}
+
+.modal-box{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    margin: 1rem;
 }
 
 .modal-box {
-    @apply relative transform overflow-hidden rounded-xl bg-white text-left shadow-xl transition-all sm:my-8
+  @apply relative transform overflow-hidden rounded-xl bg-white text-left shadow-xl transition-all sm:my-8;
 }
 
-.modal[aria-modal=true] .modal-box{
-    @apply ease-out duration-300 opacity-100 translate-y-0 sm:scale-100
+.modal[aria-modal="true"] .modal-box {
+  @apply ease-out duration-300 opacity-100 translate-y-0 sm:scale-100;
 }
 
-.modal[aria-modal=false] .modal-box{
-    @apply ease-in duration-200 opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95
+.modal[aria-modal="false"] .modal-box {
+  @apply ease-in duration-200 opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin: 2rem;
+  flex-direction: column;
+}
+
+.button-delete {
+  background: var(--color-delete);
+  color: var(--font-color-light);
+  width: 95%;
+  height: 40px;
+  border-radius: 16px;
+}
+
+.button-cancel {
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  width: 95%;
+  height: 40px;
+  border-radius: 16px;
+}
+
+.button-delete:hover {
+  background: var(--color-error);
+  color: var(--font-color-light);
+}
+
+.button-cancel:hover {
+  background: var(--accent-color);
+  color: var(--font-color-light);
 }
