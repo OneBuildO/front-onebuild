@@ -1,0 +1,26 @@
+.cliente-select {
+  width: 250px;
+  height: 40px;
+  border-radius: 16px;
+  border: 1px solid var(--grey-50);
+  padding: 8px;
+  margin-right: 14px;
+  font-size: 14px;
+  color: var(--font-color-dark);
+  background-color: var(--bg-color-light);
+  transition: border-color 0.3s ease;
+  appearance: none; 
+  background-image: url('/assets/icons/seta-down.svg');
+  background-repeat: no-repeat;
+  background-position: right 16px center; 
+}
+
+.cliente-select:focus {
+  border-color: var(--accent-color); 
+  outline: none; 
+  background-image: url('/assets/icons/seta-up.svg');
+}
+
+.cliente-select:hover {
+  border-color: var(--accent-color);
+}

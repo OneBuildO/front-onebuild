@@ -15,20 +15,22 @@ Chart.register(...registerables);
 })
 export class DashboardComponent implements OnInit {
   eventDate: any = formatDate(new Date(), 'MMM dd, yyyy', 'en');
-  dadosPerfil! : DadosEstatisticaUsuario;
+  dadosPerfil!: DadosEstatisticaUsuario;
+  showModal: boolean = false;
 
   constructor(
     private readonly serviceUsuario : UsuarioService,
   ) {}
 
   ngOnInit(): void {
+    this.showModal = false;
     this.serviceUsuario.getEstatisticResumeUser()
       .subscribe({
         next: (data: any) => {
-          this.dadosPerfil = data
+          this.dadosPerfil = data;
         },
         error: (err) => {
-
+          console.error(err);
         }
       });
 
@@ -58,5 +60,13 @@ export class DashboardComponent implements OnInit {
         },
       },
     });
+  }
+
+  handleModal() {
+    this.showModal = !this.showModal; // Alterna o estado do modal manualmente
+  }
+
+  onModalCloseHandler(event: boolean) {
+    this.showModal = event; // Atualiza o estado do modal com base no evento de fechamento
   }
 }

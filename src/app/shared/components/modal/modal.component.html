@@ -3,10 +3,10 @@
     <div class="modal-wrapper">
         <div class="modal-container">
             <div class="modal-box" [ngClass]="size">
-                <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                <div class="bg-white px-4 pb-4 sm:p-6 sm:pb-4">
                     <ng-content></ng-content>
                 </div>
-                <div class="bg-slate-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6" *ngIf="footer">
+                <div class="bg-slate-50 px-4 py-3 sm:px-6" *ngIf="footer">
                     <button type="button"
                             (click)="handleSave()"
                         class="inline-flex w-full justify-center rounded-md bg-sucesso-700 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-sucesso-900 sm:ml-3 sm:w-auto">Salvar</button>

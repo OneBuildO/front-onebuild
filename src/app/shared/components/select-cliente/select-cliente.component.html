@@ -1,11 +1,5 @@
-<div class="p-5 pt-0">
-  <div class="mt-5">
-
-    <form class="max-w-sm" [formGroup]="clienteSelecionadoForm">
-      <label for="clientes" class="form-label">
-        Selecione o cliente
-      </label>
-
+<div>
+  <form class="max-w-sm" [formGroup]="clienteSelecionadoForm">
       <div *ngIf="isLoading">
         <button disabled type="button" class="form-select">
           <svg aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin"
@@ -21,10 +15,10 @@
         </button>
       </div>
 
-      <select *ngIf="!isLoading" id="clientes" class="form-select" formControlName="id" (change)="onClienteChange()">
-        <option [value]="0">Selecione</option>
-        <option *ngFor="let client of listaClientes" [value]="client.id">{{client.nome}}</option>
+       <!-- Adicione a referência de template #clienteSelect -->
+       <select *ngIf="!isLoading" id="clientes" class="cliente-select" formControlName="id" #clienteSelect (change)="onClienteChange(clienteSelect)">
+          <option [value]="0">Selecione</option>
+          <option *ngFor="let client of listaClientes" [value]="client.id">{{client.nome}}</option>
       </select>
-    </form>
-  </div>
+  </form>
 </div>

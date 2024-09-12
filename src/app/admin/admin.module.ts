@@ -10,6 +10,7 @@ import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { EventsComponent } from './views/events/events.component';
 import { SettingsModule } from './views/settings/settings.module';
 import { ElementsModule } from './views/elements/elements.module';
+import {ModalComponent} from "../shared/components/modal/modal.component";
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ElementsModule } from './views/elements/elements.module';
     AdminRoutingModule,
     LayoutsModule,
     SettingsModule,
-    ElementsModule
+    ElementsModule,
+    ModalComponent,
   ]
 })
 export class AdminModule { }

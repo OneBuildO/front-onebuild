@@ -21,6 +21,10 @@ export class ProfileComponent implements OnInit {
   tipoAlerta = AlertType.Warning;
   tipoCadastro: ETipoUsuario = ETipoUsuario.ARQUITETO;
 
+  selectedFile!: File;
+  selectedImageUrl: string | ArrayBuffer | null = null;
+  defaultImageUrl = './assets/images/foto-padrao.png';
+
   initialFormValues: any;
 
   cadastroForm = this.formBuilder.group({
@@ -46,9 +50,13 @@ export class ProfileComponent implements OnInit {
           contato: data.contato,
           cnpj: data.cnpj
         });
+        // if (this.tipoCadastro !== data.tipoUsuario) {
+        //   this.tipoCadastro = data.tipoUsuario;
+        // }
         this.initialFormValues = this.cadastroForm.getRawValue(); // Guardar valores iniciais
       },
       error: (err) => {
+        console.error('Erro ao obter dados do usuário', err);
         // Handle error
       }
     });
@@ -132,6 +140,24 @@ export class ProfileComponent implements OnInit {
   protected onAlertCloseHandler = (e: any) => {
     this.serverErrors = [];
   };
+
+// Método para lidar com a seleção de arquivos
+onImageSelected(event: Event): void {
+  const fileInput = event.target as HTMLInputElement;
+  const file = fileInput?.files?.[0];
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      // The result can be a string or ArrayBuffer; both are acceptable.
+      this.selectedImageUrl = reader.result as string | ArrayBuffer;
+    };
+    reader.readAsDataURL(file);
+  } else {
+    this.selectedImageUrl = null; // Handle case where no file is selected
+  }
+}
+
 
   scrollTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });

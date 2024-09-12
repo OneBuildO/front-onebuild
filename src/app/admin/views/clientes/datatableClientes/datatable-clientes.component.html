@@ -27,40 +27,43 @@
   </div>
 </app-modalRemove>
 
-<div class="card p-5 ">
+<div class="container-tabela">
   <div class="card-title" *ngIf="titleTable">
     <h3 class="text-xl font-bold leading-none mb-8">{{ titleTable }}</h3>
   </div>
-  <div class="mt-3">
+  <div class="mt-3 scroll-table">
     <div class=" sm:rounded-lg">
       <div class="data-table">
         <div class="table-container">
-          <table class="ng-wind-table relative">
+          <table class="ng-wind-table tabela-body">
             <thead class="ng-wind-table-header">
-            <tr>
+            <tr class="grid-col">
               <th scope="col" class="ng-wind-header-item">Cliente</th>
               <th scope="col" class="ng-wind-header-item">Projeto</th>
               <th scope="col" class="ng-wind-header-item">Contato</th>
+              <th scope="col" class="ng-wind-header-item">Cidade</th>
               <th scope="col" class="ng-wind-header-item">Estado</th>
               <th scope="col" class="ng-wind-header-item">Ações</th>
             </tr>
             </thead>
 
-            <tbody>
+            <tbody class="container-itens">
               @for (cliente of listaClientes; track cliente?.idUsuario) {
-                <tr class="bg-white border-b  hover:bg-gray-50">
+                <tr class="itens-tr">
                   <td class="ng-wind-data-item font-medium text-gray-800 whitespace-nowrap">
                     <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline" (click)="redirectProjectoClient(cliente?.id)">{{ cliente?.nome }}</button>
                   </td>
 
-                  <td class="ng-wind-data-item font-medium text-gray-800 whitespace-nowrap">
+                  <td class="ng-wind-data-item font-medium text-gray-800" title="{{ cliente?.projeto ? cliente?.projeto : '-' }}">
                     {{ cliente?.projeto ? cliente?.projeto : '-' }}
                   </td>
 
                   <td class="ng-wind-data-item font-medium text-gray-800 whitespace-nowrap">
                     {{ cliente?.contato ? cliente?.contato : '-' }}
-                    <i *ngIf="cliente?.contato" class="bi bi-back text-xl px-2 text-emerald-700 cursor-pointer hover:text-emerald-900 transition-all" (click)="onCopyTextTransferArea(cliente?.contato?.toString())"></i>
-                    <i *ngIf="cliente?.contato" class="bi bi-whatsapp text-xl px-2 text-emerald-700 cursor-pointer hover:text-blue-900 transition-all" (click)="onRedrectForWhatsApp(cliente?.contato?.toString())"></i>
+                  </td>
+
+                  <td class="ng-wind-data-item font-medium text-gray-800 whitespace-nowrap">
+                    {{ cliente?.cidade ? cliente?.cidade : '-' }}
                   </td>
 
                   <td class="ng-wind-data-item font-medium text-gray-800 whitespace-nowrap">
@@ -68,8 +71,8 @@
                   </td>
 
                   <td class="ng-wind-data-item">
-                    <i class="bi bi-pencil-fill text-xl px-1 text-blue-700" (click)="onEditClient(cliente)"></i>
-                    <i class="bi bi-trash3-fill text-xl px-1 text-amber-700 cursor-pointer" (click)="handleShowRemoveModal(cliente)"></i>
+                    <img src="./assets/icons/request-edit.svg" alt="Edit" class="icon" (click)="onEditClient(cliente)">
+                    <img src="./assets/icons/trash-icon.svg" alt="Delete" class="icon" (click)="handleShowRemoveModal(cliente)">
                   </td>
                 </tr>
               }
