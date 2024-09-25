@@ -90,10 +90,18 @@ export class CadastroComponent {
 
     console.log("Todos os dados do formulário estão válidos, preparando para envio...");
 
+    const tipoUsuario = this.cadastroForm.get('tipoUsuario')?.value;
+    let categoria = this.cadastroForm.get('categoria')?.value;
+
+    // Só enviar a categoria se o tipoUsuario for FORNECEDOR
+    if (tipoUsuario !== ETipoUsuario.FORNECEDOR) {
+      categoria = '';  // Limpar a categoria se não for fornecedor
+    }
+
     const dadosCadastro: CadastroUsuarioDTO = {
       nome: this.cadastroForm.get('nome')?.value || '',
-      tipoUsuario: this.cadastroForm.get('tipoUsuario')?.value || '',
-      categoria: this.cadastroForm.get('categoria')?.value || '',
+      tipoUsuario: tipoUsuario || '',
+      categoria: categoria || '',
       email: this.cadastroForm.get('email')?.value || '',
       contato: this.cadastroForm.get('contato')?.value || '',
       cnpj: this.cadastroForm.get('cnpj')?.value || '',
