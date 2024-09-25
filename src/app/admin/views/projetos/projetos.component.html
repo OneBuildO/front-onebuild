@@ -37,7 +37,7 @@
 
         <form [formGroup]="projectForm">
           <div class="grid grid-cols-12 gap-x-6 space-y-4">
-            <!--            ARQUIVO SKELETON -->
+            <!-- ARQUIVO SKELETON -->
             <div class="col-span-12 md:col-span-8 mb-4" *ngIf="submited && isLoadingFile">
               <div class="col-span-full">
                 <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-8">
@@ -68,8 +68,11 @@
               </div>
             </div>
 
-            <!--            ARQUIVO -->
+            <!-- INPUT ARQUIVO -->
             <div class="col-span-12 md:col-span-8 mb-4" *ngIf="!isLoadingFile">
+              <label for="categoria" class="form-label text-left">
+                Arquivos
+              </label>
               <div class="col-span-full">
                 <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-8">
                   <div class="text-center">
@@ -80,64 +83,83 @@
                                (change)="handleFilesProject($event)">
                       </label>
                     </div>
-                    <p class="text-xs leading-5 text-gray-600">PDF, PNG, JPG, JPEG</p>
-                    <p class="text-xs leading-5 text-gray-600">*até 10MB</p>
+                    <p class="text-xs leading-5 text-gray-600">
+                      clique ou arraste para fazer upload até 10MB
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!--            ARQUIVOS -->
+            <!-- ARQUIVOS -->
             <div class="col-span-12 md:col-span-6">
               <div class="flex my-2 py-2 border rounded justify-between items-center"
                    *ngFor="let file of arquivosProjeto; let i = index">
                 <i class="bi bi-file-earmark-check text-3xl text-left mx-2 flex justify-center items-center">
                   <small class="text-sm ml-1">{{ file?.name }}</small>
                 </i>
-
-                <button type="button"
-                        class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2"
-                        (click)="handleRemoveFile(file.name)">
+                <button type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2" (click)="handleRemoveFile(file.name)">
                   Remover
                 </button>
               </div>
             </div>
 
-            <!--        CATEGORIA -->
+            <!-- CATEGORIA -->
             <div class="col-span-12 md:col-span-6">
               <div class="form-group">
-                <label for="categoria" class="form-label required text-left">Categoria do projeto:</label>
+                <label for="categoria" class="form-label required text-left">
+                  Categoria
+                </label>
                 <select id="categoria" class="form-select" formControlName="categoria">
                   <option [value]="''">Selectione</option>
                   <option *ngFor="let categoria of CategoriaProjetoArr" [value]="categoria">{{ categoria }}</option>
                 </select>
-                <small *ngIf="submited && !projectForm.get('categoria')?.value?.toString()"
-                       class="text-red-500 text-left">{{ ERROR_MESSAGES.required() }}</small>
+                <small *ngIf="submited && !projectForm.get('categoria')?.value?.toString()" class="text-red-500 text-left">
+                       {{ ERROR_MESSAGES.required() }}
+                </small>
               </div>
             </div>
 
-            <!--            DATA LIMITE ORÇAMENTO -->
+            <!-- DATA LIMITE ORÇAMENTO -->
             <div class="col-span-12 md:col-span-6">
               <div class="form-group">
-                <label for="dataLimiteOrcamento" class="form-label required text-left">Receber orçamentos até:</label>
+                <label for="dataLimiteOrcamento" class="form-label required text-left">
+                  Receber orçamentos até:
+                </label>
                 <input type="date" id="dataLimiteOrcamento" formControlName="dataLimiteOrcamento" class="form-control"/>
-                <small *ngIf="submited && !projectForm.get('dataLimiteOrcamento')?.value?.toString()"
-                       class="text-red-500 text-left">{{ ERROR_MESSAGES.required() }}</small>
+                <small *ngIf="submited && !projectForm.get('dataLimiteOrcamento')?.value?.toString()" class="text-red-500 text-left">
+                       {{ ERROR_MESSAGES.required() }}
+                </small>
               </div>
             </div>
 
-            <!--            OBSERVAÇÃO -->
+            <!-- OBSERVAÇÃO -->
             <div class="col-span-12 md:col-span-6">
               <div class="form-group">
-                <label for="observacoes" class="form-label text-left">Observações</label>
-                <textarea rows="3" id="observacoes" formControlName="observacoes"
-                          placeholder="Ex: O material deve ser..." class="form-control"></textarea>
+                <label for="observacoes" class="form-label text-left">
+                  Observações <span>(opcional)</span>
+                </label>
+                <textarea rows="3" id="observacoes" formControlName="observacoes" placeholder="Ex: O material deve ser..." class="form-control">
+                </textarea>
               </div>
             </div>
-            <!--            VISIBILIDADE -->
+
+            <!-- ENDEREÇO -->
             <div class="col-span-12 md:col-span-6">
               <div class="form-group">
-                <label for="visibilidade" class="form-label required text-left">Visibilidade deste projeto:</label>
+                <label for="endereco" class="form-label text-left">
+                  Endereço <span>(opcional)</span>
+                </label>
+                <input type="text" id="endereco" formControlName="endereco" placeholder="Ex: Rua Dom Lino 656" class="form-control"/>
+              </div>
+            </div>
+
+            <!-- VISIBILIDADE -->
+            <div class="col-span-12 md:col-span-6">
+              <div class="form-group">
+                <label for="visibilidade" class="form-label required text-left">
+                  Visibilidade
+                </label>
                 <select id="visibilidade" class="form-select" formControlName="visibilidade">
                   <option [ngValue]="EVisibilidadeProjeto.PUBLICO">{{ EVisibilidadeProjeto.PUBLICO }}</option>
                   <option [ngValue]="EVisibilidadeProjeto.PRIVADO">{{ EVisibilidadeProjeto.PRIVADO }}</option>
@@ -172,8 +194,7 @@
                       [pageData]="pages"
                       [columnData]="columnData"
                       (onDeleteEmitter)="handleRemoveProject($event)"
-                      (onEditEmitter)="onEditProjectHandler($event)"
-  />
+                      (onEditEmitter)="onEditProjectHandler($event)"/>
 
   <div *ngIf="projects.length == 0 && idClienteSelecionado == 0">
     <p>Nenhum projeto cadastrado</p>
