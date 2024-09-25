@@ -22,6 +22,7 @@ import {CidadesService, listaEstados} from "src/app/_core/services/cidades.servi
 import {ToastrService} from "ngx-toastr";
 import {EMensagemAviso} from "src/app/_core/enums/e-mensagem-aviso";
 import {FilesService} from "src/app/_core/services/files.service";
+import { MatIcon } from '@angular/material/icon';
 
 Chart.register(...registerables);
 
@@ -42,7 +43,8 @@ Chart.register(...registerables);
     DatatableProjetosComponent,
     NgForOf,
     ValidationErrorComponent,
-    ModalRemoveComponent
+    ModalRemoveComponent,
+    MatIcon
   ],
   animations: [pageTransition]
 })
@@ -260,6 +262,37 @@ export class ProjetosComponent implements OnInit {
             this.isLoading = false;
           }
         });
+    }
+  }
+
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    // Adicione uma classe para indicar que o arquivo está sendo arrastado sobre o container
+    (event.currentTarget as HTMLElement).classList.add('drag-over');
+  }
+
+  onDragLeave(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    // Remova a classe quando o arquivo não estiver mais sendo arrastado sobre o container
+    (event.currentTarget as HTMLElement).classList.remove('drag-over');
+  }
+
+  onDrop(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    // Remova a classe quando o arquivo for solto
+    (event.currentTarget as HTMLElement).classList.remove('drag-over');
+    const files = event.dataTransfer?.files;
+    if (files) {
+      this.processFiles(files);
+    }
+  }
+
+  processFiles(files: FileList) {
+    for (let i = 0; i < files.length; i++) {
+      this.arquivosProjeto.push(files[i]);
     }
   }
 
