@@ -186,6 +186,21 @@
               </div>
             </div>
 
+            <!-- STATUS DO PROJETO -->
+            <div class="col-span-12 md:col-span-6">
+              <div class="form-group">
+                <label for="status" class="form-label required text-left">
+                  Status do Projeto
+                </label>
+                <select id="status" class="form-select" formControlName="status">
+                  <option [value]="''" disabled selected hidden>Selecione o status</option>
+                </select>
+                <small *ngIf="submited && !projetoForm.get('status')?.value" class="text-red-500 text-left">
+                  {{ ERROR_MESSAGES.required() }}
+                </small>
+              </div>
+            </div>
+
             <!-- VISIBILIDADE -->
             <div class="col-span-12 md:col-span-6">
               <div class="form-group">
