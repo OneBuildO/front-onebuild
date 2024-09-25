@@ -5,7 +5,7 @@ import {ModalComponent} from "src/app/shared/components/modal/modal.component";
 import {DataTableComponent} from "src/app/shared/components/data-table/data-table.component";
 import {IColumn, IProjects, TableData} from "../elements/data-table/table.data";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
-import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {SpinnerComponent} from "src/app/shared/components/spinner/spinner.component";
 import {AlertComponent} from "src/app/shared/components/alert/alert.component";
 import {AlertType} from "src/app/shared/components/alert/alert.type";
@@ -58,6 +58,10 @@ export class ProjetosComponent implements OnInit {
     private serviceFile: FilesService,
   ) {
     this.modalCompnent = new ModalComponent();
+    this.projetoForm = this.formBuilder.group({
+      arquivo: [''],
+      plantaBaixa: ['']
+    });
   }
 
   urlParams = new URL(window.location.href);
@@ -78,6 +82,9 @@ export class ProjetosComponent implements OnInit {
   modalCompnent: ModalComponent
   arquivosProjeto : File[]  = []
   CategoriaProjetoArr = [];
+
+  plantaBaixa: File[] = []; 
+  projetoForm: FormGroup;
 
   projectForm = this.formBuilder.group({
     id: new FormControl(0, {validators: [Validators.required]}),
@@ -119,27 +126,38 @@ export class ProjetosComponent implements OnInit {
       });
   }
 
-  handleFilesProject(event : any){
+  handleFilesProject(event: any, tipo: string) {
     const file = event.target.files[0];
     const tiposPermitidos = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg'];
-
-    if(tiposPermitidos.includes(file.type)){
+  
+    if (tiposPermitidos.includes(file.type)) {
       const tamanhoMaximoMB = 10;
       const tamanhoMaximoBytes = tamanhoMaximoMB * 1024 * 1024;
-
-      if(file.size <= tamanhoMaximoBytes){
-        this.arquivosProjeto.push(event.target.files[0])
-      }else{
+  
+      if (file.size <= tamanhoMaximoBytes) {
+        // Verifica o tipo e adiciona ao array correspondente
+        if (tipo === 'arquivosProjeto') {
+          this.arquivosProjeto.push(file);
+        } else if (tipo === 'plantaBaixa') {
+          this.plantaBaixa.push(file);
+        }
+      } else {
         this.toastr.error(EMensagemAviso.TAMANHO_ARQUIVO_NAO_VALIDADO, EMensagemAviso.ATENCAO);
       }
-    }else{
+    } else {
       this.toastr.error(EMensagemAviso.TIPO_ARQUIVO_NAO_VALIDADO, EMensagemAviso.ATENCAO);
     }
   }
+  
 
-  handleRemoveFile(name : string){
-    this.arquivosProjeto = this.arquivosProjeto.filter(arquivo => arquivo.name !== name);
+  handleRemoveFile(fileName: string, tipo: string) {
+    if (tipo === 'arquivosProjeto') {
+      this.arquivosProjeto = this.arquivosProjeto.filter(file => file.name !== fileName);
+    } else if (tipo === 'plantaBaixa') {
+      this.plantaBaixa = this.plantaBaixa.filter(file => file.name !== fileName);
+    }
   }
+  
 
   handleModal() {
     this.showModal = !this.showModal;
@@ -268,33 +286,44 @@ export class ProjetosComponent implements OnInit {
   onDragOver(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
-    // Adicione uma classe para indicar que o arquivo está sendo arrastado sobre o container
     (event.currentTarget as HTMLElement).classList.add('drag-over');
   }
 
   onDragLeave(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
-    // Remova a classe quando o arquivo não estiver mais sendo arrastado sobre o container
     (event.currentTarget as HTMLElement).classList.remove('drag-over');
   }
 
-  onDrop(event: DragEvent) {
+  onDrop(event: DragEvent, tipo: string) {
     event.preventDefault();
     event.stopPropagation();
-    // Remova a classe quando o arquivo for solto
     (event.currentTarget as HTMLElement).classList.remove('drag-over');
     const files = event.dataTransfer?.files;
     if (files) {
-      this.processFiles(files);
+      this.processFiles(files, tipo);
     }
   }
+  
 
-  processFiles(files: FileList) {
+  processFiles(files: FileList, tipo: string) {
     for (let i = 0; i < files.length; i++) {
-      this.arquivosProjeto.push(files[i]);
+      const file = files[i];
+      
+      if (tipo === 'plantaBaixa') {
+        // Adiciona o arquivo ao array plantaBaixa, se ele não existir ainda
+        if (!this.plantaBaixa.some(f => f.name === file.name)) {
+          this.plantaBaixa.push(file);
+        }
+      } else {
+        // Adiciona ao array arquivosProjeto, se ele não existir ainda
+        if (!this.arquivosProjeto.some(f => f.name === file.name)) {
+          this.arquivosProjeto.push(file);
+        }
+      }
     }
   }
+  
 
   protected onAlertCloseHandler = (e: any) => {
     this.serverMessages = [];
