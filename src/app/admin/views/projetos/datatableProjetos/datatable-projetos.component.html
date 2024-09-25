@@ -1,10 +1,6 @@
-<app-modalRemove [show]="showModalConfirmRemove"
-                 (closeModal)="handleShowRemoveModal()"
-                 (confirmRemove)="onConfirmRemove()"
->
+<app-modalRemove [show]="showModalConfirmRemove" (closeModal)="handleShowRemoveModal()" (confirmRemove)="onConfirmRemove()">
   <div class="sm:flex sm:items-start">
-    <div
-      class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+    <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
       <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
            stroke="currentColor" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round"
@@ -23,31 +19,33 @@
   </div>
 </app-modalRemove>
 
-<div class="card p-5 ">
+<div class="container-tabela">
   <div class="card-title" *ngIf="titleTable">
     <h3 class="text-xl font-bold leading-none mb-8">{{ titleTable }}</h3>
   </div>
-  <div class="mt-3">
+  <div class="mt-3 scroll-table">
     <div class=" sm:rounded-lg">
       <div class="data-table">
         <div class="table-container">
-          <table class="ng-wind-table relative">
+          <table class="ng-wind-table tabela-body">
             <thead class="ng-wind-table-header">
-            <tr>
-              <th scope="col" class="ng-wind-header-item text-center">Categoria</th>
-              <th scope="col" class="ng-wind-header-item text-center">Data Limite</th>
-              <th scope="col" class="ng-wind-header-item text-center">Local</th>
-              <th scope="col" class="ng-wind-header-item text-center">Cidade</th>
-              <th scope="col" class="ng-wind-header-item text-center">Visibilidade</th>
-              <th scope="col" class="ng-wind-header-item text-center">Ações</th>
+            <tr class="grid-col">
+              <th scope="col" class="ng-wind-header-item">Categoria</th>
+              <th scope="col" class="ng-wind-header-item">Data Limite</th>
+              <th scope="col" class="ng-wind-header-item">Local</th>
+              <th scope="col" class="ng-wind-header-item">Cidade</th>
+              <th scope="col" class="ng-wind-header-item">Visibilidade</th>
+              <th scope="col" class="ng-wind-header-item">Ações</th>
             </tr>
             </thead>
 
-            <tbody>
+            <tbody class="container-itens">
               @for (projeto of rowData; track projeto?.id) {
-                <tr class="bg-white border-b  hover:bg-gray-50">
-                  <td class="ng-wind-data-item text-center">
-                    <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline" (click)="redirectProjectoDetails(projeto?.id)">{{ projeto?.categoria }}</button>
+                <tr class="itens-tr">
+                  <td class="ng-wind-data-item font-medium text-gray-800 whitespace-nowrap">
+                    <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline" (click)="redirectProjectoDetails(projeto?.id)">
+                      {{ projeto?.categoria }}
+                    </button>
                   </td>
 
                   <td class="ng-wind-data-item text-center">{{ formatDatePTBR(projeto?.dataLimiteOrcamento?.toString()) }}</td>
@@ -56,8 +54,8 @@
                   <td class="ng-wind-data-item text-center">{{ projeto?.publico ? 'Público' : 'Privado' }}</td>
 
                   <td class="ng-wind-data-item text-center">
-                    <i class="bi bi-pencil-fill text-xl px-2 text-blue-700" (click)="onEditItem(projeto)"></i>
-                    <i class="bi bi-trash3-fill text-xl px-2 text-amber-700 cursor-pointer" (click)="handleShowRemoveModal(projeto)"></i>
+                    <img src="./assets/icons/request-edit.svg" alt="Edit" class="icon" (click)="onEditItem(projeto)">
+                    <img src="./assets/icons/trash-icon.svg" alt="Delete" class="icon" (click)="handleShowRemoveModal(projeto)">
                   </td>
                 </tr>
               }
