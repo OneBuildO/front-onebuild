@@ -28,7 +28,7 @@
 
 .grid-col{
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 1rem;
 }
 
@@ -46,7 +46,7 @@
 .itens-tr{
   background: var(--bg-surface-white);
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 1rem;
   margin-bottom: 8px;
   border-radius: 4px;
