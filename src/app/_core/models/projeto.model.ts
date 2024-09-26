@@ -19,6 +19,7 @@ export interface ProjetoDetahesDTO {
   dataLimiteOrcamento: string | null;
   local: string | null;
   cidade: string | null;
+  estado: string | null;
   visibilidade: string;
   qtdOrcamentosRecebidos: number;
 }

@@ -17,6 +17,7 @@ Chart.register(...registerables);
 @Component({
   selector: 'app-projeto-detail',
   templateUrl: './projetoDetail.component.html',
+  styleUrls: ['./projetoDetail.component.css'],
   standalone: true,
   imports: [
     ModalComponent,
