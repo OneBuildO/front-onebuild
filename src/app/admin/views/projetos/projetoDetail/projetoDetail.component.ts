@@ -55,6 +55,7 @@ export class ProjetoDetailComponent implements OnInit {
     this.projectService.getDetailsProjectForId(this.paramIdProjeto)
       .subscribe({
         next: (data: any) => {
+          console.log(data);
           this.projeto = data;
         },
         error: (err) => {

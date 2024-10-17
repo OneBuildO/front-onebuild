@@ -193,9 +193,10 @@
                   Status do Projeto
                 </label>
                 <select id="status" class="form-select" formControlName="status">
-                  <option [value]="''" disabled selected hidden>Selecione o status</option>
+                  <option [value]="''" disabled selected hidden>Selecione um status</option>
+                  <option *ngFor="let status of statusProjetoArr" [value]="status">{{ status }}</option>
                 </select>
-                <small *ngIf="submited && !projetoForm.get('status')?.value" class="text-red-500 text-left">
+                <small *ngIf="submited && !projectForm.get('status')?.value" class="text-red-500 text-left">
                   {{ ERROR_MESSAGES.required() }}
                 </small>
               </div>

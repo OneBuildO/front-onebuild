@@ -5,6 +5,8 @@ export interface ProjetoResumoDTO {
   categoria: string | null;
   dataLimiteOrcamento: string | null;
   publico: boolean;
+  endereco: string | null;
+  status: string | null; 
 }
 
 export interface ProjetoDetahesDTO {
@@ -18,8 +20,10 @@ export interface ProjetoDetahesDTO {
   categoria: string | null;
   dataLimiteOrcamento: string | null;
   local: string | null;
+  endereco: string | null;
   cidade: string | null;
   estado: string | null;
+  status: string | null;
   visibilidade: string;
   qtdOrcamentosRecebidos: number;
 }

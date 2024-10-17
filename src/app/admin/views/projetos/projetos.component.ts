@@ -23,6 +23,7 @@ import {ToastrService} from "ngx-toastr";
 import {EMensagemAviso} from "src/app/_core/enums/e-mensagem-aviso";
 import {FilesService} from "src/app/_core/services/files.service";
 import { MatIcon } from '@angular/material/icon';
+import { EStatusProjeto } from "src/app/_core/enums/e-status-projeto";
 
 Chart.register(...registerables);
 
@@ -82,6 +83,8 @@ export class ProjetosComponent implements OnInit {
   modalCompnent: ModalComponent
   arquivosProjeto : File[]  = []
   CategoriaProjetoArr = [];
+  statusProjetoArr: string[] = [];
+  EStatusProjeto = EStatusProjeto;
 
   plantaBaixa: File[] = []; 
   projetoForm: FormGroup;
@@ -92,13 +95,16 @@ export class ProjetosComponent implements OnInit {
     categoria: new FormControl('', {validators: [Validators.required]}),
     estado: new FormControl('', ),
     cidade: new FormControl('', ),
+    endereco: new FormControl('', ),
     dataLimiteOrcamento: new FormControl('', {validators: [Validators.required]}),
     observacoes: new FormControl('',),
     visibilidade: new FormControl(EVisibilidadeProjeto.PUBLICO,),
+    status: new FormControl(EStatusProjeto.NOVO_PROJETO, { validators: [Validators.required] })
   });
 
   ngOnInit(): void {
     this.projects = [];
+    this.statusProjetoArr = Object.values(EStatusProjeto);
     this.getDataProject();
     if(this.idClienteSelecionado && this.idClienteSelecionado !== 0){
       this.serviceProject.getCategoriesAvailableForClien(this.idClienteSelecionado)
@@ -182,8 +188,12 @@ export class ProjetosComponent implements OnInit {
       observacoes: this.projectForm.controls?.observacoes?.value,
       categoria: this.projectForm.controls?.categoria?.value,
       dataLimiteOrcamento: this.projectForm.controls?.dataLimiteOrcamento?.value,
+      endereco: this.projectForm.controls?.endereco?.value,
       publico: this.projectForm.controls?.visibilidade?.value === EVisibilidadeProjeto.PUBLICO,
+      status: this.projectForm.controls?.status?.value ?? '' 
     }
+
+    console.log(cadastroProjeto);
 
     this.isLoadingFile = true;
 
@@ -228,8 +238,9 @@ export class ProjetosComponent implements OnInit {
   };
 
   onEditProjectHandler(projectEdit: ProjetoResumoDTO) {
-    const visibilidade = projectEdit.publico ? EVisibilidadeProjeto.PUBLICO : EVisibilidadeProjeto.PRIVADO
-    let dataFormatada = projectEdit.dataLimiteOrcamento
+    const visibilidade = projectEdit.publico ? EVisibilidadeProjeto.PUBLICO : EVisibilidadeProjeto.PRIVADO;
+    const status = projectEdit.status ?? EStatusProjeto.NOVO_PROJETO;
+    let dataFormatada = projectEdit.dataLimiteOrcamento;
 
     if(projectEdit.dataLimiteOrcamento){
       const parts = projectEdit.dataLimiteOrcamento.split('T');
@@ -245,6 +256,8 @@ export class ProjetosComponent implements OnInit {
       cidade: new FormControl(projectEdit.categoria, {validators: [Validators.required]}),
       dataLimiteOrcamento: new FormControl(dataFormatada, {validators: [Validators.required]}),
       visibilidade: new FormControl(visibilidade),
+      endereco: new FormControl(projectEdit.endereco,),
+      status: new FormControl(EStatusProjeto.NOVO_PROJETO)
     });
 
     this.showModal = true;

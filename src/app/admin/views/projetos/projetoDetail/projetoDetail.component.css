@@ -60,6 +60,12 @@
     margin: 16px;
 }
 
+.div-buttons{
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
 .button-back {
   color: var(--accent-color);
   border: 1px solid var(--accent-color);
@@ -71,6 +77,14 @@
 .button-back:hover {
   background: var(--accent-color);
   color: var(--font-color-light);
+}
+
+.button-atualizar {
+  background: var(--color-sucess);
+  color: var(--font-color-light);
+  width: 50%;
+  height: 40px;
+  border-radius: 16px;
 }
 
 @media screen and (max-width: 768px) {

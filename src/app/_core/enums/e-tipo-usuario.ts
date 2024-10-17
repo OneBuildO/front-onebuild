@@ -1,5 +1,5 @@
 export enum ETipoUsuario {
-  ARQUITETO = 'Arquiteto (a)',
+  ARQUITETO = 'Arquiteto',
   CONSTRUTORA = 'Construtora',
   DESIGN_INTERIORES = 'Design de interiores',
   FORNECEDOR = 'Fornecedor',

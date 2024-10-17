@@ -13,7 +13,7 @@
             <div class="colunns">
               <div>
                 <dt class="text-sm font-medium text-gray-500">Cliente</dt>
-                <dd class="info-input">{{ projeto?.nomeCliente}}</dd>
+                <dd class="info-input">{{ projeto?.nomeCliente }}</dd>
               </div>
 
               <div>
@@ -35,17 +35,17 @@
             <div class="colunns">
               <div>
                 <dt class="text-sm font-medium text-gray-500">Cidade</dt>
-                <dd class="info-input">{{ projeto?.cidade}}</dd>
+                <dd class="info-input">{{ projeto?.cidade }}</dd>
               </div>
 
               <div>
                 <dt class="text-sm font-medium text-gray-500">Estado</dt>
-                <dd class="info-input">{{ projeto?.estado}}</dd>
+                <dd class="info-input">{{ projeto?.estado }}</dd>
               </div>
 
               <div>
                 <dt class="text-sm font-medium text-gray-500">Endereço</dt>
-                <dd class="info-input">{{ projeto?.local ? projeto?.local : naoInformado}} </dd>
+                <dd class="info-input">{{ projeto?.endereco }} </dd>
               </div>
 
               <div>
@@ -76,8 +76,13 @@
 <!--          [type]="tipoAlerta"-->
 <!--        ></app-alert>-->
 
-    <button type="button" class="button-back" (click)="handleBack()">
-      Voltar
-    </button>
+    <div class="div-buttons">
+      <button type="button" class="button-back" (click)="handleBack()">
+        Voltar
+      </button>
+      <button type="button" class="button-atualizar">
+        Atualizar
+      </button>
+    </div>
   </div>
 </div>
