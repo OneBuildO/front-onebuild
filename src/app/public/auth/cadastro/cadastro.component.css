@@ -56,17 +56,17 @@
   flex-direction: row;
   align-items: center;
   margin-bottom: 1rem;
+}
 
-  p {
-    font-size: 14px;
-    color: var(--font-color-dark);
-  }
+.terms-container p {
+  font-size: 14px;
+  color: var(--font-color-dark);
+}
 
-  a {
-    color: var(--color-info);
-    cursor: pointer;
-    font-weight: 600;
-  }
+.terms-container a {
+  color: var(--color-info);
+  cursor: pointer;
+  font-weight: 600;
 }
 
 .terms-container input[type="checkbox"] {
@@ -81,11 +81,11 @@
   border-radius: 16px;
   cursor: pointer;
   transition: background 0.3s ease;
+}
 
-  span {
-    color: var(--font-color-dark);
-    font-weight: 600;
-  }
+.button-primary span {
+  color: var(--font-color-dark);
+  font-weight: 600;
 }
 
 .button-primary:hover {
@@ -117,10 +117,10 @@
 .label-senha {
   display: flex;
   align-items: baseline;
+}
 
-  span {
-    margin-left: 4px;
-    font-size: 12px;
-    color: var(--font-color-dark);
-  }
+.label-senha span {
+  margin-left: 4px;
+  font-size: 12px;
+  color: var(--font-color-dark);
 }
