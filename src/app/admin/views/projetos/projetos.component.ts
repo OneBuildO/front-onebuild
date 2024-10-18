@@ -165,6 +165,7 @@ export class ProjetosComponent implements OnInit {
   
 
   handleModal() {
+    this.resetForm();
     this.showModal = !this.showModal;
   }
 
@@ -236,6 +237,20 @@ export class ProjetosComponent implements OnInit {
     }
   };
 
+  resetForm() {
+    this.projectForm.reset({
+      arquivo: '',
+      plantaBaixa: '',
+      observacoes: '',
+      categoria: '',
+      estado: '',
+      cidade: '',
+      dataLimiteOrcamento: '',
+      endereco: '',
+      status: EStatusProjeto.NOVO_PROJETO
+    });
+  }
+
   onEditProjectHandler(projectEdit: ProjetoResumoDTO) {
     const visibilidade = projectEdit.publico ? EVisibilidadeProjeto.PUBLICO : EVisibilidadeProjeto.PRIVADO;
     const status = projectEdit.status ?? EStatusProjeto.NOVO_PROJETO;
@@ -259,8 +274,6 @@ export class ProjetosComponent implements OnInit {
       endereco: new FormControl(projectEdit.endereco,),
       status: new FormControl(EStatusProjeto.NOVO_PROJETO)
     });
-
-    console.log('FormGroup values on edit:', this.projectForm.value);
 
     this.showModal = true;
   }
