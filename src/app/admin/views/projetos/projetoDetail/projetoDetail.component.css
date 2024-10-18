@@ -8,6 +8,8 @@
   padding: 16px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .detail-title {
@@ -52,15 +54,15 @@
 }
 
 /* BUTTON */
-.container-botao{
-    display: flex;
-    justify-content: flex-start;
-    gap: 16px;
-    padding: 4px;
-    margin: 16px;
+.container-botao {
+  display: flex;
+  justify-content: flex-start;
+  gap: 16px;
+  padding: 4px;
+  margin: 16px;
 }
 
-.div-buttons{
+.div-buttons {
   display: flex;
   justify-content: space-between;
   gap: 16px;
@@ -92,3 +94,7 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* #openweathermap-widget-12 {
+  background: #f5f5f5;
+} */

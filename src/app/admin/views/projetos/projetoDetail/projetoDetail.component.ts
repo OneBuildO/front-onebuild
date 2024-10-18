@@ -73,6 +73,7 @@ export class ProjetoDetailComponent implements OnInit {
       cityid: cidadeId,
       appid: 'dd3ce94aa0b74ec4b1cc3086d70a3c0d',
       units: 'metric',
+      lang: 'pt_br',
       containerid: 'openweathermap-widget-12',
     });
 
