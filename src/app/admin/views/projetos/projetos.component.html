@@ -186,20 +186,27 @@
               </div>
             </div>
 
+            <!-- ESTADO -->
             <div class="col-span-12 md:col-span-6">
               <div class="form-group">
-                <label for="cidade" class="form-label text-left">
-                  Cidade <span>(opcional)</span>
-                </label>
-                <input type="text" id="cidade" formControlName="cidade" placeholder="Fortaleza" class="form-control"/>
+                <label for="estado" class="form-label required text-left">Estado</label>
+                <select id="estado" class="form-select" formControlName="estado" (change)="onEstadoChange($event)">
+                  <option [value]="''">Selecione</option>
+                  <option *ngFor="let estado of listaEstados" [value]="estado.sigla">{{ estado.nome }}</option>
+                </select>
+                <small *ngIf="submited && !projectForm.get('estado')?.value?.toString()" class="text-red-500 text-left">{{ ERROR_MESSAGES.required() }}</small>
               </div>
             </div>
-            <div class="col-span-12 md:col-span-6">
+
+             <!-- CIDADE -->
+             <div class="col-span-12 md:col-span-6">
               <div class="form-group">
-                <label for="estado" class="form-label text-left">
-                  Estado <span>(opcional)</span>
-                </label>
-                <input type="text" id="estado" formControlName="estado" placeholder="Ceará" class="form-control"/>
+                <label for="cidade" class="form-label required text-left">Cidade</label>
+                <select id="cidade" class="form-select" formControlName="cidade">
+                  <option [value]="''">Selecione sua cidade</option>
+                  <option *ngFor="let cidade of listaCidades" [value]="cidade.nome">{{ cidade.nome }}</option>
+                </select>
+                <small *ngIf="submited && !projectForm.get('cidade')?.value?.toString()" class="text-red-500 text-left">{{ ERROR_MESSAGES.required() }}</small>
               </div>
             </div>
 
@@ -245,7 +252,7 @@
       <button type="button" class="btn button-cancel" (click)="handleModal()">
         Cancelar
       </button>
-      <button type="button" class="btn button-confirm" (click)="onFormSubmitHandler()" [disabled]="projectForm.invalid || isLoading">
+      <button type="button" class="btn button-confirm" (click)="onFormSubmitHandler()">
         <btn-spinner *ngIf="isLoading" [show]="isLoading"></btn-spinner>
         <span class="text-branco" [ngClass]="{'translate-x-0.5': isLoading}">
           Salvar

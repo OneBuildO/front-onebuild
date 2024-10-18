@@ -4,7 +4,7 @@ import {pageTransition} from 'src/app/shared/utils/animations';
 import {ModalComponent} from "src/app/shared/components/modal/modal.component";
 import {DataTableComponent} from "src/app/shared/components/data-table/data-table.component";
 import {IColumn, IProjects, TableData} from "../elements/data-table/table.data";
-import {NgClass, NgForOf, NgIf} from "@angular/common";
+import { CommonModule, NgClass, NgForOf, NgIf} from "@angular/common";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {SpinnerComponent} from "src/app/shared/components/spinner/spinner.component";
 import {AlertComponent} from "src/app/shared/components/alert/alert.component";
@@ -45,7 +45,8 @@ Chart.register(...registerables);
     NgForOf,
     ValidationErrorComponent,
     ModalRemoveComponent,
-    MatIcon
+    MatIcon,
+    CommonModule
   ],
   animations: [pageTransition]
 })
@@ -54,7 +55,7 @@ export class ProjetosComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private serviceProject: ProjetoService,
-    private cidadesService: CidadesService,
+    private serviceLocalidade: CidadesService,
     private toastr: ToastrService,
     private serviceFile: FilesService,
   ) {
@@ -67,6 +68,7 @@ export class ProjetosComponent implements OnInit {
   public projects: IProjects[] = TableData.projects;
   public pages: number[] = TableData.pageNumber;
   public columnData: IColumn[] = TableData.columnData;
+  public listaCidades: any[] = [];
 
   idClienteSelecionado: number = this.paramIdCliente ? this.paramIdCliente : 0;
   clienteSelecionado?: ClienteResumoDTO;
@@ -167,7 +169,7 @@ export class ProjetosComponent implements OnInit {
   
 
   handleModal() {
-    this.resetForm();
+    // this.resetForm();
     this.showModal = !this.showModal;
   }
 
@@ -176,16 +178,14 @@ export class ProjetosComponent implements OnInit {
   }
 
   protected onFormSubmitHandler = () => {
-    console.log("1111111111111111111111");
     this.submited = true;
     this.serverMessages = []
-    console.log("2222222222222222");
+
     if (this.projectForm.invalid) return
     // if(this.arquivosProjeto.length === 0){
     //   this.toastr.error(EMensagemAviso.SEM_ARQUIVO_SELECIONADO, EMensagemAviso.ATENCAO);
     //   return;
     // }
-    console.log("3333333333333");
     const cadastroProjeto: ProjetoResumoDTO = {
       id: this.projectForm.controls?.id?.value,
       idCliente: this.idClienteSelecionado,
@@ -201,7 +201,7 @@ export class ProjetosComponent implements OnInit {
       longitude: this.longitude,
       latitude: this.latitude
     }
-    console.log("4444444444444444444");
+
     console.log('Cadastro Projeto:', cadastroProjeto);
 
     this.isLoadingFile = true;
@@ -300,19 +300,19 @@ export class ProjetosComponent implements OnInit {
     }
   };
 
-  resetForm() {
-    this.projectForm.reset({
-      arquivo: '',
-      plantaBaixa: '',
-      observacoes: '',
-      categoria: '',
-      estado: '',
-      cidade: '',
-      dataLimiteOrcamento: '',
-      endereco: '',
-      status: EStatusProjeto.NOVO_PROJETO
-    });
-  }
+  // resetForm() {
+  //   this.projectForm.reset({
+  //     arquivo: '',
+  //     plantaBaixa: '',
+  //     observacoes: '',
+  //     categoria: '',
+  //     estado: '',
+  //     cidade: '',
+  //     dataLimiteOrcamento: '',
+  //     endereco: '',
+  //     status: EStatusProjeto.NOVO_PROJETO
+  //   });
+  // }
 
   onEditProjectHandler(projectEdit: ProjetoResumoDTO) {
     const visibilidade = projectEdit.publico ? EVisibilidadeProjeto.PUBLICO : EVisibilidadeProjeto.PRIVADO;
@@ -330,8 +330,8 @@ export class ProjetosComponent implements OnInit {
       plantaBaixa: new FormControl('',),
       observacoes: new FormControl(projectEdit.observacoes,),
       categoria: new FormControl(projectEdit.categoria, {validators: [Validators.required]}),
-      estado: new FormControl(projectEdit.categoria, {validators: [Validators.required]}),
-      cidade: new FormControl(projectEdit.categoria, {validators: [Validators.required]}),
+      estado: new FormControl(projectEdit.estado, {validators: [Validators.required]}),
+      cidade: new FormControl(projectEdit.cidade, {validators: [Validators.required]}),
       dataLimiteOrcamento: new FormControl(dataFormatada, {validators: [Validators.required]}),
       visibilidade: new FormControl(visibilidade),
       endereco: new FormControl(projectEdit.endereco,),
@@ -414,6 +414,22 @@ export class ProjetosComponent implements OnInit {
       }
     }
   }
+
+  onEstadoChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const estadoSigla = selectElement.value;
+    this.obterCidadePorEstado(estadoSigla);
+  }
+
+  obterCidadePorEstado(estadoSigla: string) {
+    if (estadoSigla) {
+      this.serviceLocalidade.getCidadesByEstado(estadoSigla).subscribe(data => {
+        this.listaCidades = data;
+      });
+    } else {
+      this.listaCidades = [];
+    }
+  }
   
 
   protected onAlertCloseHandler = (e: any) => {
@@ -425,5 +441,6 @@ export class ProjetosComponent implements OnInit {
   }
 
   protected readonly EVisibilidadeProjeto = EVisibilidadeProjeto;
+  protected readonly listaEstados = listaEstados;
   protected readonly ERROR_MESSAGES = ERROR_MESSAGES;
 }
