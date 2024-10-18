@@ -85,7 +85,9 @@ export class ProjetosComponent implements OnInit {
 
   plantaBaixa: File[] = []; 
   // projetoForm: FormGroup;
-  
+
+  latitude: number | null = null;
+  longitude: number | null = null;
 
   projectForm = this.formBuilder.group({
     id: new FormControl(0, {validators: [Validators.required]}),
@@ -174,14 +176,16 @@ export class ProjetosComponent implements OnInit {
   }
 
   protected onFormSubmitHandler = () => {
+    console.log("1111111111111111111111");
     this.submited = true;
     this.serverMessages = []
-
+    console.log("2222222222222222");
     if (this.projectForm.invalid) return
     // if(this.arquivosProjeto.length === 0){
     //   this.toastr.error(EMensagemAviso.SEM_ARQUIVO_SELECIONADO, EMensagemAviso.ATENCAO);
     //   return;
     // }
+    console.log("3333333333333");
     const cadastroProjeto: ProjetoResumoDTO = {
       id: this.projectForm.controls?.id?.value,
       idCliente: this.idClienteSelecionado,
@@ -191,49 +195,108 @@ export class ProjetosComponent implements OnInit {
       endereco: this.projectForm.controls?.endereco?.value,
       publico: this.projectForm.controls?.visibilidade?.value === EVisibilidadeProjeto.PUBLICO,
       status: this.projectForm.controls?.status?.value ?? EStatusProjeto.NOVO_PROJETO,
+      cidade: this.projectForm.controls?.cidade?.value,
+      estado: this.projectForm.controls?.estado?.value,
+      cidadeId: null,
+      longitude: this.longitude,
+      latitude: this.latitude
     }
-
+    console.log("4444444444444444444");
     console.log('Cadastro Projeto:', cadastroProjeto);
 
     this.isLoadingFile = true;
+    const cidade = cadastroProjeto.cidade || ' ';
+    const estado = cadastroProjeto.estado || '';
 
     if (cadastroProjeto.id && cadastroProjeto.id != 0) {
-      this.serviceProject.editProject(cadastroProjeto)
-        .subscribe({
-          next: (data: any) => {
-            window.location.reload()
-          },
-          error: (err) => {
-            this.tipoAlerta = AlertType.Danger
-            this.serverMessages.push(err.error)
-            this.isLoading = false;
-            this.isLoadingFile = false;
-          }
-        });
+      this.serviceProject.getCoordinates(cidade, estado).subscribe({
+        next: (coordinates) => {
+          cadastroProjeto.latitude = coordinates.latitude;
+          cadastroProjeto.longitude = coordinates.longitude;
+          console.log(
+            `Latitude: ${cadastroProjeto.latitude}, Longitude: ${cadastroProjeto.longitude}`
+          );
+
+          this.serviceProject
+            .getCityId(coordinates.latitude, coordinates.longitude)
+            .subscribe({
+              next: (id: number) => {
+                cadastroProjeto.cidadeId = id;
+                console.log('City ID:', cadastroProjeto.cidadeId);
+
+                this.serviceProject.editProject(cadastroProjeto).subscribe({
+                  next: (data: any) => {
+                    window.location.reload();
+                  },
+                  error: (err) => {
+                    this.tipoAlerta = AlertType.Danger;
+                    this.serverMessages.push(err.error);
+                    this.isLoading = false;
+                    this.isLoadingFile = false;
+                  },
+                });
+              },
+              error: (err) => {
+                console.error('Erro ao buscar o cityId:', err);
+                this.serverMessages.push('Erro ao obter o ID da cidade.');
+              },
+            });
+        },
+        error: (error) => {
+          console.error('Erro ao buscar coordenadas:', error);
+          this.serverMessages.push('Erro ao obter as coordenadas da cidade.');
+        },
+      });
     } else {
-      this.serviceProject.saveNewProject(cadastroProjeto)
-        .subscribe({
-          next: (data: any) => {
-            this.serviceFile.saveFileInAwsS3(this.arquivosProjeto, data)
-              .subscribe({
-                next: (data: any) => {
-                  console.log('data', data)
-                  // window.location.reload()
-                },
-                error: (err) => {
-                  this.tipoAlerta = AlertType.Danger
-                  this.serverMessages.push(err.error)
-                  this.isLoading = false;
-                }
-              });
-          },
-          error: (err) => {
-            this.tipoAlerta = AlertType.Danger
-            this.serverMessages.push(err.error)
-            this.isLoading = false;
-            this.isLoadingFile = false;
-          }
-        });
+      this.serviceProject.getCoordinates(cidade, estado).subscribe({
+        next: (coordinates) => {
+          cadastroProjeto.latitude = coordinates.latitude;
+          cadastroProjeto.longitude = coordinates.longitude;
+          console.log(
+            `Latitude: ${cadastroProjeto.latitude}, Longitude: ${cadastroProjeto.longitude}`
+          );
+
+          this.serviceProject
+            .getCityId(coordinates.latitude, coordinates.longitude)
+            .subscribe({
+              next: (id: number) => {
+                cadastroProjeto.cidadeId = id;
+                console.log('City ID:', cadastroProjeto.cidadeId);
+
+                this.serviceProject.saveNewProject(cadastroProjeto).subscribe({
+                  next: (data: any) => {
+                    this.serviceFile
+                      .saveFileInAwsS3(this.arquivosProjeto, data)
+                      .subscribe({
+                        next: (data: any) => {
+                          console.log('Arquivos salvos com sucesso:', data);
+                        },
+                        error: (err) => {
+                          this.tipoAlerta = AlertType.Danger;
+                          this.serverMessages.push(err.error);
+                          this.isLoading = false;
+                        },
+                      });
+                  },
+                  error: (err) => {
+                    this.tipoAlerta = AlertType.Danger;
+                    this.serverMessages.push(err.error);
+                    this.isLoading = false;
+                    this.isLoadingFile = false;
+                  },
+                });
+              },
+              error: (err) => {
+                console.error('Erro ao buscar o cityId:', err);
+                this.serverMessages.push('Erro ao obter o ID da cidade.');
+              },
+            });
+        },
+        error: (error) => {
+          console.error('Erro ao buscar coordenadas:', error);
+          this.serverMessages.push('Erro ao obter as coordenadas da cidade.');
+        },
+      });
     }
   };
 
