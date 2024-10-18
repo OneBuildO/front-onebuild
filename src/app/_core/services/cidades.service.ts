@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import { catchError } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 
@@ -54,6 +54,25 @@ export class CidadesService {
     return this.http.get<any[]>(url).pipe(
       catchError(error => {
         console.error('Erro ao buscar cidades', error);
+        return of([]); // Retorna um array vazio em caso de erro
+      })
+    );
+  }
+
+  getCidadesByNomeEstado(estadoNome: string): Observable<any[]> {
+    const url = `${this._apiBaseUrl}/estados`;
+    return this.http.get<any[]>(url).pipe(
+      map(estados => estados.find(estado => estado.nome.toLowerCase() === estadoNome.toLowerCase())),
+      switchMap(estado => {
+        if (estado && estado.id) {
+          return this.getCidadesByEstado(estado.id);
+        } else {
+          console.error('Estado não encontrado');
+          return of([]); // Retorna um array vazio se o estado não for encontrado
+        }
+      }),
+      catchError(error => {
+        console.error('Erro ao buscar estado', error);
         return of([]); // Retorna um array vazio em caso de erro
       })
     );

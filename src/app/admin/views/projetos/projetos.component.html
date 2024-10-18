@@ -191,8 +191,8 @@
               <div class="form-group">
                 <label for="estado" class="form-label required text-left">Estado</label>
                 <select id="estado" class="form-select" formControlName="estado" (change)="onEstadoChange($event)">
-                  <option [value]="''">Selecione</option>
-                  <option *ngFor="let estado of listaEstados" [value]="estado.sigla">{{ estado.nome }}</option>
+                  <option [value]="''">Selecione seu estado</option>
+                  <option *ngFor="let estado of listaEstados" [value]="estado.nome">{{ estado.nome }}</option>
                 </select>
                 <small *ngIf="submited && !projectForm.get('estado')?.value?.toString()" class="text-red-500 text-left">{{ ERROR_MESSAGES.required() }}</small>
               </div>
@@ -249,7 +249,7 @@
     </div>
 
     <div class="button-container">
-      <button type="button" class="btn button-cancel" (click)="handleModal()">
+      <button type="button" class="btn button-cancel" (click)="onCancelEdit()">
         Cancelar
       </button>
       <button type="button" class="btn button-confirm" (click)="onFormSubmitHandler()">

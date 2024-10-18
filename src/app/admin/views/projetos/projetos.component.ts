@@ -169,8 +169,12 @@ export class ProjetosComponent implements OnInit {
   
 
   handleModal() {
-    // this.resetForm();
     this.showModal = !this.showModal;
+  }
+
+  onCancelEdit() {
+    this.resetForm();
+    this.showModal = false;
   }
 
   onModalCloseHandler(event: boolean) {
@@ -300,19 +304,20 @@ export class ProjetosComponent implements OnInit {
     }
   };
 
-  // resetForm() {
-  //   this.projectForm.reset({
-  //     arquivo: '',
-  //     plantaBaixa: '',
-  //     observacoes: '',
-  //     categoria: '',
-  //     estado: '',
-  //     cidade: '',
-  //     dataLimiteOrcamento: '',
-  //     endereco: '',
-  //     status: EStatusProjeto.NOVO_PROJETO
-  //   });
-  // }
+  resetForm() {
+    this.projectForm.reset({
+      arquivo: '',
+      plantaBaixa: '',
+      observacoes: '',
+      categoria: '',
+      estado: '',
+      cidade: '',
+      dataLimiteOrcamento: '',
+      endereco: '',
+      status: EStatusProjeto.NOVO_PROJETO,
+      visibilidade: EVisibilidadeProjeto.PUBLICO
+    });
+  }
 
   onEditProjectHandler(projectEdit: ProjetoResumoDTO) {
     const visibilidade = projectEdit.publico ? EVisibilidadeProjeto.PUBLICO : EVisibilidadeProjeto.PRIVADO;
@@ -417,15 +422,20 @@ export class ProjetosComponent implements OnInit {
 
   onEstadoChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
-    const estadoSigla = selectElement.value;
-    this.obterCidadePorEstado(estadoSigla);
+    const estadoNome = selectElement.value;
+    this.obterCidadePorNomeEstado(estadoNome);
   }
-
-  obterCidadePorEstado(estadoSigla: string) {
-    if (estadoSigla) {
-      this.serviceLocalidade.getCidadesByEstado(estadoSigla).subscribe(data => {
-        this.listaCidades = data;
-      });
+  
+  obterCidadePorNomeEstado(estadoNome: string) {
+    if (estadoNome) {
+      this.serviceLocalidade.getCidadesByNomeEstado(estadoNome).subscribe(
+        data => {
+          this.listaCidades = data;
+        },
+        error => {
+          this.listaCidades = [];
+        }
+      );
     } else {
       this.listaCidades = [];
     }
