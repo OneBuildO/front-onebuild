@@ -59,10 +59,6 @@ export class ProjetosComponent implements OnInit {
     private serviceFile: FilesService,
   ) {
     this.modalCompnent = new ModalComponent();
-    this.projetoForm = this.formBuilder.group({
-      arquivo: [''],
-      plantaBaixa: ['']
-    });
   }
 
   urlParams = new URL(window.location.href);
@@ -72,7 +68,7 @@ export class ProjetosComponent implements OnInit {
   public pages: number[] = TableData.pageNumber;
   public columnData: IColumn[] = TableData.columnData;
 
-  idClienteSelecionado: number = this.paramIdCliente ? this.paramIdCliente : 0
+  idClienteSelecionado: number = this.paramIdCliente ? this.paramIdCliente : 0;
   clienteSelecionado?: ClienteResumoDTO;
   showModal: boolean = false;
   submited: boolean = false;
@@ -80,31 +76,34 @@ export class ProjetosComponent implements OnInit {
   isLoadingFile: boolean = false;
   serverMessages: string[] = [];
   tipoAlerta = AlertType.Warning;
-  modalCompnent: ModalComponent
-  arquivosProjeto : File[]  = []
+  modalCompnent: ModalComponent;
+  arquivosProjeto : File[]  = [];
   CategoriaProjetoArr = [];
+
+  EStatusProjeto = EStatusProjeto; // Adicione o enum ao contexto do componente
   statusProjetoArr: string[] = [];
-  EStatusProjeto = EStatusProjeto;
 
   plantaBaixa: File[] = []; 
-  projetoForm: FormGroup;
+  // projetoForm: FormGroup;
+  
 
   projectForm = this.formBuilder.group({
     id: new FormControl(0, {validators: [Validators.required]}),
-    arquivo: new FormControl('',),
+    arquivo: [''],
+    plantaBaixa: [''],
+    observacoes: new FormControl('',),
     categoria: new FormControl('', {validators: [Validators.required]}),
     estado: new FormControl('', ),
     cidade: new FormControl('', ),
-    endereco: new FormControl('', ),
     dataLimiteOrcamento: new FormControl('', {validators: [Validators.required]}),
-    observacoes: new FormControl('',),
     visibilidade: new FormControl(EVisibilidadeProjeto.PUBLICO,),
+    endereco: new FormControl('', ),
     status: new FormControl(EStatusProjeto.NOVO_PROJETO, { validators: [Validators.required] })
   });
 
   ngOnInit(): void {
-    this.projects = [];
     this.statusProjetoArr = Object.values(EStatusProjeto);
+    this.projects = [];
     this.getDataProject();
     if(this.idClienteSelecionado && this.idClienteSelecionado !== 0){
       this.serviceProject.getCategoriesAvailableForClien(this.idClienteSelecionado)
@@ -178,10 +177,10 @@ export class ProjetosComponent implements OnInit {
     this.serverMessages = []
 
     if (this.projectForm.invalid) return
-    if(this.arquivosProjeto.length === 0){
-      this.toastr.error(EMensagemAviso.SEM_ARQUIVO_SELECIONADO, EMensagemAviso.ATENCAO);
-      return;
-    }
+    // if(this.arquivosProjeto.length === 0){
+    //   this.toastr.error(EMensagemAviso.SEM_ARQUIVO_SELECIONADO, EMensagemAviso.ATENCAO);
+    //   return;
+    // }
     const cadastroProjeto: ProjetoResumoDTO = {
       id: this.projectForm.controls?.id?.value,
       idCliente: this.idClienteSelecionado,
@@ -190,10 +189,10 @@ export class ProjetosComponent implements OnInit {
       dataLimiteOrcamento: this.projectForm.controls?.dataLimiteOrcamento?.value,
       endereco: this.projectForm.controls?.endereco?.value,
       publico: this.projectForm.controls?.visibilidade?.value === EVisibilidadeProjeto.PUBLICO,
-      status: this.projectForm.controls?.status?.value ?? '' 
+      status: this.projectForm.controls?.status?.value ?? EStatusProjeto.NOVO_PROJETO,
     }
 
-    console.log(cadastroProjeto);
+    console.log('Cadastro Projeto:', cadastroProjeto);
 
     this.isLoadingFile = true;
 
@@ -250,6 +249,7 @@ export class ProjetosComponent implements OnInit {
     this.projectForm = this.formBuilder.group({
       id: new FormControl(projectEdit.id,),
       arquivo: new FormControl('',),
+      plantaBaixa: new FormControl('',),
       observacoes: new FormControl(projectEdit.observacoes,),
       categoria: new FormControl(projectEdit.categoria, {validators: [Validators.required]}),
       estado: new FormControl(projectEdit.categoria, {validators: [Validators.required]}),
@@ -259,6 +259,8 @@ export class ProjetosComponent implements OnInit {
       endereco: new FormControl(projectEdit.endereco,),
       status: new FormControl(EStatusProjeto.NOVO_PROJETO)
     });
+
+    console.log('FormGroup values on edit:', this.projectForm.value);
 
     this.showModal = true;
   }
