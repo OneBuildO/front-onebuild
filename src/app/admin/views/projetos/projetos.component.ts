@@ -46,24 +46,23 @@ Chart.register(...registerables);
     ValidationErrorComponent,
     ModalRemoveComponent,
     MatIcon,
-    CommonModule
+    CommonModule,
   ],
-  animations: [pageTransition]
+  animations: [pageTransition],
 })
 export class ProjetosComponent implements OnInit {
-
   constructor(
     private formBuilder: FormBuilder,
     private serviceProject: ProjetoService,
     private serviceLocalidade: CidadesService,
     private toastr: ToastrService,
-    private serviceFile: FilesService,
+    private serviceFile: FilesService
   ) {
     this.modalCompnent = new ModalComponent();
   }
 
   urlParams = new URL(window.location.href);
-  paramIdCliente = Number(this.urlParams.searchParams.get("cliente"));
+  paramIdCliente = Number(this.urlParams.searchParams.get('cliente'));
 
   public projects: IProjects[] = TableData.projects;
   public pages: number[] = TableData.pageNumber;
@@ -79,70 +78,80 @@ export class ProjetosComponent implements OnInit {
   serverMessages: string[] = [];
   tipoAlerta = AlertType.Warning;
   modalCompnent: ModalComponent;
-  arquivosProjeto : File[]  = [];
+  arquivosProjeto: File[] = [];
   CategoriaProjetoArr = [];
 
   EStatusProjeto = EStatusProjeto; // Adicione o enum ao contexto do componente
   statusProjetoArr: string[] = [];
 
-  plantaBaixa: File[] = []; 
+  plantaBaixa: File[] = [];
   // projetoForm: FormGroup;
 
   latitude: number | null = null;
   longitude: number | null = null;
 
   projectForm = this.formBuilder.group({
-    id: new FormControl(0, {validators: [Validators.required]}),
+    id: new FormControl(0, { validators: [Validators.required] }),
     arquivo: [''],
     plantaBaixa: [''],
-    observacoes: new FormControl('',),
-    categoria: new FormControl('', {validators: [Validators.required]}),
-    estado: new FormControl('', ),
-    cidade: new FormControl('', ),
-    dataLimiteOrcamento: new FormControl('', {validators: [Validators.required]}),
-    visibilidade: new FormControl(EVisibilidadeProjeto.PUBLICO,),
-    endereco: new FormControl('', ),
-    status: new FormControl(EStatusProjeto.NOVO_PROJETO, { validators: [Validators.required] })
+    observacoes: new FormControl(''),
+    categoria: new FormControl('', { validators: [Validators.required] }),
+    estado: new FormControl(''),
+    cidade: new FormControl(''),
+    dataLimiteOrcamento: new FormControl('', {
+      validators: [Validators.required],
+    }),
+    visibilidade: new FormControl(EVisibilidadeProjeto.PUBLICO),
+    endereco: new FormControl(''),
+    status: new FormControl(EStatusProjeto.NOVO_PROJETO, {
+      validators: [Validators.required],
+    }),
   });
 
   ngOnInit(): void {
     this.statusProjetoArr = Object.values(EStatusProjeto);
     this.projects = [];
     this.getDataProject();
-    if(this.idClienteSelecionado && this.idClienteSelecionado !== 0){
-      this.serviceProject.getCategoriesAvailableForClien(this.idClienteSelecionado)
+    if (this.idClienteSelecionado && this.idClienteSelecionado !== 0) {
+      this.serviceProject
+        .getCategoriesAvailableForClien(this.idClienteSelecionado)
         .subscribe({
           next: (data: any) => {
-            this.CategoriaProjetoArr = data
+            this.CategoriaProjetoArr = data;
           },
           error: (err) => {
-            this.tipoAlerta = AlertType.Danger
-            this.serverMessages.push(err.error)
+            this.tipoAlerta = AlertType.Danger;
+            this.serverMessages.push(err.error);
             this.isLoading = false;
-          }
+          },
         });
     }
   }
 
   getDataProject() {
-    this.serviceProject.getAllProjectForClient(this.idClienteSelecionado)
+    this.serviceProject
+      .getAllProjectForClient(this.idClienteSelecionado)
       .subscribe({
         next: (data: any) => {
-          this.projects = data
+          this.projects = data;
         },
-        error: (err) => {
-        }
+        error: (err) => {},
       });
   }
 
   handleFilesProject(event: any, tipo: string) {
     const file = event.target.files[0];
-    const tiposPermitidos = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg'];
-  
+    const tiposPermitidos = [
+      'application/pdf',
+      'image/png',
+      'image/jpeg',
+      'image/jpg',
+    ];
+
     if (tiposPermitidos.includes(file.type)) {
       const tamanhoMaximoMB = 10;
       const tamanhoMaximoBytes = tamanhoMaximoMB * 1024 * 1024;
-  
+
       if (file.size <= tamanhoMaximoBytes) {
         // Verifica o tipo e adiciona ao array correspondente
         if (tipo === 'arquivosProjeto') {
@@ -151,22 +160,30 @@ export class ProjetosComponent implements OnInit {
           this.plantaBaixa.push(file);
         }
       } else {
-        this.toastr.error(EMensagemAviso.TAMANHO_ARQUIVO_NAO_VALIDADO, EMensagemAviso.ATENCAO);
+        this.toastr.error(
+          EMensagemAviso.TAMANHO_ARQUIVO_NAO_VALIDADO,
+          EMensagemAviso.ATENCAO
+        );
       }
     } else {
-      this.toastr.error(EMensagemAviso.TIPO_ARQUIVO_NAO_VALIDADO, EMensagemAviso.ATENCAO);
+      this.toastr.error(
+        EMensagemAviso.TIPO_ARQUIVO_NAO_VALIDADO,
+        EMensagemAviso.ATENCAO
+      );
     }
   }
-  
 
   handleRemoveFile(fileName: string, tipo: string) {
     if (tipo === 'arquivosProjeto') {
-      this.arquivosProjeto = this.arquivosProjeto.filter(file => file.name !== fileName);
+      this.arquivosProjeto = this.arquivosProjeto.filter(
+        (file) => file.name !== fileName
+      );
     } else if (tipo === 'plantaBaixa') {
-      this.plantaBaixa = this.plantaBaixa.filter(file => file.name !== fileName);
+      this.plantaBaixa = this.plantaBaixa.filter(
+        (file) => file.name !== fileName
+      );
     }
   }
-  
 
   handleModal() {
     this.showModal = !this.showModal;
@@ -183,9 +200,9 @@ export class ProjetosComponent implements OnInit {
 
   protected onFormSubmitHandler = () => {
     this.submited = true;
-    this.serverMessages = []
+    this.serverMessages = [];
 
-    if (this.projectForm.invalid) return
+    if (this.projectForm.invalid) return;
     // if(this.arquivosProjeto.length === 0){
     //   this.toastr.error(EMensagemAviso.SEM_ARQUIVO_SELECIONADO, EMensagemAviso.ATENCAO);
     //   return;
@@ -195,16 +212,20 @@ export class ProjetosComponent implements OnInit {
       idCliente: this.idClienteSelecionado,
       observacoes: this.projectForm.controls?.observacoes?.value,
       categoria: this.projectForm.controls?.categoria?.value,
-      dataLimiteOrcamento: this.projectForm.controls?.dataLimiteOrcamento?.value,
+      dataLimiteOrcamento:
+        this.projectForm.controls?.dataLimiteOrcamento?.value,
       endereco: this.projectForm.controls?.endereco?.value,
-      publico: this.projectForm.controls?.visibilidade?.value === EVisibilidadeProjeto.PUBLICO,
-      status: this.projectForm.controls?.status?.value ?? EStatusProjeto.NOVO_PROJETO,
+      publico:
+        this.projectForm.controls?.visibilidade?.value ===
+        EVisibilidadeProjeto.PUBLICO,
+      status:
+        this.projectForm.controls?.status?.value ?? EStatusProjeto.NOVO_PROJETO,
       cidade: this.projectForm.controls?.cidade?.value,
       estado: this.projectForm.controls?.estado?.value,
       cidadeId: null,
       longitude: this.longitude,
-      latitude: this.latitude
-    }
+      latitude: this.latitude,
+    };
 
     console.log('Cadastro Projeto:', cadastroProjeto);
 
@@ -221,30 +242,17 @@ export class ProjetosComponent implements OnInit {
             `Latitude: ${cadastroProjeto.latitude}, Longitude: ${cadastroProjeto.longitude}`
           );
 
-          this.serviceProject
-            .getCityId(coordinates.latitude, coordinates.longitude)
-            .subscribe({
-              next: (id: number) => {
-                cadastroProjeto.cidadeId = id;
-                console.log('City ID:', cadastroProjeto.cidadeId);
-
-                this.serviceProject.editProject(cadastroProjeto).subscribe({
-                  next: (data: any) => {
-                    window.location.reload();
-                  },
-                  error: (err) => {
-                    this.tipoAlerta = AlertType.Danger;
-                    this.serverMessages.push(err.error);
-                    this.isLoading = false;
-                    this.isLoadingFile = false;
-                  },
-                });
-              },
-              error: (err) => {
-                console.error('Erro ao buscar o cityId:', err);
-                this.serverMessages.push('Erro ao obter o ID da cidade.');
-              },
-            });
+          this.serviceProject.editProject(cadastroProjeto).subscribe({
+            next: (data: any) => {
+              window.location.reload();
+            },
+            error: (err) => {
+              this.tipoAlerta = AlertType.Danger;
+              this.serverMessages.push(err.error);
+              this.isLoading = false;
+              this.isLoadingFile = false;
+            },
+          });
         },
         error: (error) => {
           console.error('Erro ao buscar coordenadas:', error);
@@ -260,41 +268,28 @@ export class ProjetosComponent implements OnInit {
             `Latitude: ${cadastroProjeto.latitude}, Longitude: ${cadastroProjeto.longitude}`
           );
 
-          this.serviceProject
-            .getCityId(coordinates.latitude, coordinates.longitude)
-            .subscribe({
-              next: (id: number) => {
-                cadastroProjeto.cidadeId = id;
-                console.log('City ID:', cadastroProjeto.cidadeId);
-
-                this.serviceProject.saveNewProject(cadastroProjeto).subscribe({
+          this.serviceProject.saveNewProject(cadastroProjeto).subscribe({
+            next: (data: any) => {
+              this.serviceFile
+                .saveFileInAwsS3(this.arquivosProjeto, data)
+                .subscribe({
                   next: (data: any) => {
-                    this.serviceFile
-                      .saveFileInAwsS3(this.arquivosProjeto, data)
-                      .subscribe({
-                        next: (data: any) => {
-                          console.log('Arquivos salvos com sucesso:', data);
-                        },
-                        error: (err) => {
-                          this.tipoAlerta = AlertType.Danger;
-                          this.serverMessages.push(err.error);
-                          this.isLoading = false;
-                        },
-                      });
+                    console.log('Arquivos salvos com sucesso:', data);
                   },
                   error: (err) => {
                     this.tipoAlerta = AlertType.Danger;
                     this.serverMessages.push(err.error);
                     this.isLoading = false;
-                    this.isLoadingFile = false;
                   },
                 });
-              },
-              error: (err) => {
-                console.error('Erro ao buscar o cityId:', err);
-                this.serverMessages.push('Erro ao obter o ID da cidade.');
-              },
-            });
+            },
+            error: (err) => {
+              this.tipoAlerta = AlertType.Danger;
+              this.serverMessages.push(err.error);
+              this.isLoading = false;
+              this.isLoadingFile = false;
+            },
+          });
         },
         error: (error) => {
           console.error('Erro ao buscar coordenadas:', error);
@@ -315,46 +310,54 @@ export class ProjetosComponent implements OnInit {
       dataLimiteOrcamento: '',
       endereco: '',
       status: EStatusProjeto.NOVO_PROJETO,
-      visibilidade: EVisibilidadeProjeto.PUBLICO
+      visibilidade: EVisibilidadeProjeto.PUBLICO,
     });
   }
 
   onEditProjectHandler(projectEdit: ProjetoResumoDTO) {
-    const visibilidade = projectEdit.publico ? EVisibilidadeProjeto.PUBLICO : EVisibilidadeProjeto.PRIVADO;
+    const visibilidade = projectEdit.publico
+      ? EVisibilidadeProjeto.PUBLICO
+      : EVisibilidadeProjeto.PRIVADO;
     const status = projectEdit.status ?? EStatusProjeto.NOVO_PROJETO;
     let dataFormatada = projectEdit.dataLimiteOrcamento;
 
-    if(projectEdit.dataLimiteOrcamento){
+    if (projectEdit.dataLimiteOrcamento) {
       const parts = projectEdit.dataLimiteOrcamento.split('T');
       dataFormatada = parts[0];
     }
 
     this.projectForm = this.formBuilder.group({
-      id: new FormControl(projectEdit.id,),
-      arquivo: new FormControl('',),
-      plantaBaixa: new FormControl('',),
-      observacoes: new FormControl(projectEdit.observacoes,),
-      categoria: new FormControl(projectEdit.categoria, {validators: [Validators.required]}),
-      estado: new FormControl(projectEdit.estado, {validators: [Validators.required]}),
-      cidade: new FormControl(projectEdit.cidade, {validators: [Validators.required]}),
-      dataLimiteOrcamento: new FormControl(dataFormatada, {validators: [Validators.required]}),
+      id: new FormControl(projectEdit.id),
+      arquivo: new FormControl(''),
+      plantaBaixa: new FormControl(''),
+      observacoes: new FormControl(projectEdit.observacoes),
+      categoria: new FormControl(projectEdit.categoria, {
+        validators: [Validators.required],
+      }),
+      estado: new FormControl(projectEdit.estado, {
+        validators: [Validators.required],
+      }),
+      cidade: new FormControl(projectEdit.cidade, {
+        validators: [Validators.required],
+      }),
+      dataLimiteOrcamento: new FormControl(dataFormatada, {
+        validators: [Validators.required],
+      }),
       visibilidade: new FormControl(visibilidade),
-      endereco: new FormControl(projectEdit.endereco,),
-      status: new FormControl(EStatusProjeto.NOVO_PROJETO)
+      endereco: new FormControl(projectEdit.endereco),
+      status: new FormControl(EStatusProjeto.NOVO_PROJETO),
     });
 
     this.showModal = true;
   }
 
   handleRemoveProject(project: ProjetoResumoDTO) {
-    this.serviceProject.deleteProject(project)
-      .subscribe({
-        next: (data: any) => {
-          window.location.reload()
-        },
-        error: (err) => {
-        }
-      });
+    this.serviceProject.deleteProject(project).subscribe({
+      next: (data: any) => {
+        window.location.reload();
+      },
+      error: (err) => {},
+    });
   }
 
   onClientIdHandler(event: number) {
@@ -364,17 +367,18 @@ export class ProjetosComponent implements OnInit {
 
   onClienteSelectedHandler(event: ClienteResumoDTO) {
     this.clienteSelecionado = event;
-    if(this.clienteSelecionado && this.clienteSelecionado.id){
-      this.serviceProject.getCategoriesAvailableForClien(this.clienteSelecionado.id)
+    if (this.clienteSelecionado && this.clienteSelecionado.id) {
+      this.serviceProject
+        .getCategoriesAvailableForClien(this.clienteSelecionado.id)
         .subscribe({
           next: (data: any) => {
-            this.CategoriaProjetoArr = data
+            this.CategoriaProjetoArr = data;
           },
           error: (err) => {
-            this.tipoAlerta = AlertType.Danger
-            this.serverMessages.push(err.error)
+            this.tipoAlerta = AlertType.Danger;
+            this.serverMessages.push(err.error);
             this.isLoading = false;
-          }
+          },
         });
     }
   }
@@ -400,20 +404,19 @@ export class ProjetosComponent implements OnInit {
       this.processFiles(files, tipo);
     }
   }
-  
 
   processFiles(files: FileList, tipo: string) {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      
+
       if (tipo === 'plantaBaixa') {
         // Adiciona o arquivo ao array plantaBaixa, se ele não existir ainda
-        if (!this.plantaBaixa.some(f => f.name === file.name)) {
+        if (!this.plantaBaixa.some((f) => f.name === file.name)) {
           this.plantaBaixa.push(file);
         }
       } else {
         // Adiciona ao array arquivosProjeto, se ele não existir ainda
-        if (!this.arquivosProjeto.some(f => f.name === file.name)) {
+        if (!this.arquivosProjeto.some((f) => f.name === file.name)) {
           this.arquivosProjeto.push(file);
         }
       }
@@ -425,14 +428,14 @@ export class ProjetosComponent implements OnInit {
     const estadoNome = selectElement.value;
     this.obterCidadePorNomeEstado(estadoNome);
   }
-  
+
   obterCidadePorNomeEstado(estadoNome: string) {
     if (estadoNome) {
       this.serviceLocalidade.getCidadesByNomeEstado(estadoNome).subscribe(
-        data => {
+        (data) => {
           this.listaCidades = data;
         },
-        error => {
+        (error) => {
           this.listaCidades = [];
         }
       );
@@ -440,14 +443,13 @@ export class ProjetosComponent implements OnInit {
       this.listaCidades = [];
     }
   }
-  
 
   protected onAlertCloseHandler = (e: any) => {
     this.serverMessages = [];
   };
 
-  redirecionarParaClientes(){
-    window.location.href = '/admin/clientes?addCliente=true'
+  redirecionarParaClientes() {
+    window.location.href = '/admin/clientes?addCliente=true';
   }
 
   protected readonly EVisibilidadeProjeto = EVisibilidadeProjeto;
