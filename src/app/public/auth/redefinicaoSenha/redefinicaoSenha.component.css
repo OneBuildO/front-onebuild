@@ -64,11 +64,11 @@
   border-radius: 16px;
   cursor: pointer;
   transition: background 0.3s ease;
+}
 
-  span {
-    color: var(--font-color-dark);
-    font-weight: 600;
-  }
+.button-primary span {
+  color: var(--font-color-dark);
+  font-weight: 600;
 }
 
 .button-primary:hover {

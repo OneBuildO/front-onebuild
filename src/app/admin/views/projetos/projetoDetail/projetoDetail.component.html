@@ -1,52 +1,55 @@
 <div [@pageTransition]>
-  <div class="card p-5">
-    <div class="card-title">
+  <div class="container-detail-projeto">
+    <div class="detail-header">
+      <div class="detail-title">
+        <h3>{{ projeto?.nomeProjeto }}</h3>
+        <p>{{ projeto?.categoria}}</p>
+      </div>
+      <div id="openweathermap-widget-12"></div>
+    </div>
 
-      <div class="bg-white max-w-full overflow-hidden sm:rounded-lg">
-        <div class="px-4 py-5 sm:px-6">
-          <h3 class="text-lg leading-6 font-medium text-gray-900">{{ projeto?.nomeProjeto }}</h3>
-          <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ projeto?.categoria}}</p>
-        </div>
-        <div class="border-t border-gray-200">
-          <dl>
-            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex">
-              <div class="w-1/3">
+    <div class="detail-content">
+        <div>
+          <dl class="detail-col-grid">
+            <div class="colunns">
+              <div>
                 <dt class="text-sm font-medium text-gray-500">Cliente</dt>
-                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ projeto?.nomeCliente}}</dd>
+                <dd class="info-input">{{ projeto?.nomeCliente }}</dd>
               </div>
 
-              <div class="w-1/3">
-                <dt class="text-sm font-medium text-gray-500">Contato</dt>
-                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ projeto?.contatoCliente}}</dd>
-              </div>
-            </div>
-
-            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex">
-              <div class="w-1/3">
-                <dt class="text-sm font-medium text-gray-500">Local</dt>
-                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ projeto?.local ? projeto?.local : naoInformado}} </dd>
-              </div>
-
-              <div class="w-1/3">
-                <dt class="text-sm font-medium text-gray-500">Cidade</dt>
-                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ projeto?.cidade}}</dd>
-              </div>
-            </div>
-
-            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex">
-              <div class="w-1/3">
+              <div>
                 <dt class="text-sm font-medium text-gray-500">Receber orçamentos até</dt>
-                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ formatDatePTBR(projeto?.dataLimiteOrcamento?.toString()) }}</dd>
+                <dd class="info-input">{{ formatDatePTBR(projeto?.dataLimiteOrcamento?.toString()) }}</dd>
               </div>
 
-              <div class="w-1/3">
+              <div>
                 <dt class="text-sm font-medium text-gray-500">Visibilidade</dt>
-                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ projeto?.visibilidade }}</dd>
+                <dd class="info-input">{{ projeto?.visibilidade }}</dd>
+              </div>
+
+              <div>
+                <dt class="text-sm font-medium text-gray-500">Observações</dt>
+                <dd class="info-input">{{ projeto?.observacoes }}</dd>
               </div>
             </div>
 
-            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex">
-              <div class="w-1/3">
+            <div class="colunns">
+              <div>
+                <dt class="text-sm font-medium text-gray-500">Cidade</dt>
+                <dd class="info-input">{{ projeto?.cidade }}</dd>
+              </div>
+
+              <div>
+                <dt class="text-sm font-medium text-gray-500">Estado</dt>
+                <dd class="info-input">{{ projeto?.estado }}</dd>
+              </div>
+
+              <div>
+                <dt class="text-sm font-medium text-gray-500">Endereço</dt>
+                <dd class="info-input">{{ projeto?.endereco }} </dd>
+              </div>
+
+              <div>
                 <dt class="text-sm font-medium text-gray-500">Arquivos</dt>
                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex">
                   <i class="bi bi-filetype-pdf text-2xl cursor-pointer hover:text-danger transition-all mx-4">1</i>
@@ -56,20 +59,15 @@
               </div>
             </div>
 
-            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex">
-              <div class="w-1/3">
-                <dt class="text-sm font-medium text-gray-500">Observações</dt>
-                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex">{{ projeto?.observacoes }}</dd>
-              </div>
-            </div>
+            <div class="colunns"></div>
           </dl>
         </div>
       </div>
-    </div>
   </div>
+</div>
 
-    <div class="sm:flex sm:items-start">
-      <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+<div class="container-botao">
+  <div>
 
 <!--        <app-alert-->
 <!--          (hideAlert)="onAlertCloseHandler($event)"-->
@@ -79,12 +77,13 @@
 <!--          [type]="tipoAlerta"-->
 <!--        ></app-alert>-->
 
-        <button type="button"
-                class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                (click)="handleBack()"
-        >
-          Voltar
-        </button>
-      </div>
+    <div class="div-buttons">
+      <button type="button" class="button-back" (click)="handleBack()">
+        Voltar
+      </button>
+      <button type="button" class="button-atualizar">
+        Atualizar
+      </button>
     </div>
+  </div>
 </div>

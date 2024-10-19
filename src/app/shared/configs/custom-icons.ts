@@ -36,4 +36,8 @@ export const iconsArray: customIcon[] = [
     iconName: 'alert-red',
     iconPath: './assets/icons/alert-red.svg',
   },
+  {
+    iconName: 'document-add',
+    iconPath: './assets/icons/document-add.svg',
+  },
 ];

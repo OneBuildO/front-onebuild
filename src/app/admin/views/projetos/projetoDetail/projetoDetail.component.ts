@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import {Chart, registerables} from 'chart.js';
 import {pageTransition} from 'src/app/shared/utils/animations';
 import {ModalComponent} from "src/app/shared/components/modal/modal.component";
@@ -17,6 +17,7 @@ Chart.register(...registerables);
 @Component({
   selector: 'app-projeto-detail',
   templateUrl: './projetoDetail.component.html',
+  styleUrls: ['./projetoDetail.component.css'],
   standalone: true,
   imports: [
     ModalComponent,
@@ -34,6 +35,7 @@ export class ProjetoDetailComponent implements OnInit {
 
   constructor(
     private projectService: ProjetoService,
+    private renderer: Renderer2
   ) {
     this.modalCompnent = new ModalComponent();
   }
@@ -54,13 +56,34 @@ export class ProjetoDetailComponent implements OnInit {
     this.projectService.getDetailsProjectForId(this.paramIdProjeto)
       .subscribe({
         next: (data: any) => {
+          console.log(data);
           this.projeto = data;
+          this.loadWeatherWidget(data.cidadeId);
         },
         error: (err) => {
           this.projeto = null;
         }
       });
   }
+
+  loadWeatherWidget(cidadeId: number): void {
+    (window as any).myWidgetParam = (window as any).myWidgetParam || [];
+    (window as any).myWidgetParam.push({
+      id: 12,
+      cityid: cidadeId,
+      appid: 'dd3ce94aa0b74ec4b1cc3086d70a3c0d',
+      units: 'metric',
+      lang: 'pt_br',
+      containerid: 'openweathermap-widget-12',
+    });
+
+    const script = this.renderer.createElement('script');
+    script.async = true;
+    script.charset = 'utf-8';
+    script.src = '//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js';
+    this.renderer.appendChild(document.body, script);
+  }
+
 
   handleBack(){
     window.history.back();

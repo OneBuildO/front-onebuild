@@ -1,0 +1,6 @@
+export enum EStatusProjeto {
+    NOVO_PROJETO = 'NOVO_PROJETO',
+    EM_ANDAMENTO = 'EM_ANDAMENTO',
+    CONCLUIDO = 'CONCLUIDO',
+    PAUSADO = 'PAUSADO'
+}

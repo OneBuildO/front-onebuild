@@ -4,11 +4,16 @@ import {HttpClient} from "@angular/common/http";
 import {first} from "rxjs";
 import {AuthService} from "./auth.service";
 import {ProjetoDetahesDTO, ProjetoResumoDTO} from "../models/projeto.model";
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class ProjetoService {
 
   private readonly _apiBaseUrl = `${environment.apiUrl}`;
+  private openweathermapGeoUrl = 'https://api.openweathermap.org/geo/1.0/direct';
+  private openweathermapWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather';
+  private openweathermapKey = 'dd3ce94aa0b74ec4b1cc3086d70a3c0d';
 
   constructor(
     private readonly httpClient: HttpClient,
@@ -77,5 +82,34 @@ export class ProjetoService {
       responseType: "text",
       headers : this.authService.generateHeader()
     }).pipe(first())
+  }
+
+  getCoordinates(city: string, state: string): Observable<any> {
+    const url = `${this.openweathermapGeoUrl}?q=${city},BR&limit=5&appid=${this.openweathermapKey}`;
+
+    return this.httpClient.get(url).pipe(
+      map((response: any) => {
+        if (!response || response.length === 0) {
+          throw new Error('Nenhuma cidade encontrada.');
+        }
+
+        const cityData = response.find((item: any) => item.state === state);
+
+        if (cityData) {
+          return {
+            latitude: cityData.lat,
+            longitude: cityData.lon
+          };
+        } else {
+          throw new Error('Cidade não encontrada no estado especificado.');
+        }
+      })
+    );
+  }
+
+  getCityId(lat: number, lon: number): Observable<number> {
+    return this.httpClient.get<any>(`${this.openweathermapWeatherUrl}?lat=${lat}&lon=${lon}&appid=${this.openweathermapKey}`).pipe(
+      map(response => response.id)
+    );
   }
 }

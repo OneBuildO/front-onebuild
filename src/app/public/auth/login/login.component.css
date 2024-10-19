@@ -80,11 +80,11 @@
   border-radius: 16px;
   cursor: pointer;
   transition: background 0.3s ease;
+}
 
-  span {
-    color: var(--font-color-dark);
-    font-weight: 600;
-  }
+.button-primary span {
+  color: var(--font-color-dark);
+  font-weight: 600;
 }
 
 .button-primary:hover {
@@ -94,12 +94,12 @@
 .esqueci-senha {
   color: var(--font-color-dark);
   text-align: center;
+}
 
-  a {
-    color: var(--color-info);
-    cursor: pointer;
-    font-weight: 600;
-  }
+.esqueci-senha a {
+  color: var(--color-info);
+  cursor: pointer;
+  font-weight: 600;
 }
 
 .password-container button {
