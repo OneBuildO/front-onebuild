@@ -117,9 +117,9 @@
 }
 
 .alert-success {
-  background-color: #d4edda; /* Fundo verde claro */
-  border-color: #c3e6cb;
-  color: #155724;
+  background: #d8edd4;
+  border-color: #c7e6c3;
+  color: var(--color-green);
   padding: 15px;
   border-radius: 4px;
   position: relative;
@@ -130,7 +130,7 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  color: #155724;
+  color: var(--color-green);
   text-decoration: none;
   font-size: 20px;
   cursor: pointer;
