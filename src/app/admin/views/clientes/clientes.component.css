@@ -1,124 +1,143 @@
 .title-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 24px;
-    margin-bottom: 32px;
-    background: #e8e8e8;
-    border-radius: 8px;
-  }
-  
-  .title-header h1 {
-    font-size: 1.3em;
-    font-weight: 400;
-    color: var(--font-color-dark);
-  }
-  
-  .title-header span {
-    font-weight: 700;
-    color: var(--accent-color);
-  }
-  
-  .container-btn{
-    display: flex;
-  }
-  
-  .button-adicionar{
-    background: var(--gradient-primary);
-    font-weight: 700;
-  }
-  
-  .button-adicionar:hover{
-    background: var(--gradient-secondary);
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  margin-bottom: 32px;
+  background: #e8e8e8;
+  border-radius: 8px;
+}
 
+.title-header h1 {
+  font-size: 1.3em;
+  font-weight: 400;
+  color: var(--font-color-dark);
+}
 
-  /* MODAL */
-  .modal-header{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
+.title-header span {
+  font-weight: 700;
+  color: var(--accent-color);
+}
 
-  .close-modal{
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  }
+.container-btn {
+  display: flex;
+}
 
-  .modal-header h3{
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--accent-color);
-  }
+.button-adicionar {
+  background: var(--gradient-primary);
+  font-weight: 700;
+}
 
-  .modal-header hr{
-    width: 100%;
-    color: var(--grey-50);
-    margin-top: 4px;
-    margin-bottom: 24px;
-    border: none;
-    height: 1px;
-    background-color: var(--grey-50);
-  }
+.button-adicionar:hover {
+  background: var(--gradient-secondary);
+}
 
-  .modal-header .close {
-    background: none;
-    color: var(--grey-50);
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
-  }
+/* MODAL */
+.modal-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 
-  .container-modal{
-    width: 500px;
-    margin: 1rem;
-  }
+.close-modal {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
 
-  .button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 16px;
-    margin: 1rem;
-    padding-top: 16px;
-  }
-  
-  .button-confirm {
-    background: var(--color-sucess);
-    color: var(--font-color-light);
-    width: 50%;
-    height: 40px;
-    border-radius: 16px;
-  }
-  
-  .button-cancel {
-    color: var(--accent-color);
-    border: 1px solid var(--accent-color);
-    width: 50%;
-    height: 40px;
-    border-radius: 16px;
-  }
+.modal-header h3 {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--accent-color);
+}
 
-  .button-confirm:hover {
-    background: var(--color-green);
-    color: var(--font-color-light);
-  }
+.modal-header hr {
+  width: 100%;
+  color: var(--grey-50);
+  margin-top: 4px;
+  margin-bottom: 24px;
+  border: none;
+  height: 1px;
+  background-color: var(--grey-50);
+}
 
-  .button-cancel:hover {
-    background: var(--accent-color);
-    color: var(--font-color-light);
-  }
+.modal-header .close {
+  background: none;
+  color: var(--grey-50);
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
 
-  .form-label span{
-    color: var(--grey-50);
-    font-size: 10px;
-  }
+.container-modal {
+  width: 500px;
+  margin: 1rem;
+}
 
-  @media screen and (max-width: 768px){
-    .container-modal{
-      width: 90%;
-    }
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin: 1rem;
+  padding-top: 16px;
+}
+
+.button-confirm {
+  background: var(--color-sucess);
+  color: var(--font-color-light);
+  width: 50%;
+  height: 40px;
+  border-radius: 16px;
+}
+
+.button-cancel {
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  width: 50%;
+  height: 40px;
+  border-radius: 16px;
+}
+
+.button-confirm:hover {
+  background: var(--color-green);
+  color: var(--font-color-light);
+}
+
+.button-cancel:hover {
+  background: var(--accent-color);
+  color: var(--font-color-light);
+}
+
+.form-label span {
+  color: var(--grey-50);
+  font-size: 10px;
+}
+
+.alert-success {
+  background-color: #d4edda; /* Fundo verde claro */
+  border-color: #c3e6cb;
+  color: #155724;
+  padding: 15px;
+  border-radius: 4px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.alert-success .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #155724;
+  text-decoration: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .container-modal {
+    width: 90%;
   }
+}

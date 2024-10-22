@@ -66,6 +66,8 @@ export class ClientesComponent implements OnInit {
     estado: new FormControl('', {validators: [Validators.required]}),
     cidade: new FormControl('', {validators: [Validators.required]}),
   });
+
+  successMessage: string | null = null;
   
 
   ngOnInit(): void {
@@ -83,6 +85,17 @@ export class ClientesComponent implements OnInit {
           this.listaClientes = data
         }
       });
+
+    const successMessage = localStorage.getItem('successMessage');
+    if (successMessage) {
+      this.successMessage = successMessage;
+      localStorage.removeItem('successMessage');
+
+      // Define um timer para fechar a mensagem após 30 segundos
+      setTimeout(() => {
+        this.successMessage = null;
+      }, 10000);
+    }
   }
 
   handleModal() {
@@ -127,7 +140,10 @@ export class ClientesComponent implements OnInit {
       this.listaCidades = []; // Limpar a lista de cidades
     }
   }
-  
+
+  closeSuccessMessage(): void {
+    this.successMessage = null;
+  }
   
   onModalCloseHandler(event: boolean) {
     this.showModalAdd = event;
@@ -137,6 +153,7 @@ export class ClientesComponent implements OnInit {
     this.serviceCliente.deleteClient(event)
       .subscribe({
         next: (data: any) => {
+          localStorage.setItem('successMessage', `Cliente ${event.nome} removido com sucesso!`); 
           window.location.reload()
         }
       });
