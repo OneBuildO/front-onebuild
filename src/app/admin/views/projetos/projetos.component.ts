@@ -83,6 +83,7 @@ export class ProjetosComponent implements OnInit {
 
   EStatusProjeto = EStatusProjeto; // Adicione o enum ao contexto do componente
   statusProjetoArr: string[] = [];
+  successMessage: string | null = null;
 
   plantaBaixa: File[] = [];
   // projetoForm: FormGroup;
@@ -125,6 +126,24 @@ export class ProjetosComponent implements OnInit {
             this.isLoading = false;
           },
         });
+    }
+
+    // Recupera o ID do cliente selecionado do localStorage
+    const storedClientId = localStorage.getItem('selectedClientId');
+    if (storedClientId) {
+      this.idClienteSelecionado = parseInt(storedClientId, 10);
+      this.getDataProject();
+      localStorage.removeItem('selectedClientId'); // Remove o ID do cliente do localStorage após recuperar
+    }
+
+    const successMessage = localStorage.getItem('successMessage');
+    if (successMessage) {
+      this.successMessage = successMessage;
+      localStorage.removeItem('successMessage');
+
+      setTimeout(() => {
+        this.successMessage = null;
+      }, 20000);
     }
   }
 
@@ -354,9 +373,19 @@ export class ProjetosComponent implements OnInit {
   handleRemoveProject(project: ProjetoResumoDTO) {
     this.serviceProject.deleteProject(project).subscribe({
       next: (data: any) => {
-        window.location.reload();
+        // Verifica se há um cliente selecionado e mantém o ID no localStorage
+        if (this.idClienteSelecionado !== null) {
+          localStorage.setItem('selectedClientId', this.idClienteSelecionado.toString());
+        }
+        // Atualiza a tabela de projetos sem recarregar a página
+        this.getDataProject();
+        this.successMessage = `Projeto ${project.categoria} removido com sucesso!`;
       },
-      error: (err) => {},
+      error: (err) => {
+        this.tipoAlerta = AlertType.Danger;
+        this.serverMessages.push(err.error);
+        this.isLoading = false;
+      },
     });
   }
 
@@ -442,6 +471,10 @@ export class ProjetosComponent implements OnInit {
     } else {
       this.listaCidades = [];
     }
+  }
+
+  closeSuccessMessage(): void {
+    this.successMessage = null;
   }
 
   protected onAlertCloseHandler = (e: any) => {

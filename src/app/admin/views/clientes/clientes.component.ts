@@ -91,7 +91,6 @@ export class ClientesComponent implements OnInit {
       this.successMessage = successMessage;
       localStorage.removeItem('successMessage');
 
-      // Define um timer para fechar a mensagem após 30 segundos
       setTimeout(() => {
         this.successMessage = null;
       }, 20000);

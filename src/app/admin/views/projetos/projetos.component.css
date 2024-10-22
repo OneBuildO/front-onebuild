@@ -137,6 +137,27 @@ label[for="arquivo"] mat-icon {
   margin-bottom: 8px; /* Espaçamento entre o ícone e o texto */
 }
 
+/* ALERTA DE DELETE */
+.alert-success {
+  background: #d8edd4;
+  border-color: #c7e6c3;
+  color: var(--color-green);
+  padding: 15px;
+  border-radius: 4px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.alert-success .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: var(--color-green);
+  text-decoration: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
   .container-modal {
     width: 90%;
