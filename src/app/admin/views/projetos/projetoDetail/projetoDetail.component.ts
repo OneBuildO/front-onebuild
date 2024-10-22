@@ -3,7 +3,7 @@ import { Chart, registerables } from 'chart.js';
 import { pageTransition } from 'src/app/shared/utils/animations';
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 import { DataTableComponent } from 'src/app/shared/components/data-table/data-table.component';
-import { NgClass, NgForOf, NgIf } from '@angular/common';
+import { NgClass, NgForOf, NgIf, CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SpinnerComponent } from 'src/app/shared/components/spinner/spinner.component';
 import { AlertComponent } from 'src/app/shared/components/alert/alert.component';
@@ -28,6 +28,7 @@ Chart.register(...registerables);
     NgClass,
     AlertComponent,
     NgForOf,
+    CommonModule
   ],
   animations: [pageTransition],
 })

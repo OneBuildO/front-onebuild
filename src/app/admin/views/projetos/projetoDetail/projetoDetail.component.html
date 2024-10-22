@@ -16,7 +16,7 @@
               <img [src]="'http://openweathermap.org/img/wn/' + weather?.weather[0].icon + '@2x.png'" alt="Ícone clima">
             </div>
             <div class="temperatura">
-              <span>{{ (weather?.main.temp) }}°C</span>
+              <span>{{ weather?.main.temp | number:'1.0-0' }}°C</span>
             </div>
           </div>
           <div class="descricao">
