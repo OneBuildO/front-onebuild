@@ -30,19 +30,19 @@
 }
 
 .clima {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.6);
   border-radius: 8px;
   padding: 16px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
-  gap: 8px;
+  gap: 2px;
 }
 
 .title-clima h3 {
   color: #252525;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 700;
 }
 
@@ -50,23 +50,23 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 8px;
+  text-align: center;
 }
 
 .container-tempo .icon {
-  width: 64px;
-  height: 64px;
+  width: 55px;
+  height: 55px;
 }
 
 .container-tempo span {
   color: #252525;
-  font-size: 30px;
+  font-size: 24px;
   font-weight: 900;
 }
 
-.body-clima .descricao {
+.descricao h6 {
   color: var(--font-color-dark);
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 400;
   text-align: center;
 }
