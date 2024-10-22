@@ -95,6 +95,7 @@
   /* background: var(--bg-grey-light-color); */
   font-size: 14px;
   color: var(--font-color-dark);
+  min-height: 35px;
 }
 
 /* BUTTON */
