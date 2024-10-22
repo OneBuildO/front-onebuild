@@ -98,24 +98,23 @@
 }
 
 /* BUTTON */
-.container-botao{
-    display: flex;
-    justify-content: flex-start;
-    gap: 16px;
-    padding: 4px;
-    margin: 16px;
+.container-botao {
+  display: flex;
+  justify-content: flex-start;
+  padding: 4px;
+  margin: 16px;
 }
 
-.div-buttons{
+.div-buttons {
   display: flex;
-  justify-content: space-between;
-  gap: 16px;
+  padding: 24px;
+  gap: 24px;
 }
 
 .button-back {
   color: var(--accent-color);
   border: 1px solid var(--accent-color);
-  width: 120px;
+  width: 130px;
   height: 40px;
   border-radius: 16px;
 }
@@ -128,9 +127,14 @@
 .button-atualizar {
   background: var(--color-sucess);
   color: var(--font-color-light);
-  width: 50%;
+  width: 130px;
   height: 40px;
   border-radius: 16px;
+}
+
+.button-atualizar:hover {
+  background: var(--color-green);
+  color: var(--font-color-light);
 }
 
 @media screen and (max-width: 768px) {
