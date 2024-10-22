@@ -11,6 +11,12 @@
     </div>
   </div>
 
+  <!-- Mensagem de sucesso -->
+  <div *ngIf="successMessage" class="alert alert-success" role="alert">
+    {{ successMessage }}
+    <a class="close" (click)="closeSuccessMessage()">&times;</a>
+  </div>
+
   <app-modal [show]="showModalAdd" size="max-w-7xl" [footer]="false" (closeModal)="onModalCloseHandler($event)">
     <div class="container-modal sm:items-start">
       <div class="modal-header">

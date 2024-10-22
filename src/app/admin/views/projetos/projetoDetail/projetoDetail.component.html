@@ -5,7 +5,26 @@
         <h3>{{ projeto?.nomeProjeto }}</h3>
         <p>{{ projeto?.categoria}}</p>
       </div>
-      <div id="openweathermap-widget-12"></div>
+
+      <div class="clima">
+        <div class="title-clima">
+          <h3>Clima de {{ weather?.name }}</h3>
+        </div>
+        <div class="body-clima">
+          <div class="container-tempo">
+            <div class="icon">
+              <img [src]="'http://openweathermap.org/img/wn/' + weather?.weather[0].icon + '@2x.png'" alt="Ícone clima">
+            </div>
+            <div class="temperatura">
+              <span>{{ weather?.main.temp | number:'1.0-0' }}°C</span>
+            </div>
+          </div>
+          <div class="descricao">
+            <h6>Vento: {{ weather?.wind.speed }} m/s, {{ weather?.weather[0].description }}</h6>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <div class="detail-content">
@@ -52,16 +71,35 @@
               <div>
                 <dt class="text-sm font-medium text-gray-500">Arquivos</dt>
                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex">
-                  <i class="bi bi-filetype-pdf text-2xl cursor-pointer hover:text-danger transition-all mx-4">1</i>
-                  <i class="bi bi-filetype-pdf text-2xl cursor-pointer hover:text-danger transition-all mx-4">2</i>
-                  <i class="bi bi-filetype-pdf text-2xl cursor-pointer hover:text-danger transition-all mx-4">3</i>
+                  <div class="flex items-center mb-2">
+                    <i class="bi bi-filetype-pdf text-2xl mr-2"></i>
+                    <a target="_blank" class="hover:text-danger transition-all">Arquivo 1</a>
+                  </div>
+                  <div class="flex items-center mb-2">
+                    <i class="bi bi-filetype-pdf text-2xl mr-2"></i>
+                    <a target="_blank" class="hover:text-danger transition-all">Arquivo 1</a>
+                  </div>
                 </dd>
               </div>
             </div>
 
-            <div class="colunns"></div>
+            <div class="colunns">
+              <div class="planta-baixa">
+                <dt class="text-sm font-medium text-gray-500">Planta Baixa</dt>
+                <dd class="info-input"></dd>
+              </div>
+              <div class="localizacao"></div>
+            </div>
           </dl>
         </div>
+      </div>
+      <div class="div-buttons">
+        <button type="button" class="button-back" (click)="handleBack()">
+          Voltar
+        </button>
+        <button type="button" class="button-atualizar">
+          Atualizar
+        </button>
       </div>
   </div>
 </div>
@@ -76,14 +114,5 @@
 <!--          [show]="serverMessages.length > 0"-->
 <!--          [type]="tipoAlerta"-->
 <!--        ></app-alert>-->
-
-    <div class="div-buttons">
-      <button type="button" class="button-back" (click)="handleBack()">
-        Voltar
-      </button>
-      <button type="button" class="button-atualizar">
-        Atualizar
-      </button>
-    </div>
   </div>
 </div>
