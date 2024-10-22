@@ -108,7 +108,7 @@ export class ProjetoService {
   }
 
   getWeatherData(lat: number, lon: number): Observable<any> {
-    return this.httpClient.get<any>(`${this.openweathermapWeatherUrl}?lat=${lat}&lon=${lon}&appid=${this.openweathermapKey}&units=metric&lang=pt_br`).pipe(
+    return this.httpClient.get<any>(`${this.openweathermapWeatherUrl}?lat=${lat}&lon=${lon}&appid=${this.openweathermapKey}&lang=pt_br&units=metric`).pipe(
       map(response => response)
     );
   }

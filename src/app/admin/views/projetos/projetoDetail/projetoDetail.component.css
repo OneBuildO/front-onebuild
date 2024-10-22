@@ -4,10 +4,13 @@
 }
 
 .detail-header {
-  background: var(--accent-color);
+  background: var(--gradient-primary);
   padding: 16px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .detail-title {
@@ -24,6 +27,48 @@
   color: var(--font-color-dark);
   font-size: 16px;
   font-weight: 500;
+}
+
+.clima {
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+  gap: 8px;
+}
+
+.title-clima h3 {
+  color: #252525;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.container-tempo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.container-tempo .icon {
+  width: 64px;
+  height: 64px;
+}
+
+.container-tempo span {
+  color: #252525;
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.body-clima .descricao {
+  color: var(--font-color-dark);
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
 }
 
 .detail-col-grid {
