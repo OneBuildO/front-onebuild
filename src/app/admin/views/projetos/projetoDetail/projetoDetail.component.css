@@ -11,6 +11,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 
 .detail-title {
@@ -19,7 +20,7 @@
 
 .detail-title h3 {
   color: var(--font-color-dark);
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 700;
 }
 
