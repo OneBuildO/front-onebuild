@@ -72,7 +72,7 @@
                 <dt class="text-sm font-medium text-gray-500">Arquivos</dt>
                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex">
                   <div class="flex items-center mb-2">
-                    <i class="bi bi-filetype-pdf text-2xl mr-2"></i>
+                    <img src="assets/images/arquivo-icon.svg" alt="Arquivo Icon" class="mr-2" style="width: 24px; height: 24px;">
                     <a target="_blank" class="hover:text-danger transition-all">Nome do arquivo</a>
                   </div>
                 </dd>
@@ -82,10 +82,10 @@
             <div class="colunns">
               <div class="planta-baixa">
                 <dt class="text-sm font-medium text-gray-500">Planta Baixa</dt>
-                <dd class="info-input">
-                  <img *ngIf="hasPlantaBaixa; else noPlantaBaixa" src="assets/images/planta-baixa.png" alt="Planta Baixa" style="width: auto; height: 350px;">
+                <dd class="info-input" style="display: flex; justify-content: center;">
+                  <img *ngIf="hasPlantaBaixa; else noPlantaBaixa" src="assets/images/planta-baixa.png" alt="Planta Baixa" style="width: auto; height: 300px;">
                   <ng-template #noPlantaBaixa>
-                    <img src="assets/images/sem-planta-baixa.png" alt="Sem Planta Baixa" style="width: auto; height: 350px;">
+                    <img src="assets/images/sem-planta-baixa.png" alt="Sem Planta Baixa" style="width: auto; height: 300px;">
                   </ng-template>
                 </dd>
               </div>
