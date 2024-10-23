@@ -273,7 +273,7 @@
                       [columnData]="columnData"
                       (onDeleteEmitter)="handleRemoveProject($event)"
                       (onEditEmitter)="onEditProjectHandler($event)"/>
-
+    
   <div *ngIf="projects.length == 0 && idClienteSelecionado == 0">
     <p>Nenhum projeto cadastrado</p>
   </div>

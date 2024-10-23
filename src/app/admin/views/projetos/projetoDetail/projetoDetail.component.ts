@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2, Output, EventEmitter } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { pageTransition } from 'src/app/shared/utils/animations';
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
@@ -34,6 +34,9 @@ Chart.register(...registerables);
   animations: [pageTransition],
 })
 export class ProjetoDetailComponent implements OnInit {
+
+  @Output() onEditEmitter = new EventEmitter<ProjetoDetahesDTO>();
+
   constructor(
     private projectService: ProjetoService,
     private renderer: Renderer2
@@ -53,6 +56,7 @@ export class ProjetoDetailComponent implements OnInit {
   tipoAlerta = AlertType.Warning;
   modalCompnent: ModalComponent;
   naoInformado = 'Não informado';
+  hasPlantaBaixa: boolean = false;
 
   map!: mapboxgl.Map;
   style = 'mapbox://styles/mapbox/streets-v11';
@@ -62,6 +66,9 @@ export class ProjetoDetailComponent implements OnInit {
       next: (data: any) => {
         console.log(data);
         this.projeto = data;
+
+        // Verifica a presença do arquivo de planta baixa
+        this.hasPlantaBaixa = !!data.plantaBaixaUrl;
 
         this.projectService
           .getWeatherData(data.latitude, data.longitude)
@@ -103,6 +110,13 @@ export class ProjetoDetailComponent implements OnInit {
 
   handleBack() {
     window.history.back();
+  }
+
+  handleEdit() {
+    // Emite o evento de edição
+    if (this.projeto) {
+      this.onEditEmitter.emit(this.projeto);
+    }
   }
 
   protected readonly formatDatePTBR = formatDatePTBR;
