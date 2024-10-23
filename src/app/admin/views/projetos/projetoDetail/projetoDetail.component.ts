@@ -11,6 +11,7 @@ import { AlertType } from 'src/app/shared/components/alert/alert.type';
 import { ProjetoService } from 'src/app/_core/services/projeto.service';
 import { ProjetoDetahesDTO } from 'src/app/_core/models/projeto.model';
 import { formatDatePTBR } from 'src/app/shared/utils/Utils';
+import * as mapboxgl from 'mapbox-gl';
 
 Chart.register(...registerables);
 
@@ -28,7 +29,7 @@ Chart.register(...registerables);
     NgClass,
     AlertComponent,
     NgForOf,
-    CommonModule
+    CommonModule,
   ],
   animations: [pageTransition],
 })
@@ -53,6 +54,9 @@ export class ProjetoDetailComponent implements OnInit {
   modalCompnent: ModalComponent;
   naoInformado = 'Não informado';
 
+  map!: mapboxgl.Map;
+  style = 'mapbox://styles/mapbox/streets-v11';
+
   ngOnInit(): void {
     this.projectService.getDetailsProjectForId(this.paramIdProjeto).subscribe({
       next: (data: any) => {
@@ -65,6 +69,13 @@ export class ProjetoDetailComponent implements OnInit {
             next: (weatherData: any) => {
               console.log('Dados do clima:', weatherData);
               this.weather = weatherData;
+              this.projectService
+                .getCoordinatesMapBox()
+                .subscribe((response) => {
+                  const coordinates = response.features[0].geometry.coordinates;
+                  console.log('Coordenadas recebidas:', coordinates);
+                  this.initializeMap(coordinates);
+                });
             },
             error: (err) => {
               console.error('Erro ao buscar dados do clima:', err);
@@ -75,6 +86,18 @@ export class ProjetoDetailComponent implements OnInit {
       error: (err) => {
         this.projeto = null;
       },
+    });
+  }
+
+  initializeMap(coordinates: [number, number]): void {
+    this.map = new mapboxgl.Map({
+      accessToken:
+        'pk.eyJ1IjoianZpY3RvcjAxMSIsImEiOiJjbTJrdDF3bjEwNHZuMmxvZXFzbmR2ZXZjIn0.i54Xkjxm3rb7vYvXt2Sq_w',
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: coordinates,
+      zoom: 18,
+      attributionControl: false,
     });
   }
 

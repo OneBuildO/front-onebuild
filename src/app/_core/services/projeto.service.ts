@@ -14,6 +14,8 @@ export class ProjetoService {
   private openweathermapGeoUrl = 'https://api.openweathermap.org/geo/1.0/direct';
   private openweathermapWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather';
   private openweathermapKey = 'dd3ce94aa0b74ec4b1cc3086d70a3c0d';
+  private mapBoxApiKey = 'pk.eyJ1IjoianZpY3RvcjAxMSIsImEiOiJjbTJrdDF3bjEwNHZuMmxvZXFzbmR2ZXZjIn0.i54Xkjxm3rb7vYvXt2Sq_w';
+  private geocodeApiUrl = 'https://api.mapbox.com/search/geocode/v6/forward';
 
   constructor(
     private readonly httpClient: HttpClient,
@@ -111,5 +113,11 @@ export class ProjetoService {
     return this.httpClient.get<any>(`${this.openweathermapWeatherUrl}?lat=${lat}&lon=${lon}&appid=${this.openweathermapKey}&lang=pt_br&units=metric`).pipe(
       map(response => response)
     );
+  }
+
+  getCoordinatesMapBox(): Observable<any> {
+    const address = encodeURIComponent('Travessa Raimundo Maciel Pereira, Vila Gonçalves, Russas - Ceará, 62900-000, Brazil');
+    const url = `${this.geocodeApiUrl}?q=${address}&proximity=ip&access_token=${this.mapBoxApiKey}`;
+    return this.httpClient.get(url);
   }
 }
