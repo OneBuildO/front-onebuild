@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2, Output, EventEmitter } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { pageTransition } from 'src/app/shared/utils/animations';
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
@@ -11,6 +11,7 @@ import { AlertType } from 'src/app/shared/components/alert/alert.type';
 import { ProjetoService } from 'src/app/_core/services/projeto.service';
 import { ProjetoDetahesDTO } from 'src/app/_core/models/projeto.model';
 import { formatDatePTBR } from 'src/app/shared/utils/Utils';
+import * as mapboxgl from 'mapbox-gl';
 
 Chart.register(...registerables);
 
@@ -28,11 +29,14 @@ Chart.register(...registerables);
     NgClass,
     AlertComponent,
     NgForOf,
-    CommonModule
+    CommonModule,
   ],
   animations: [pageTransition],
 })
 export class ProjetoDetailComponent implements OnInit {
+
+  @Output() onEditEmitter = new EventEmitter<ProjetoDetahesDTO>();
+
   constructor(
     private projectService: ProjetoService,
     private renderer: Renderer2
@@ -52,6 +56,10 @@ export class ProjetoDetailComponent implements OnInit {
   tipoAlerta = AlertType.Warning;
   modalCompnent: ModalComponent;
   naoInformado = 'Não informado';
+  hasPlantaBaixa: boolean = false;
+
+  map!: mapboxgl.Map;
+  style = 'mapbox://styles/mapbox/streets-v11';
 
   ngOnInit(): void {
     this.projectService.getDetailsProjectForId(this.paramIdProjeto).subscribe({
@@ -59,12 +67,22 @@ export class ProjetoDetailComponent implements OnInit {
         console.log(data);
         this.projeto = data;
 
+        // Verifica a presença do arquivo de planta baixa
+        this.hasPlantaBaixa = !!data.plantaBaixaUrl;
+
         this.projectService
           .getWeatherData(data.latitude, data.longitude)
           .subscribe({
             next: (weatherData: any) => {
               console.log('Dados do clima:', weatherData);
               this.weather = weatherData;
+              this.projectService
+                .getCoordinatesMapBox()
+                .subscribe((response) => {
+                  const coordinates = response.features[0].geometry.coordinates;
+                  console.log('Coordenadas recebidas:', coordinates);
+                  this.initializeMap(coordinates);
+                });
             },
             error: (err) => {
               console.error('Erro ao buscar dados do clima:', err);
@@ -78,8 +96,27 @@ export class ProjetoDetailComponent implements OnInit {
     });
   }
 
+  initializeMap(coordinates: [number, number]): void {
+    this.map = new mapboxgl.Map({
+      accessToken:
+        'pk.eyJ1IjoianZpY3RvcjAxMSIsImEiOiJjbTJrdDF3bjEwNHZuMmxvZXFzbmR2ZXZjIn0.i54Xkjxm3rb7vYvXt2Sq_w',
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: coordinates,
+      zoom: 18,
+      attributionControl: false,
+    });
+  }
+
   handleBack() {
     window.history.back();
+  }
+
+  handleEdit() {
+    // Emite o evento de edição
+    if (this.projeto) {
+      this.onEditEmitter.emit(this.projeto);
+    }
   }
 
   protected readonly formatDatePTBR = formatDatePTBR;

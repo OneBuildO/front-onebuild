@@ -290,7 +290,7 @@ export class ProjetosComponent implements OnInit {
           this.serviceProject.saveNewProject(cadastroProjeto).subscribe({
             next: (data: any) => {
               this.serviceFile
-                .saveFileInAwsS3(this.arquivosProjeto, data)
+                .saveFileInAwsS3(this.arquivosProjeto, this.plantaBaixa, data)
                 .subscribe({
                   next: (data: any) => {
                     console.log('Arquivos salvos com sucesso:', data);
