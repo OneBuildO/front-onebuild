@@ -15,6 +15,7 @@ Chart.register(...registerables);
 @Component({
     selector: 'app-fornecedores',
     templateUrl: './fornecedores.component.html',
+    styleUrls: ['./fornecedores.component.css'],
     standalone: true,
   imports: [
     ModalComponent,
