@@ -185,12 +185,32 @@
             <!-- ENDEREÇO -->
             <div class="col-span-12 md:col-span-6">
               <div class="form-group">
-                <label for="endereco" class="form-label text-left">
-                  Endereço <span>(opcional)</span>
-                </label>
-                <input type="text" id="endereco" formControlName="endereco" placeholder="Ex: Rua Dom Lino 656" class="form-control"/>
+                <label for="endereco" class="form-label required text-left">Endereço</label>
+                <input 
+                  id="endereco" 
+                  type="text" 
+                  class="form-input" 
+                  placeholder="Digite o endereço"
+                  (input)="onSearch($event)"
+                  [value]="enderecoCompleto || ''"
+                />
+                <small 
+                  *ngIf="projectForm.get('endereco')?.invalid && projectForm.get('endereco')?.touched" 
+                  class="text-red-500 text-left">
+                  Selecione um endereço válido da lista.
+                </small>
+                
+                <div *ngIf="enderecosSugestoes.length > 0" class="suggestions-list">
+                  <div 
+                    *ngFor="let endereco of enderecosSugestoes" 
+                    class="suggestion-item" 
+                    (click)="selectEndereco(endereco)">
+                    {{ endereco.name || endereco.full_address }}
+                  </div>
+                </div>
               </div>
             </div>
+             
 
             <!-- ESTADO -->
             <div class="col-span-12 md:col-span-6">
