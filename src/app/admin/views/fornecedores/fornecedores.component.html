@@ -11,33 +11,38 @@
     </div>
   </div>
 
-  <div class="container-fornecedores">
-    <div class="body-card">
-      <div class="col-img">
-        <img src="assets/icons/padrao-fornecedor.svg">
-      </div>
-      <div class="col-dados">
-        <div class="container-title-star">
-          <div class="title-dados">
-            <h3>One Build</h3>
-            <p>Fortaleza - Ceará</p>
-          </div>
-          <div class="stars">
-            <h3>5.0</h3>
-            <div class="stars-mark">
-              <span class="star filled">&#9733;</span>
-              <span class="star filled">&#9733;</span>
-              <span class="star filled">&#9733;</span>
-              <span class="star filled">&#9733;</span>
-              <span class="star">&#9734;</span>
+  <div class="body-fornecedor">
+    <h2>Fornecedores recomendados</h2>
+    <div class="container-fornecedores">
+      <div class="body-card">
+        <div class="col-img">
+          <img src="assets/icons/padrao-fornecedor.svg">
+        </div>
+        <div class="col-dados">
+          <div class="container-title-star">
+            <div class="title-dados">
+              <h3>One Build</h3>
+              <p>Fortaleza - Ceará</p>
+            </div>
+            <div class="stars">
+              <h3>5.0</h3>
+              <div class="stars-mark">
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star">&#9734;</span>
+              </div>
             </div>
           </div>
+          <button>Saiba mais ></button>
         </div>
-        <button>Saiba mais ></button>
       </div>
     </div>
+    <h2>Gráficos</h2>
+    <div class="container-dados"></div>
   </div>
-  <div class="container-dados"></div>
+ 
 
   <!-- Example Modal -->
   <app-modal [show]="showModal" [footer]="false" (closeModal)="onModalCloseHandler($event)">
