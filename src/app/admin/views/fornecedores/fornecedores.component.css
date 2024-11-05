@@ -1,6 +1,6 @@
 .container-modal {
-    width: 400px;
-    margin: 1rem;
+  width: 400px;
+  margin: 1rem;
 }
 
 .title-header {
@@ -109,4 +109,80 @@
 
 .button-cancel:hover {
   background: var(--gradient-secondary);
+}
+
+/* CARDS */
+.container-fornecedores {
+  display: flex;
+}
+
+.body-card {
+  background: var(--font-color-light);
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 1rem;
+  padding: 2rem;
+  width: 400px;
+  height: 200px;
+  display: flex;
+  gap: 32px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.body-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.col-dados {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.col-dados button {
+  color: var(--color-info-light);
+}
+
+.col-dados button:hover {
+  color: var(--color-info);
+}
+
+.title-dados h3 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.title-dados p {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.container-title-star {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stars {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stars h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--grey-text);
+}
+
+.star {
+  font-size: 28px;
+  background: none;
+  color: var(--grey-50);
+}
+
+.star.filled {
+  color: var(--primary-color);
 }
