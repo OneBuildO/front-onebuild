@@ -36,8 +36,8 @@
           <table class="ng-wind-table tabela-body">
             <thead class="ng-wind-table-header">
             <tr class="grid-col">
-              <th scope="col" class="ng-wind-header-item">Cliente</th>
               <th scope="col" class="ng-wind-header-item">Projeto</th>
+              <th scope="col" class="ng-wind-header-item">Cliente</th>
               <th scope="col" class="ng-wind-header-item">Contato</th>
               <th scope="col" class="ng-wind-header-item">Cidade</th>
               <th scope="col" class="ng-wind-header-item">Estado</th>
@@ -48,12 +48,13 @@
             <tbody class="container-itens">
               @for (cliente of listaClientes; track cliente?.idUsuario) {
                 <tr class="itens-tr">
-                  <td class="ng-wind-data-item font-medium text-gray-800 whitespace-nowrap">
-                    <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline" (click)="redirectProjectoClient(cliente?.id)">{{ cliente?.nome }}</button>
-                  </td>
 
                   <td class="ng-wind-data-item font-medium text-gray-800" title="{{ cliente?.projeto ? cliente?.projeto : '-' }}">
-                    {{ cliente?.projeto ? cliente?.projeto : '-' }}
+                    <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline" (click)="redirectProjectoClient(cliente?.id)">{{ cliente?.projeto ? cliente?.projeto : '-' }}</button>
+                  </td>
+
+                  <td class="ng-wind-data-item font-medium text-gray-800 whitespace-nowrap">
+                    {{ cliente?.nome }}
                   </td>
 
                   <td class="ng-wind-data-item font-medium text-gray-800 whitespace-nowrap">
