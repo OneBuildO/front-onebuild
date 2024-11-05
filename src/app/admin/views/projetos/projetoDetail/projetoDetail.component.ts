@@ -56,6 +56,8 @@ export class ProjetoDetailComponent implements OnInit {
 
   map!: mapboxgl.Map;
   style = 'mapbox://styles/mapbox/streets-v11';
+  mapBoxApiKey =
+    'pk.eyJ1IjoianZpY3RvcjAxMSIsImEiOiJjbTJrdDF3bjEwNHZuMmxvZXFzbmR2ZXZjIn0.i54Xkjxm3rb7vYvXt2Sq_w';
 
   ngOnInit(): void {
     this.projectService.getDetailsProjectForId(this.paramIdProjeto).subscribe({
@@ -69,12 +71,22 @@ export class ProjetoDetailComponent implements OnInit {
             next: (weatherData: any) => {
               console.log('Dados do clima:', weatherData);
               this.weather = weatherData;
+              this.initializeMap([-38.528, -3.728]); // Inicialize o mapa em uma posição padrão
+
+              // Obtenha as coordenadas a partir do Mapbox ID
               this.projectService
-                .getCoordinatesMapBox()
+                .getCoordinatesMapBox(data.mapbox_id)
                 .subscribe((response) => {
-                  const coordinates = response.features[0].geometry.coordinates;
-                  console.log('Coordenadas recebidas:', coordinates);
-                  this.initializeMap(coordinates);
+                  if (response.features && response.features.length > 0) {
+                    const coordinates =
+                      response.features[0].geometry.coordinates;
+                    console.log('Coordenadas recebidas:', coordinates);
+
+                    // Centralize o mapa e adicione um marcador
+                    this.map.setCenter(coordinates);
+                  } else {
+                    console.error('Nenhuma coordenada encontrada.');
+                  }
                 });
             },
             error: (err) => {
@@ -91,8 +103,7 @@ export class ProjetoDetailComponent implements OnInit {
 
   initializeMap(coordinates: [number, number]): void {
     this.map = new mapboxgl.Map({
-      accessToken:
-        'pk.eyJ1IjoianZpY3RvcjAxMSIsImEiOiJjbTJrdDF3bjEwNHZuMmxvZXFzbmR2ZXZjIn0.i54Xkjxm3rb7vYvXt2Sq_w',
+      accessToken: this.mapBoxApiKey,
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
       center: coordinates,

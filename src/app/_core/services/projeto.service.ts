@@ -6,6 +6,7 @@ import {AuthService} from "./auth.service";
 import {ProjetoDetahesDTO, ProjetoResumoDTO} from "../models/projeto.model";
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({ providedIn: 'root' })
 export class ProjetoService {
@@ -15,7 +16,8 @@ export class ProjetoService {
   private openweathermapWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather';
   private openweathermapKey = 'dd3ce94aa0b74ec4b1cc3086d70a3c0d';
   private mapBoxApiKey = 'pk.eyJ1IjoianZpY3RvcjAxMSIsImEiOiJjbTJrdDF3bjEwNHZuMmxvZXFzbmR2ZXZjIn0.i54Xkjxm3rb7vYvXt2Sq_w';
-  private geocodeApiUrl = 'https://api.mapbox.com/search/geocode/v6/forward';
+  private geocodeApiUrl = 'https://api.mapbox.com/search/searchbox/v1/retrieve/';
+  private searchBoxApiUrl = 'https://api.mapbox.com/search/searchbox/v1/suggest';
 
   constructor(
     private readonly httpClient: HttpClient,
@@ -115,9 +117,31 @@ export class ProjetoService {
     );
   }
 
-  getCoordinatesMapBox(): Observable<any> {
-    const address = encodeURIComponent('Travessa Raimundo Maciel Pereira, Vila Gonçalves, Russas - Ceará, 62900-000, Brazil');
-    const url = `${this.geocodeApiUrl}?q=${address}&proximity=ip&access_token=${this.mapBoxApiKey}`;
+  getCoordinatesMapBox(mapbox_id: string): Observable<any> {
+    const sessionToken = uuidv4();
+    const url = `${this.geocodeApiUrl}${mapbox_id}?session_token=${sessionToken}&access_token=${this.mapBoxApiKey}`;
     return this.httpClient.get(url);
   }
+  
+  
+  getEnderecoMap(searchText: string): Observable<any> {
+        const sessionToken = uuidv4();
+        const url = `${this.searchBoxApiUrl}?q=${encodeURIComponent(searchText)}&access_token=${this.mapBoxApiKey}&session_token=${sessionToken}`;
+        console.log('URL:', url);
+    
+        // Inscreve-se no Observable para logar a resposta
+        this.httpClient.get(url).subscribe(
+          (data) => {
+            console.log('Dados recebidos:', data);
+          },
+          (error) => {
+            console.error('Erro ao buscar dados:', error);
+          }
+        );
+    
+        return this.httpClient.get(url);
+    }
+    
+  
 }
+//https://api.mapbox.com/search/searchbox/v1/suggest?q={search_text}

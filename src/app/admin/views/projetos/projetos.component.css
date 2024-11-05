@@ -163,3 +163,23 @@ label[for="arquivo"] mat-icon {
     width: 90%;
   }
 }
+
+.suggestions-list {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  max-height: 150px; /* Define uma altura máxima para a lista */
+  overflow-y: auto; /* Permite rolagem se exceder a altura */
+  position: absolute; /* Para colocar sobre outros elementos, se necessário */
+  z-index: 1000; /* Para garantir que a lista fique acima de outros conteúdos */
+}
+
+.suggestion-item {
+  padding: 10px;
+  cursor: pointer; /* Indica que é clicável */
+}
+
+.suggestion-item:hover {
+  background-color: #f0f0f0; /* Efeito de hover */
+}
+

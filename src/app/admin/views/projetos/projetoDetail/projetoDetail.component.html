@@ -68,7 +68,13 @@
                 <dd class="info-input">{{ projeto?.endereco }} </dd>
               </div>
 
-              <div id="map" style="width: 100%; height: 400px;"></div>
+              <div id="map-container">
+                <!-- Div para o mapa -->
+                <div id="map" style="width: 100%; height: 400px;"></div>
+                
+                <!-- Marcador fixo no centro -->
+                <div id="custom-marker"></div>
+              </div>
 
               <div>
                 <dt class="text-sm font-medium text-gray-500">Arquivos</dt>
