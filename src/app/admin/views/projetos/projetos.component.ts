@@ -236,14 +236,10 @@ export class ProjetosComponent implements OnInit {
       idCliente: this.idClienteSelecionado,
       observacoes: this.projectForm.controls?.observacoes?.value,
       categoria: this.projectForm.controls?.categoria?.value,
-      dataLimiteOrcamento:
-        this.projectForm.controls?.dataLimiteOrcamento?.value,
+      dataLimiteOrcamento: this.projectForm.controls?.dataLimiteOrcamento?.value,
       endereco: this.projectForm.controls?.endereco?.value,
-      publico:
-        this.projectForm.controls?.visibilidade?.value ===
-        EVisibilidadeProjeto.PUBLICO,
-      status:
-        this.projectForm.controls?.status?.value ?? EStatusProjeto.NOVO_PROJETO,
+      publico: this.projectForm.controls?.visibilidade?.value === EVisibilidadeProjeto.PUBLICO,
+      status: this.projectForm.controls?.status?.value ?? EStatusProjeto.NOVO_PROJETO,
       cidade: this.projectForm.controls?.cidade?.value,
       estado: this.projectForm.controls?.estado?.value,
       cidadeId: null,

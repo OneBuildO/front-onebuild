@@ -125,22 +125,21 @@ export class ProjetoService {
   
   
   getEnderecoMap(searchText: string): Observable<any> {
-        const sessionToken = uuidv4();
-        const url = `${this.searchBoxApiUrl}?q=${encodeURIComponent(searchText)}&access_token=${this.mapBoxApiKey}&session_token=${sessionToken}`;
-        console.log('URL:', url);
+    const sessionToken = uuidv4();
+    const url = `${this.searchBoxApiUrl}?q=${encodeURIComponent(searchText)}&access_token=${this.mapBoxApiKey}&session_token=${sessionToken}`;
+    console.log('URL:', url);
     
-        // Inscreve-se no Observable para logar a resposta
-        this.httpClient.get(url).subscribe(
-          (data) => {
-            console.log('Dados recebidos:', data);
-          },
-          (error) => {
-            console.error('Erro ao buscar dados:', error);
-          }
-        );
-    
-        return this.httpClient.get(url);
+    // Inscreve-se no Observable para logar a resposta
+    this.httpClient.get(url).subscribe(
+      (data) => {
+        console.log('Dados recebidos:', data);
+      },
+      (error) => {
+      console.error('Erro ao buscar dados:', error);
     }
+  );
+  return this.httpClient.get(url);
+}
     
   
 }
