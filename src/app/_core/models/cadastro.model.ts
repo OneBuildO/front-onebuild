@@ -9,4 +9,6 @@ export interface CadastroUsuarioDTO {
   convite: string | null;
   estado?: string;
   cidade?: string;
+  mapbox_id?: string;
+  endereco?: string;
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DatetimeHelper } from 'src/app/_core/helpers/datetime.helper';
 import { CommonService } from 'src/app/_core/services/common.service';
@@ -15,6 +15,8 @@ import { CategoriasProjetoArr } from "src/app/_core/enums/e-categorias-projeto";
 import { EMessages } from "src/app/_core/enums/e-messages";
 import {CidadesService, listaEstados} from "src/app/_core/services/cidades.service";
 
+import {ProjetoService} from "src/app/_core/services/projeto.service";
+
 @Component({
   selector: 'app-signup',
   templateUrl: './cadastro.component.html',
@@ -29,6 +31,7 @@ export class CadastroComponent {
     private authService: AuthService,
     private serviceUser: UsuarioService,
     private serviceLocalidade: CidadesService,
+    private serviceProject: ProjetoService
   ) {}
 
   protected readonly AlertType = AlertType;
@@ -42,6 +45,11 @@ export class CadastroComponent {
   serverErrors: string[] = [];
   tipoAlerta = AlertType.Warning;
 
+  mapbox_id: string = '';
+  enderecoCompleto: string = '';
+  enderecoSelecionado: boolean = false;
+  enderecosSugestoes: any[] = [];
+
   cadastroForm = this.formBuilder.group({
     nome: new FormControl('', { validators: [Validators.required] }),
     tipoUsuario: new FormControl('', { validators: [Validators.required] }),
@@ -53,7 +61,8 @@ export class CadastroComponent {
     confirmPassword: new FormControl('', { validators: [Validators.required] }),
     terms: new FormControl(false, { validators: [Validators.requiredTrue] }),
     estado: new FormControl('', { validators: [Validators.required] }),
-    cidade: new FormControl('', { validators: [Validators.required] })
+    cidade: new FormControl('', { validators: [Validators.required] }),
+    endereco: new FormControl('', { validators: [Validators.required, this.validateEnderecoSelecionado()] }),
   });
 
   urlParams = new URL(window.location.href);
@@ -115,7 +124,9 @@ export class CadastroComponent {
       senha: this.cadastroForm.get('senha')?.value || '',
       convite: this.paramIdConvite || '',
       estado: estado || '',
-      cidade: cidade || '' 
+      cidade: cidade || '',
+      endereco: this.enderecoCompleto || '',
+      mapbox_id: this.mapbox_id || '' 
     };
 
     console.log("Dados do cadastro preparados:", dadosCadastro);
@@ -200,6 +211,62 @@ export class CadastroComponent {
       this.listaCidades = [];
     }
   }
+
+  onSearch(event: Event): void {
+    const searchText = (event.target as HTMLInputElement).value;
+
+    if (searchText.length > 3) {
+      this.serviceProject.getEnderecoMap(searchText).subscribe(
+        (data: {
+          suggestions: { name: string; place_formatted: string; mapbox_id: string }[];
+        }) => {
+          if (data.suggestions && data.suggestions.length > 0) {
+            console.log('Sugestões recebidas:', data.suggestions);
+            this.enderecosSugestoes = data.suggestions.map((suggestion) => ({
+              name: suggestion.name,
+              full_address: suggestion.name+ ', ' + suggestion.place_formatted, // Alterado para usar place_formatted
+              mapbox_id: suggestion.mapbox_id,
+            }));
+            this.enderecoSelecionado = false;
+            console.log('enderecosSugestoes:', this.enderecosSugestoes);
+          } else {
+            this.enderecosSugestoes = [];
+            console.log('enderecosSugestoes:', this.enderecosSugestoes);
+          }
+        },
+        (error) => {
+          console.error('Erro ao buscar coordenadas:', error);
+          this.enderecosSugestoes = [];
+          this.enderecoSelecionado = false;
+        }
+      );
+    } else {
+      this.enderecosSugestoes = [];
+    }
+  }
+
+  selectEndereco(endereco: { name: string; full_address: string; mapbox_id: string }): void {
+    console.log('isValid:', this.enderecoSelecionado);
+    this.enderecoCompleto = endereco.full_address;
+    this.mapbox_id = endereco.mapbox_id;
+    this.enderecoSelecionado = true;
+    this.enderecosSugestoes = [];
+    const enderecoControl = this.cadastroForm.get('endereco') as FormControl;
+    if (enderecoControl) {
+      enderecoControl.setValue(endereco.full_address);
+    }
+    console.log('Endereço completo selecionado:', this.enderecoCompleto);
+    console.log('isValid:', this.enderecoSelecionado);
+  }
+
+  private validateEnderecoSelecionado(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+        if (!this.enderecoSelecionado) {
+            return { enderecoInvalido: true };
+        }
+        return null;
+    };
+}
 
   protected readonly CategoriaProjetoArr = CategoriasProjetoArr;
   protected readonly TipoUsuarioArr = TipoUsuarioArr;

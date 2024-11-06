@@ -158,6 +158,28 @@
           </div>
         </div>
 
+        <!-- ENDEREÇO -->
+        <div class="col-span-12 md:col-span-6">
+          <div class="form-group">
+            <label for="endereco" class="form-label required text-left">Endereço</label>
+            <input id="endereco" type="text" class="form-control" placeholder="Digite o endereço" (input)="onSearch($event)" [value]="enderecoCompleto || ''"/>
+            <small 
+              *ngIf="cadastroForm.get('endereco')?.invalid && cadastroForm.get('endereco')?.touched" 
+              class="text-red-500 text-left">
+              Selecione um endereço válido da lista.
+            </small>
+            
+            <div *ngIf="enderecosSugestoes.length > 0" class="suggestions-list">
+              <div 
+                *ngFor="let endereco of enderecosSugestoes" 
+                class="suggestion-item" 
+                (click)="selectEndereco(endereco)">
+                {{ endereco.name || endereco.full_address }}
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Adicionando o checkbox para termos de uso -->
         <div class="form-group terms-container">
           <input type="checkbox" id="terms" formControlName="terms">
