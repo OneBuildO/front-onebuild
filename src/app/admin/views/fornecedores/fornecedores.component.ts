@@ -48,6 +48,8 @@ export class FornecedoresComponent implements OnInit {
   tipoAlerta = AlertType.Warning;
   modalCompnent: ModalComponent
 
+  showDetailModal: boolean = false;
+
   projectForm = this.formBuilder.group({
     arquivo: new FormControl( '', ),
     nomeProjeto: new FormControl( '', { validators: [Validators.required] }),
@@ -71,10 +73,17 @@ export class FornecedoresComponent implements OnInit {
     this.showModal = !this.showModal;
   }
 
+  detailsModal() {
+    this.showDetailModal = !this.showDetailModal;
+  }
+
   onModalCloseHandler(event: boolean) {
     this.showModal = event;
   }
 
+  onModalDetailsHandler(event: boolean) {
+    this.showDetailModal = event;
+  }
 
   protected onFormSubmitHandler = () => {
     this.submited = true;

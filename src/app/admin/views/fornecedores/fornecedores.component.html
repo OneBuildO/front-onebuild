@@ -35,7 +35,7 @@
               </div>
             </div>
           </div>
-          <button>Saiba mais ></button>
+          <button (click)="detailsModal()">Saiba mais ></button>
         </div>
       </div>
     </div>
@@ -85,6 +85,53 @@
       </div>
     </div>
   </app-modal>
+
+   <!-- Details Modal -->
+   <app-modal [show]="showDetailModal" [footer]="false" (closeModal)="onModalDetailsHandler($event)">
+    <div class="sm:flex sm:items-start container-modal">
+      <div class="modal-header">
+        <div class="close-modal">
+          <button type="button" class="close" aria-label="Close" (click)="detailsModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="col-img">
+          <img src="assets/icons/padrao-fornecedor.svg">
+        </div>
+        <div class="title-dados">
+          <h3>One Build</h3>
+          <p>Fortaleza - Ceará</p>
+        </div>
+      </div>
+      <div class="body-details">
+        <div class="detail-item">
+          <h4>Descrição do Fornecedor</h4>
+          <p>Texto Texto Texto Texto Texto Texto Texto Texto 
+            Texto Texto Texto Texto Texto Texto Texto Texto 
+            Texto Texto Texto Texto Texto Texto Texto Texto 
+            Texto Texto Texto Texto Texto Texto Texto Texto 
+            Texto Texto Texto Texto Texto Texto Texto Texto 
+            Texto Texto</p>
+        </div>
+        <div class="detail-item">
+          <h4>Categoria</h4>
+          <p>Iluminação</p>
+        </div>
+        <div class="detail-item">
+          <h4>Endereço</h4>
+          <p>Rua Dom Lino 656 - Centro - Russas - CE  
+            CEP: 62900-970</p>
+        </div>
+        <div class="detail-item">
+          <h4>Contato</h4>
+          <p>E-mail:
+            <span>fornecedor&#64;gmail.com</span>
+          </p>
+          <p>Telefone:<span>(xx) xxxxx-xxxx</span></p>
+        </div>
+      </div>
+    </div>
+   </app-modal>
 
 <!--  <data-table *ngIf="projects.length > 0"-->
 <!--              [rowData]="projects"-->
