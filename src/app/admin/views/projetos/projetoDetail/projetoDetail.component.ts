@@ -69,6 +69,7 @@ export class ProjetoDetailComponent implements OnInit {
       next: (data: any) => {
         console.log(data);
         this.projeto = data;
+        console.log(this.projeto);
         this.arquivos = data.arquivos;
 
         // Verifica a presença do arquivo de planta baixa
