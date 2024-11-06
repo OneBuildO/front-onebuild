@@ -14,15 +14,15 @@
   <div class="body-fornecedor">
     <h2>Fornecedores recomendados</h2>
     <div class="container-fornecedores">
-      <div class="body-card">
+      <div *ngFor="let fornecedor of fornecedores" class="body-card">
         <div class="col-img">
           <img src="assets/icons/padrao-fornecedor.svg">
         </div>
         <div class="col-dados">
           <div class="container-title-star">
             <div class="title-dados">
-              <h3>One Build</h3>
-              <p>Fortaleza - Ceará</p>
+              <h3>{{ fornecedor.nome }}</h3>
+              <p>{{ fornecedor.cidade }} - {{ fornecedor.estado }}</p>
             </div>
             <div class="stars">
               <h3>5.0</h3>
@@ -35,7 +35,7 @@
               </div>
             </div>
           </div>
-          <button (click)="detailsModal()">Saiba mais ></button>
+          <button (click)="detailsModal(fornecedor)">Saiba mais ></button>
         </div>
       </div>
     </div>
@@ -99,8 +99,8 @@
           <img src="assets/icons/padrao-fornecedor.svg">
         </div>
         <div class="title-detalhes">
-          <h3>One Build</h3>
-          <p>Fortaleza - Ceará</p>
+          <h3>{{ selectedFornecedor?.nome }}</h3>
+          <p>{{ selectedFornecedor?.cidade }} - {{ selectedFornecedor?.estado }}</p>
         </div>
         <div class="container-stars">
           <div class="stars-details">
@@ -127,19 +127,24 @@
         </div>
         <div class="detail-item">
           <h4>Categoria</h4>
-          <p>Iluminação</p>
+          <p>{{ selectedFornecedor?.categoria }}</p>
         </div>
         <div class="detail-item">
           <h4>Endereço</h4>
           <p>Rua Dom Lino 656 - Centro - Russas - CE  
             CEP: 62900-970</p>
         </div>
-        <div class="detail-item">
+        <div class="detail-item contato-item">
           <h4>Contato</h4>
           <p>E-mail:
-            <span>fornecedor&#64;gmail.com</span>
+            <span>{{ selectedFornecedor?.email }}</span>
           </p>
-          <p>Telefone:<span>(xx) xxxxx-xxxx</span></p>
+          <p>CNPJ:
+            <span>{{ selectedFornecedor?.cnpj }}</span>
+          </p>
+          <p>Telefone:
+            <span>{{ selectedFornecedor?.contato }}</span>
+          </p>
         </div>
       </div>
     </div>

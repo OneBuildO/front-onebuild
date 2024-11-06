@@ -273,3 +273,14 @@
   font-weight: 600;
   color: var(--grey-text);
 }
+
+.contato-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contato-item span {
+  font-size: 14px;
+  font-weight: 200;
+}
