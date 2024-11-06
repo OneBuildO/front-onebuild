@@ -51,7 +51,9 @@ export class CadastroComponent {
     cnpj: new FormControl('', { validators: [Validators.required] }),
     senha: new FormControl('', { validators: [Validators.required, Validators.minLength(8)] }),
     confirmPassword: new FormControl('', { validators: [Validators.required] }),
-    terms: new FormControl(false, { validators: [Validators.requiredTrue] }) // Adicionando o campo de termos
+    terms: new FormControl(false, { validators: [Validators.requiredTrue] }),
+    estado: new FormControl('', { validators: [Validators.required] }),
+    cidade: new FormControl('', { validators: [Validators.required] })
   });
 
   urlParams = new URL(window.location.href);
@@ -95,6 +97,8 @@ export class CadastroComponent {
 
     const tipoUsuario = this.cadastroForm.get('tipoUsuario')?.value;
     let categoria = this.cadastroForm.get('categoria')?.value;
+    const estado = this.cadastroForm.get('estado')?.value;
+    const cidade = this.cadastroForm.get('cidade')?.value;
 
     // Só enviar a categoria se o tipoUsuario for FORNECEDOR
     if (tipoUsuario !== ETipoUsuario.FORNECEDOR) {
@@ -109,7 +113,9 @@ export class CadastroComponent {
       contato: this.cadastroForm.get('contato')?.value || '',
       cnpj: this.cadastroForm.get('cnpj')?.value || '',
       senha: this.cadastroForm.get('senha')?.value || '',
-      convite: this.paramIdConvite || ''
+      convite: this.paramIdConvite || '',
+      estado: estado || '',
+      cidade: cidade || '' 
     };
 
     console.log("Dados do cadastro preparados:", dadosCadastro);
