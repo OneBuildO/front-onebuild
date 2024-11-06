@@ -13,6 +13,7 @@ import { AuthService } from "src/app/_core/services/auth.service";
 import { ERROR_MESSAGES } from "src/app/shared/components/validation-error/error-messages";
 import { CategoriasProjetoArr } from "src/app/_core/enums/e-categorias-projeto";
 import { EMessages } from "src/app/_core/enums/e-messages";
+import {CidadesService, listaEstados} from "src/app/_core/services/cidades.service";
 
 @Component({
   selector: 'app-signup',
@@ -27,11 +28,13 @@ export class CadastroComponent {
     private router: Router,
     private authService: AuthService,
     private serviceUser: UsuarioService,
+    private serviceLocalidade: CidadesService,
   ) {}
 
   protected readonly AlertType = AlertType;
   readonly publicRoutes = PublicRoutes;
   readonly currentYear: number = DatetimeHelper.currentYear;
+  public listaCidades: any[] = [];
 
   isLoading: boolean = false;
   submited: boolean = false;
@@ -171,8 +174,30 @@ export class CadastroComponent {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  onEstadoChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const estadoNome = selectElement.value;
+    this.obterCidadePorNomeEstado(estadoNome);
+  }
+
+  obterCidadePorNomeEstado(estadoNome: string) {
+    if (estadoNome) {
+      this.serviceLocalidade.getCidadesByNomeEstado(estadoNome).subscribe(
+        (data) => {
+          this.listaCidades = data;
+        },
+        (error) => {
+          this.listaCidades = [];
+        }
+      );
+    } else {
+      this.listaCidades = [];
+    }
+  }
+
   protected readonly CategoriaProjetoArr = CategoriasProjetoArr;
   protected readonly TipoUsuarioArr = TipoUsuarioArr;
   protected readonly ERROR_MESSAGES = ERROR_MESSAGES;
   protected readonly ETipoUsuario = ETipoUsuario;
+  protected readonly listaEstados = listaEstados;
 }
