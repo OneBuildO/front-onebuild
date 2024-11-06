@@ -203,3 +203,73 @@
 .star.filled {
   color: var(--primary-color);
 }
+
+/* DETALHES FORNECEDOR */
+.detail-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 8px;
+}
+.title-detalhes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 16px;
+}
+
+.title-detalhes h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--font-color-dark);
+}
+
+.title-detalhes p {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--font-color-dark);
+}
+
+.body-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detail-item h4 {
+  font-size: 16px;
+  font-weight: 700;
+  padding-bottom: 4px;
+}
+
+.detail-item p {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--font-color-dark);
+  text-align: justify;
+}
+
+.container-stars {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding-bottom: 16px;
+}
+
+.stars-details {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-color-light);
+  border-radius: 8px;
+  margin: 8px;
+  padding: 0 8px;
+}
+
+.stars-details h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--grey-text);
+}
