@@ -57,6 +57,7 @@ export class ProjetoDetailComponent implements OnInit {
   modalCompnent: ModalComponent;
   naoInformado = 'Não informado';
   hasPlantaBaixa: boolean = false;
+  arquivos: any[] = [];
 
   map!: mapboxgl.Map;
   style = 'mapbox://styles/mapbox/streets-v11';
@@ -68,6 +69,7 @@ export class ProjetoDetailComponent implements OnInit {
       next: (data: any) => {
         console.log(data);
         this.projeto = data;
+        this.arquivos = data.arquivos;
 
         // Verifica a presença do arquivo de planta baixa
         this.hasPlantaBaixa = !!data.plantaBaixaUrl;

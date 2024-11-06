@@ -182,36 +182,6 @@
               </div>
             </div>
 
-            <!-- ENDEREÇO -->
-            <div class="col-span-12 md:col-span-6">
-              <div class="form-group">
-                <label for="endereco" class="form-label required text-left">Endereço</label>
-                <input 
-                  id="endereco" 
-                  type="text" 
-                  class="form-input" 
-                  placeholder="Digite o endereço"
-                  (input)="onSearch($event)"
-                  [value]="enderecoCompleto || ''"
-                />
-                <small 
-                  *ngIf="projectForm.get('endereco')?.invalid && projectForm.get('endereco')?.touched" 
-                  class="text-red-500 text-left">
-                  Selecione um endereço válido da lista.
-                </small>
-                
-                <div *ngIf="enderecosSugestoes.length > 0" class="suggestions-list">
-                  <div 
-                    *ngFor="let endereco of enderecosSugestoes" 
-                    class="suggestion-item" 
-                    (click)="selectEndereco(endereco)">
-                    {{ endereco.name || endereco.full_address }}
-                  </div>
-                </div>
-              </div>
-            </div>
-             
-
             <!-- ESTADO -->
             <div class="col-span-12 md:col-span-6">
               <div class="form-group">
@@ -233,6 +203,28 @@
                   <option *ngFor="let cidade of listaCidades" [value]="cidade.nome">{{ cidade.nome }}</option>
                 </select>
                 <small *ngIf="submited && !projectForm.get('cidade')?.value?.toString()" class="text-red-500 text-left">{{ ERROR_MESSAGES.required() }}</small>
+              </div>
+            </div>
+
+            <!-- ENDEREÇO -->
+            <div class="col-span-12 md:col-span-6">
+              <div class="form-group">
+                <label for="endereco" class="form-label required text-left">Endereço</label>
+                <input id="endereco" type="text" class="form-control" placeholder="Digite o endereço" (input)="onSearch($event)" [value]="enderecoCompleto || ''"/>
+                <small 
+                  *ngIf="projectForm.get('endereco')?.invalid && projectForm.get('endereco')?.touched" 
+                  class="text-red-500 text-left">
+                  Selecione um endereço válido da lista.
+                </small>
+                
+                <div *ngIf="enderecosSugestoes.length > 0" class="suggestions-list">
+                  <div 
+                    *ngFor="let endereco of enderecosSugestoes" 
+                    class="suggestion-item" 
+                    (click)="selectEndereco(endereco)">
+                    {{ endereco.name || endereco.full_address }}
+                  </div>
+                </div>
               </div>
             </div>
 
