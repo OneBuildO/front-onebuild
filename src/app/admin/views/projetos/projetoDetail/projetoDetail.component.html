@@ -71,10 +71,12 @@
               <div>
                 <dt class="text-sm font-medium text-gray-500">Arquivos</dt>
                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex">
-                  <div *ngFor="let arquivo of projeto?.arquivos" class="flex items-center mb-2">
-                    <img src="assets/images/arquivo-icon.svg" alt="Arquivo Icon" class="mr-2" style="width: 24px; height: 24px;">
-                    <a [href]="arquivo.base64Data" target="_blank" class="hover:text-danger transition-all">{{ arquivo.fileName }}</a>
-                  </div>
+                  <ul class="arquivo-lista">
+                    <li *ngFor="let arquivo of projeto?.arquivos" class="arquivo-item">
+                      <img src="assets/images/arquivo-icon.svg" alt="Arquivo Icon" class="mr-2" style="width: 24px; height: 24px;">
+                      <a [href]="arquivo.base64Data" target="_blank" class="hover: transition-all">{{ arquivo.fileName }}</a>
+                    </li>
+                  </ul>
                 </dd>
               </div>
             </div>
