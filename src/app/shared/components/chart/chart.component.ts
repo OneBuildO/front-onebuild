@@ -29,7 +29,7 @@ export class ChartComponent {
     plugins: {
       title: {
         display: true,
-        text: 'Projetos Cadastrados',
+        text: 'Projetos Cadastrados por Mês',
       }
     },
     scales: {
@@ -75,7 +75,7 @@ export class ChartComponent {
         const sortedKeys = Object.keys(data).sort();
         this.barChartLabels = sortedKeys.map(key => {
           const [year, month] = key.split('-');
-          return `${month}/${year}`;
+          return `${month.padStart(2, '0')}/${year}`;
         });
         this.barChartData[0].data = sortedKeys.map(key => data[key]);
       },
@@ -83,5 +83,11 @@ export class ChartComponent {
         console.error('Erro ao buscar dados do gráfico:', error);
       }
     );
+  }
+
+  private getMonthYearString(index: number): string {
+    const year = new Date().getFullYear();
+    const month = (index + 1).toString().padStart(2, '0');
+    return `${month}/${year}`;
   }
 }
