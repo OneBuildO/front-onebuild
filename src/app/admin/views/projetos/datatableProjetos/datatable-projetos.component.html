@@ -34,6 +34,8 @@
             <tr class="grid-col">
               <th scope="col" class="ng-wind-header-item">Categoria</th>
               <th scope="col" class="ng-wind-header-item">Data Limite</th>
+              <th scope="col" class="ng-wind-header-item">Estado</th>
+              <th scope="col" class="ng-wind-header-item">Cidade</th>
               <th scope="col" class="ng-wind-header-item">Status</th>
               <th scope="col" class="ng-wind-header-item">Visibilidade</th>
               <th scope="col" class="ng-wind-header-item">Ações</th>
@@ -50,6 +52,8 @@
                   </td>
 
                   <td class="ng-wind-data-item text-center">{{ formatDatePTBR(projeto?.dataLimiteOrcamento?.toString()) }}</td>
+                  <td class="ng-wind-data-item text-center">{{ projeto?.estado }}</td>
+                  <td class="ng-wind-data-item text-center">{{ projeto?.cidade }}</td>
                   <td class="ng-wind-data-item text-center">{{ projeto?.status ? projeto?.status : '-' }}</td>
                   <td class="ng-wind-data-item text-center">{{ projeto?.publico ? 'Público' : 'Privado' }}</td>
 

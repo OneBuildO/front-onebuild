@@ -71,9 +71,9 @@
               <div>
                 <dt class="text-sm font-medium text-gray-500">Arquivos</dt>
                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex">
-                  <div class="flex items-center mb-2">
+                  <div *ngFor="let arquivo of projeto?.arquivos" class="flex items-center mb-2">
                     <img src="assets/images/arquivo-icon.svg" alt="Arquivo Icon" class="mr-2" style="width: 24px; height: 24px;">
-                    <a target="_blank" class="hover:text-danger transition-all">Nome do arquivo</a>
+                    <a [href]="arquivo.base64Data" target="_blank" class="hover:text-danger transition-all">{{ arquivo.fileName }}</a>
                   </div>
                 </dd>
               </div>
@@ -85,13 +85,13 @@
                 <dd class="info-input" style="display: flex; justify-content: center;">
                   <img *ngIf="hasPlantaBaixa; else noPlantaBaixa" src="assets/images/planta-baixa.png" alt="Planta Baixa" style="width: auto; height: 300px;">
                   <ng-template #noPlantaBaixa>
-                    <img src="assets/images/sem-planta-baixa.png" alt="Sem Planta Baixa" style="width: auto; height: 300px;">
+                    <img src="assets/images/sem-planta-baixa.png" alt="Sem Planta Baixa" style="width: auto; height: 150px;">
                   </ng-template>
                 </dd>
               </div>
               <div class="localizacao">
                 <dt class="text-sm font-medium text-gray-500" style="margin-bottom: 8px;">Mapa da Localização</dt>
-                <div id="map" style="width: 100%; height: 380px;"></div>
+                <div id="map" style="max-height: 600px;"></div>
               </div>
             </div>
           </dl>

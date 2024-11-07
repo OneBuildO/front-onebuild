@@ -7,4 +7,8 @@ export interface CadastroUsuarioDTO {
   cnpj: string | null;
   senha: string | null;
   convite: string | null;
+  estado?: string;
+  cidade?: string;
+  mapbox_id?: string;
+  endereco?: string;
 }

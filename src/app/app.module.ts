@@ -13,6 +13,7 @@ import {CommonModule, registerLocaleData} from "@angular/common";
 import localePtBr from '@angular/common/locales/pt';
 
 import { ToastrModule } from 'ngx-toastr';
+import { NgChartsModule } from 'ng2-charts';
 
 registerLocaleData(localePtBr);
 
@@ -29,11 +30,12 @@ registerLocaleData(localePtBr);
     HttpClientModule,
     CommonModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgChartsModule,
   ],
   providers: [
     StrategyProviders,
-    UtilsProviders
+    UtilsProviders,
   ],
   bootstrap: [AppComponent]
 })

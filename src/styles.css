@@ -12,6 +12,7 @@
   --gradient-secondary: linear-gradient(45deg, #bf7d3c, #dab139);
   --secondary-color: #251825;
   --grey-50: #979d9d;
+  --grey-text: #3F4141;
   /* cores background */
   --bg-color-light: #fafafa;
   --bg-color-dark: #0f1212;
@@ -28,6 +29,7 @@
   --color-green: #2C8807;
   --color-warning: #f2880b;
   --color-info: #004590;
+  --color-info-light: #2174cd;
 }
 
 @layer components {

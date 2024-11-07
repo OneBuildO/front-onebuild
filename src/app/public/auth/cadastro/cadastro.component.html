@@ -79,30 +79,6 @@
           ></validation-error>
         </div>
 
-        <!-- CONTATO -->
-        <div class="form-group">
-          <label class="form-label required" for="contato">Contato</label>
-          <div class="relative">
-            <input type="text" id="contato" class="form-control w-full ps-10"
-                   formControlName="contato" placeholder="informe seu contato">
-            <span class="absolute top-2 left-0 ps-3 text-gray-400"><i class="bi bi-phone"></i></span>
-          </div>
-          <validation-error
-            [submited]="submited"
-            [valueValidation]="cadastroForm.get('contato')?.value?.toString()"
-          ></validation-error>
-        </div>
-
-        <!-- CNPJ -->
-        <div class="form-group">
-          <label class="form-label required" for="cnpj">CNPJ</label>
-          <div class="relative">
-            <input type="text" id="cnpj" class="form-control w-full ps-10"
-                   formControlName="cnpj" placeholder="informe seu CNPJ">
-            <span class="absolute top-2 left-0 ps-3 text-gray-400"><i class="bi bi-person-vcard"></i></span>
-          </div>
-        </div>
-
         <!-- SENHA -->
         <div class="form-group">
           <div class="label-senha">
@@ -134,6 +110,74 @@
             [submited]="submited"
             [valueValidation]="cadastroForm.get('confirmPassword')?.value?.toString()"
           ></validation-error>
+        </div>
+
+        <!-- CONTATO -->
+        <div class="form-group">
+          <label class="form-label required" for="contato">Contato</label>
+          <div class="relative">
+            <input type="text" id="contato" class="form-control w-full ps-10"
+                   formControlName="contato" placeholder="informe seu contato">
+            <span class="absolute top-2 left-0 ps-3 text-gray-400"><i class="bi bi-phone"></i></span>
+          </div>
+          <validation-error
+            [submited]="submited"
+            [valueValidation]="cadastroForm.get('contato')?.value?.toString()"
+          ></validation-error>
+        </div>
+
+        <!-- CNPJ -->
+        <div class="form-group">
+          <label class="form-label required" for="cnpj">CNPJ</label>
+          <div class="relative">
+            <input type="text" id="cnpj" class="form-control w-full ps-10"
+                   formControlName="cnpj" placeholder="informe seu CNPJ">
+            <span class="absolute top-2 left-0 ps-3 text-gray-400"><i class="bi bi-person-vcard"></i></span>
+          </div>
+        </div>
+
+        <!-- ESTADO -->
+        <div class="col-span-12 md:col-span-6">
+          <div class="form-group">
+            <label for="estado" class="form-label required text-left">Estado</label>
+            <select id="estado" class="form-select" formControlName="estado" (change)="onEstadoChange($event)">
+              <option [value]="''">Selecione seu estado</option>
+              <option *ngFor="let estado of listaEstados" [value]="estado.nome">{{ estado.nome }}</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- CIDADE -->
+        <div class="col-span-12 md:col-span-6">
+          <div class="form-group">
+            <label for="cidade" class="form-label required text-left">Cidade</label>
+            <select id="cidade" class="form-select" formControlName="cidade">
+              <option [value]="''">Selecione sua cidade</option>
+              <option *ngFor="let cidade of listaCidades" [value]="cidade.nome">{{ cidade.nome }}</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- ENDEREÇO -->
+        <div class="col-span-12 md:col-span-6">
+          <div class="form-group">
+            <label for="endereco" class="form-label required text-left">Endereço</label>
+            <input id="endereco" type="text" class="form-control" placeholder="Digite o endereço" (input)="onSearch($event)" [value]="enderecoCompleto || ''"/>
+            <small 
+              *ngIf="cadastroForm.get('endereco')?.invalid && cadastroForm.get('endereco')?.touched" 
+              class="text-red-500 text-left">
+              Selecione um endereço válido da lista.
+            </small>
+            
+            <div *ngIf="enderecosSugestoes.length > 0" class="suggestions-list">
+              <div 
+                *ngFor="let endereco of enderecosSugestoes" 
+                class="suggestion-item" 
+                (click)="selectEndereco(endereco)">
+                {{ endereco.name || endereco.full_address }}
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Adicionando o checkbox para termos de uso -->

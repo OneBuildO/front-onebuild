@@ -22,12 +22,14 @@
     "@angular/router": "^17.0.7",
     "@mapbox/mapbox-gl-geocoder": "^5.0.3",
     "buildone": "file:",
-    "chart.js": "^4.4.0",
+    "chart.js": "^3.7.1",
     "mapbox-gl": "^3.7.0",
+    "ng2-charts": "^4.0.1",
     "ngx-toastr": "^18.0.0",
     "notyf": "^3.10.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "uuid": "^11.0.2",
     "zone.js": "~0.14.2"
   },
   "devDependencies": {

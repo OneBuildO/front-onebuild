@@ -12,9 +12,17 @@ import {AlertType} from "../../../shared/components/alert/alert.type";
 import {ProjetoService} from "../../../_core/services/projeto.service";
 Chart.register(...registerables);
 
+import { FornecedorService } from '../../../_core/services/fornecedor.service';
+import { FornecedorDTO } from '../../../_core/models/fornecedor.model';
+import { CommonModule } from '@angular/common';
+
+import { ChartComponent } from '../../../shared/components/chart/chart.component';
+
+
 @Component({
     selector: 'app-fornecedores',
     templateUrl: './fornecedores.component.html',
+    styleUrls: ['./fornecedores.component.css'],
     standalone: true,
   imports: [
     ModalComponent,
@@ -23,15 +31,18 @@ Chart.register(...registerables);
     ReactiveFormsModule,
     SpinnerComponent,
     NgClass,
-    AlertComponent
+    AlertComponent,
+    CommonModule,
+    ChartComponent,
   ],
     animations: [pageTransition]
 })
 export class FornecedoresComponent implements OnInit {
-
+  
   constructor(
     private formBuilder: FormBuilder,
     private projectService : ProjetoService,
+    private fornecedorService: FornecedorService
   ) {
     this.modalCompnent = new ModalComponent();
   }
@@ -40,12 +51,16 @@ export class FornecedoresComponent implements OnInit {
   public projects: IProjects[] = TableData.projects;
   public pages: number[] = TableData.pageNumber;
   public columnData:IColumn[] = TableData.columnData;
+  public fornecedores: FornecedorDTO[] = [];
+  selectedFornecedor: FornecedorDTO | null = null;
   showModal: boolean = false;
   submited: boolean = false;
   isLoading: boolean = false;
   serverMessages: string[] = [];
   tipoAlerta = AlertType.Warning;
   modalCompnent: ModalComponent
+
+  showDetailModal: boolean = false;
 
   projectForm = this.formBuilder.group({
     arquivo: new FormControl( '', ),
@@ -55,6 +70,7 @@ export class FornecedoresComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.getFornecedores();
     this.projects = [];
     this.projectService.getAllProjectForUser()
       .subscribe({
@@ -70,10 +86,23 @@ export class FornecedoresComponent implements OnInit {
     this.showModal = !this.showModal;
   }
 
+  detailsModal(fornecedor?: FornecedorDTO): void {
+    if (fornecedor) {
+      this.selectedFornecedor = fornecedor;
+      this.showDetailModal = true;
+    } else {
+      this.selectedFornecedor = null;
+      this.showDetailModal = false;
+    }
+  }
+
   onModalCloseHandler(event: boolean) {
     this.showModal = event;
   }
 
+  onModalDetailsHandler(event: boolean) {
+    this.showDetailModal = event;
+  }
 
   protected onFormSubmitHandler = () => {
     this.submited = true;
@@ -118,4 +147,10 @@ export class FornecedoresComponent implements OnInit {
   protected onAlertCloseHandler = (e: any) => {
     this.serverMessages = [];
   };
+
+  getFornecedores(): void {
+    this.fornecedorService.getFornecedores().subscribe((data: FornecedorDTO[]) => {
+      this.fornecedores = data;
+    });
+  }
 }

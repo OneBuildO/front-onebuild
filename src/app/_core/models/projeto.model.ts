@@ -12,6 +12,7 @@ export interface ProjetoResumoDTO {
   longitude: number | null;
   latitude: number | null;
   cidadeId: number | null; 
+  mapbox_id: string | null;
 }
 
 export interface ProjetoDetahesDTO {
@@ -33,5 +34,19 @@ export interface ProjetoDetahesDTO {
   qtdOrcamentosRecebidos: number;
   longitude: number | null;
   latitude: number | null;
-  cidadeId: number | null; 
+  cidadeId: number | null;
+  mapbox_id: string | null;
+  arquivos: Arquivo[];
+}
+
+export interface Feature {
+  text: string;
+  place_name: string;
+  context?: { name: string }[];
+}
+
+export interface Arquivo {
+  id: number;
+  base64Data: string | null;
+  fileName: string | null;
 }

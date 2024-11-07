@@ -5,12 +5,13 @@ import {ModalComponent} from "src/app/shared/components/modal/modal.component";
 import {DataTableComponent} from "src/app/shared/components/data-table/data-table.component";
 import {IColumn, IProjects, TableData} from "../elements/data-table/table.data";
 import { CommonModule, NgClass, NgForOf, NgIf} from "@angular/common";
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators, ValidatorFn, AbstractControl } from "@angular/forms";
 import {SpinnerComponent} from "src/app/shared/components/spinner/spinner.component";
 import {AlertComponent} from "src/app/shared/components/alert/alert.component";
 import {AlertType} from "src/app/shared/components/alert/alert.type";
 import {ProjetoService} from "src/app/_core/services/projeto.service";
 import {ProjetoResumoDTO} from "src/app/_core/models/projeto.model";
+import {Feature} from "src/app/_core/models/projeto.model";
 import {SelectClienteComponent} from "src/app/shared/components/select-cliente/select-cliente.component";
 import {ClienteResumoDTO} from "src/app/_core/models/clienteResumo";
 import {DatatableProjetosComponent} from "./datatableProjetos/datatable-projetos.component";
@@ -80,6 +81,10 @@ export class ProjetosComponent implements OnInit {
   modalCompnent: ModalComponent;
   arquivosProjeto: File[] = [];
   CategoriaProjetoArr = [];
+  enderecoCompleto: string = '';
+  enderecoSelecionado: boolean = false;
+  enderecosSugestoes: any[] = []; // Array para armazenar as sugestões
+  mapbox_id: string = '';
 
   EStatusProjeto = EStatusProjeto; // Adicione o enum ao contexto do componente
   statusProjetoArr: string[] = [];
@@ -103,7 +108,7 @@ export class ProjetosComponent implements OnInit {
       validators: [Validators.required],
     }),
     visibilidade: new FormControl(EVisibilidadeProjeto.PUBLICO),
-    endereco: new FormControl(''),
+    endereco: new FormControl('', { validators: [Validators.required] }),
     status: new FormControl(EStatusProjeto.NOVO_PROJETO, {
       validators: [Validators.required],
     }),
@@ -231,19 +236,16 @@ export class ProjetosComponent implements OnInit {
       idCliente: this.idClienteSelecionado,
       observacoes: this.projectForm.controls?.observacoes?.value,
       categoria: this.projectForm.controls?.categoria?.value,
-      dataLimiteOrcamento:
-        this.projectForm.controls?.dataLimiteOrcamento?.value,
+      dataLimiteOrcamento: this.projectForm.controls?.dataLimiteOrcamento?.value,
       endereco: this.projectForm.controls?.endereco?.value,
-      publico:
-        this.projectForm.controls?.visibilidade?.value ===
-        EVisibilidadeProjeto.PUBLICO,
-      status:
-        this.projectForm.controls?.status?.value ?? EStatusProjeto.NOVO_PROJETO,
+      publico: this.projectForm.controls?.visibilidade?.value === EVisibilidadeProjeto.PUBLICO,
+      status: this.projectForm.controls?.status?.value ?? EStatusProjeto.NOVO_PROJETO,
       cidade: this.projectForm.controls?.cidade?.value,
       estado: this.projectForm.controls?.estado?.value,
       cidadeId: null,
       longitude: this.longitude,
       latitude: this.latitude,
+      mapbox_id: null,
     };
 
     console.log('Cadastro Projeto:', cadastroProjeto);
@@ -257,6 +259,8 @@ export class ProjetosComponent implements OnInit {
         next: (coordinates) => {
           cadastroProjeto.latitude = coordinates.latitude;
           cadastroProjeto.longitude = coordinates.longitude;
+          cadastroProjeto.endereco = this.enderecoCompleto;
+          cadastroProjeto.mapbox_id = this.mapbox_id;
           console.log(
             `Latitude: ${cadastroProjeto.latitude}, Longitude: ${cadastroProjeto.longitude}`
           );
@@ -283,9 +287,9 @@ export class ProjetosComponent implements OnInit {
         next: (coordinates) => {
           cadastroProjeto.latitude = coordinates.latitude;
           cadastroProjeto.longitude = coordinates.longitude;
-          console.log(
-            `Latitude: ${cadastroProjeto.latitude}, Longitude: ${cadastroProjeto.longitude}`
-          );
+          cadastroProjeto.endereco = this.enderecoCompleto;
+          cadastroProjeto.mapbox_id = this.mapbox_id;
+          console.log(`Endereço completo: ${this.enderecoCompleto}`);
 
           this.serviceProject.saveNewProject(cadastroProjeto).subscribe({
             next: (data: any) => {
@@ -375,7 +379,10 @@ export class ProjetosComponent implements OnInit {
       next: (data: any) => {
         // Verifica se há um cliente selecionado e mantém o ID no localStorage
         if (this.idClienteSelecionado !== null) {
-          localStorage.setItem('selectedClientId', this.idClienteSelecionado.toString());
+          localStorage.setItem(
+            'selectedClientId',
+            this.idClienteSelecionado.toString()
+          );
         }
         // Atualiza a tabela de projetos sem recarregar a página
         this.getDataProject();
@@ -476,6 +483,62 @@ export class ProjetosComponent implements OnInit {
   closeSuccessMessage(): void {
     this.successMessage = null;
   }
+
+  onSearch(event: Event): void {
+    const searchText = (event.target as HTMLInputElement).value;
+
+    if (searchText.length > 3) {
+      this.serviceProject.getEnderecoMap(searchText).subscribe(
+        (data: {
+          suggestions: { name: string; place_formatted: string; mapbox_id: string }[];
+        }) => {
+          if (data.suggestions && data.suggestions.length > 0) {
+            console.log('Sugestões recebidas:', data.suggestions);
+            this.enderecosSugestoes = data.suggestions.map((suggestion) => ({
+              name: suggestion.name,
+              full_address: suggestion.name+ ', ' + suggestion.place_formatted, // Alterado para usar place_formatted
+              mapbox_id: suggestion.mapbox_id,
+            }));
+            this.enderecoSelecionado = false;
+            console.log('enderecosSugestoes:', this.enderecosSugestoes);
+          } else {
+            this.enderecosSugestoes = [];
+            console.log('enderecosSugestoes:', this.enderecosSugestoes);
+          }
+        },
+        (error) => {
+          console.error('Erro ao buscar coordenadas:', error);
+          this.enderecosSugestoes = [];
+          this.enderecoSelecionado = false;
+        }
+      );
+    } else {
+      this.enderecosSugestoes = [];
+    }
+  }
+
+  selectEndereco(endereco: { name: string; full_address: string; mapbox_id: string }): void {
+    console.log('isValid:', this.enderecoSelecionado);
+    this.enderecoCompleto = endereco.full_address;
+    this.mapbox_id = endereco.mapbox_id;
+    this.enderecoSelecionado = true;
+    this.enderecosSugestoes = [];
+    const enderecoControl = this.projectForm.get('endereco');
+    if (enderecoControl) {
+        enderecoControl.setValue(endereco.full_address);
+    }
+    console.log('Endereço completo selecionado:', this.enderecoCompleto);
+    console.log('isValid:', this.enderecoSelecionado);
+  }
+
+  private validateEnderecoSelecionado(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+        if (!this.enderecoSelecionado) {
+            return { enderecoInvalido: true };
+        }
+        return null;
+    };
+}
 
   protected onAlertCloseHandler = (e: any) => {
     this.serverMessages = [];

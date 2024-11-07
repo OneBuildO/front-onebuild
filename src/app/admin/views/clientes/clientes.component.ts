@@ -186,7 +186,8 @@ export class ClientesComponent implements OnInit {
           next: (data: any) => {
             this.isLoading = false;
             this.handleModal()
-            window.location.reload()
+            localStorage.setItem('successMessage', `Cliente ${cadastroCliente.nome} editado com sucesso!`);
+            window.location.reload();
           },
           error: (err) => {
             this.tipoAlerta = AlertType.Danger
@@ -201,7 +202,8 @@ export class ClientesComponent implements OnInit {
             this.tipoAlerta = AlertType.Success
             this.isLoading = false;
             this.handleModal()
-            window.location.reload()
+            localStorage.setItem('successMessage', `Cliente ${cadastroCliente.nome} salvo com sucesso!`);
+            window.location.reload();
           },
           error: (err) => {
             this.tipoAlerta = AlertType.Danger
