@@ -57,7 +57,7 @@ export class ProjetoDetailComponent implements OnInit {
   modalCompnent: ModalComponent;
   naoInformado = 'Não informado';
   hasPlantaBaixa: boolean = false;
-  arquivos: Arquivo[] = [];
+  arquivos: any[] = [];
   plantaBaixa: Arquivo[] = [];
 
   map!: mapboxgl.Map;
@@ -75,7 +75,7 @@ export class ProjetoDetailComponent implements OnInit {
         this.plantaBaixa = data.plantaBaixa;
 
         // Verifica a presença do arquivo de planta baixa
-        this.hasPlantaBaixa = !!data.plantaBaixaUrl;
+        this.hasPlantaBaixa = !!data.plantaBaixa && data.plantaBaixa.length > 0;
 
         this.projectService
           .getWeatherData(data.latitude, data.longitude)

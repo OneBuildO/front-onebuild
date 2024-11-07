@@ -85,7 +85,7 @@
               <div class="planta-baixa">
                 <dt class="text-sm font-medium text-gray-500">Planta Baixa</dt>
                 <dd class="info-input" style="display: flex; justify-content: center;">
-                  <a *ngIf="projeto?.plantaBaixa; else noPlantaBaixa" [href]="plantaBaixa[0]?.base64Data" download="planta-baixa.png" target="_blank">
+                  <a *ngIf="hasPlantaBaixa; else noPlantaBaixa" [href]="plantaBaixa[0].base64Data" download="planta-baixa.png" target="_blank">
                     <img src="assets/images/planta-baixa.png" alt="Planta Baixa" style="width: auto; height: 150px;">
                   </a>
                   <ng-template #noPlantaBaixa>

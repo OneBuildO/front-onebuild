@@ -42,24 +42,14 @@ export class ChartComponent {
     },
   };
   public barChartLabels: string[] = [
-    'Janeiro',
-    'Fevereiro',
-    'Março',
-    'Abril',
-    'Maio',
-    'Junho',
-    'Julho',
-    'Agosto',
-    'Setembro',
-    'Outubro',
-    'Novembro',
-    'Dezembro',
+    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
   ];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartData: ChartDataset<'bar'>[] = [
     {
-      data: [],
+      data: new Array(12).fill(0),
       label: 'Quantidade de Projetos',
       backgroundColor: '#1C9212',
       borderColor: '#1C9212',
@@ -72,12 +62,13 @@ export class ChartComponent {
     this.graficoService.getGraficoProjetosCadastro().subscribe(
       data => {
         console.log('Dados recebidos do backend:', data);
-        const sortedKeys = Object.keys(data).sort();
-        this.barChartLabels = sortedKeys.map(key => {
+        const monthData = new Array(12).fill(0);
+        Object.keys(data).forEach(key => {
           const [year, month] = key.split('-');
-          return `${month.padStart(2, '0')}/${year}`;
+          const monthIndex = parseInt(month, 10) - 1;
+          monthData[monthIndex] += data[key];
         });
-        this.barChartData[0].data = sortedKeys.map(key => data[key]);
+        this.barChartData[0].data = monthData;
       },
       error => {
         console.error('Erro ao buscar dados do gráfico:', error);
