@@ -9,7 +9,7 @@ import { SpinnerComponent } from 'src/app/shared/components/spinner/spinner.comp
 import { AlertComponent } from 'src/app/shared/components/alert/alert.component';
 import { AlertType } from 'src/app/shared/components/alert/alert.type';
 import { ProjetoService } from 'src/app/_core/services/projeto.service';
-import { ProjetoDetahesDTO } from 'src/app/_core/models/projeto.model';
+import { ProjetoDetahesDTO, Arquivo } from 'src/app/_core/models/projeto.model';
 import { formatDatePTBR } from 'src/app/shared/utils/Utils';
 import * as mapboxgl from 'mapbox-gl';
 
@@ -57,7 +57,8 @@ export class ProjetoDetailComponent implements OnInit {
   modalCompnent: ModalComponent;
   naoInformado = 'Não informado';
   hasPlantaBaixa: boolean = false;
-  arquivos: any[] = [];
+  arquivos: Arquivo[] = [];
+  plantaBaixa: Arquivo[] = [];
 
   map!: mapboxgl.Map;
   style = 'mapbox://styles/mapbox/streets-v11';
@@ -71,6 +72,7 @@ export class ProjetoDetailComponent implements OnInit {
         this.projeto = data;
         console.log(this.projeto);
         this.arquivos = data.arquivos;
+        this.plantaBaixa = data.plantaBaixa;
 
         // Verifica a presença do arquivo de planta baixa
         this.hasPlantaBaixa = !!data.plantaBaixaUrl;

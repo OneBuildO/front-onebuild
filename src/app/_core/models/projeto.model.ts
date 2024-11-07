@@ -37,6 +37,7 @@ export interface ProjetoDetahesDTO {
   cidadeId: number | null;
   mapbox_id: string | null;
   arquivos: Arquivo[];
+  plantaBaixa: Arquivo[];
 }
 
 export interface Feature {
