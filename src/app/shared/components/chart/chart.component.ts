@@ -18,7 +18,7 @@ export class ChartComponent {
     plugins: {
       title: {
         display: true,
-        text: 'Projetos Cadastrados por Mês',
+        text: '',
       }
     },
     scales: {
