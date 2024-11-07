@@ -284,3 +284,17 @@
   font-size: 14px;
   font-weight: 200;
 }
+
+.container-dados {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+}

@@ -16,6 +16,9 @@ import { FornecedorService } from '../../../_core/services/fornecedor.service';
 import { FornecedorDTO } from '../../../_core/models/fornecedor.model';
 import { CommonModule } from '@angular/common';
 
+import { ChartComponent } from '../../../shared/components/chart/chart.component';
+
+
 @Component({
     selector: 'app-fornecedores',
     templateUrl: './fornecedores.component.html',
@@ -29,7 +32,8 @@ import { CommonModule } from '@angular/common';
     SpinnerComponent,
     NgClass,
     AlertComponent,
-    CommonModule
+    CommonModule,
+    ChartComponent,
   ],
     animations: [pageTransition]
 })
