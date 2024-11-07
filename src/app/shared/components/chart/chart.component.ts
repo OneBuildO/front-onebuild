@@ -11,19 +11,8 @@ import { GraficoService } from 'src/app/_core/services/grafico.service';
   styleUrls: ['./chart.component.css']
 })
 export class ChartComponent {
-  // public barChartOptions: ChartOptions = {
-  //   responsive: true,
-  // };
-  // public barChartLabels: string[] = [];
-  // public barChartType: ChartType = 'bar';
-  // public barChartLegend = true;
+
   public barChartPlugins = [];
-
-  // public barChartData: ChartDataset<'bar'>[] = [
-  //   { data: [], label: 'Projetos Cadastrados' }
-  // ];
-
-  // Gráfico 2: Acertos e Erros por Tipo de Prova
   public barChartOptions: ChartOptions = {
     responsive: true,
     plugins: {
@@ -33,10 +22,14 @@ export class ChartComponent {
       }
     },
     scales: {
-      x: {
+      xAxes: {
         beginAtZero: true,
         ticks: {
           stepSize: 1,
+          maxRotation: 90,
+          font: {
+            size: 10,
+          }
         },
       },
     },
@@ -49,10 +42,12 @@ export class ChartComponent {
   public barChartLegend = true;
   public barChartData: ChartDataset<'bar'>[] = [
     {
-      data: new Array(12).fill(0),
+      data: [],
       label: 'Quantidade de Projetos',
       backgroundColor: '#1C9212',
       borderColor: '#1C9212',
+      maxBarThickness: 20,
+      minBarLength: 2
     },
   ];
 
@@ -63,12 +58,14 @@ export class ChartComponent {
       data => {
         console.log('Dados recebidos do backend:', data);
         const monthData = new Array(12).fill(0);
+        const labels = new Array(12).fill('').map((_, index) => this.getMonthYearString(index));
         Object.keys(data).forEach(key => {
           const [year, month] = key.split('-');
           const monthIndex = parseInt(month, 10) - 1;
           monthData[monthIndex] += data[key];
         });
         this.barChartData[0].data = monthData;
+        this.barChartLabels = labels;
       },
       error => {
         console.error('Erro ao buscar dados do gráfico:', error);
@@ -77,8 +74,11 @@ export class ChartComponent {
   }
 
   private getMonthYearString(index: number): string {
-    const year = new Date().getFullYear();
-    const month = (index + 1).toString().padStart(2, '0');
-    return `${month}/${year}`;
+    const monthNames = [
+      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    ];
+    const month = monthNames[index];
+    return `${month}`;
   }
 }

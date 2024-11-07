@@ -298,3 +298,12 @@
   gap: 20px;
   width: 100%;
 }
+
+.grid-item {
+  padding: 10px;
+  min-height: 400px;
+}
+
+.grafico {
+  border: 1px solid #ddd;
+}
