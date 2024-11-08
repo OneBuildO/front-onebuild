@@ -103,6 +103,7 @@ export class FornecedoresComponent implements OnInit {
       style: this.style,
       center: [-38.528, -3.728],
       zoom: 12,
+      attributionControl: false,
     });
 
     this.map.addControl(new mapboxgl.NavigationControl());
@@ -130,46 +131,6 @@ export class FornecedoresComponent implements OnInit {
     this.showDetailModal = event;
   }
 
-  protected onFormSubmitHandler = () => {
-    this.submited = true;
-    this.serverMessages = [];
-
-    if (this.projectForm.invalid) return;
-
-    // const dadosProjeto : ProjetoModelDTO = {
-    //   nome: this.projectForm.controls?.nomeProjeto?.value,
-    //   nomeCliente: this.projectForm.controls?.nomeCliente?.value,
-    //   dataLimiteOrcamento: this.projectForm.controls?.dataLimiteOrcamento?.value,
-    //   arquivo: null,
-    // }
-    // this.projectService.saveNewProject(dadosProjeto)
-    //   .subscribe({
-    //     next: (data: any) => {
-    //       this.tipoAlerta = AlertType.Success
-    //       this.serverMessages.push('sucess')
-    //       this.isLoading = false;
-    //       this.handleModal()
-    //       window.location.reload()
-    //     },
-    //     error: (err) => {
-    //       this.tipoAlerta = AlertType.Danger
-    //       this.serverMessages.push(err.error)
-    //       this.isLoading = false;
-    //     }
-    //   });
-  };
-
-  handleView() {
-    console.log('view');
-  }
-
-  handleEdit() {
-    console.log('Edit');
-  }
-
-  handleRemove() {
-    console.log('Remove');
-  }
   protected onAlertCloseHandler = (e: any) => {
     this.serverMessages = [];
   };
