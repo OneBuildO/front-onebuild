@@ -11,49 +11,32 @@ import { GraficoService } from 'src/app/_core/services/grafico.service';
   styleUrls: ['./chart.component.css']
 })
 export class ChartComponent {
-  // public barChartOptions: ChartOptions = {
-  //   responsive: true,
-  // };
-  // public barChartLabels: string[] = [];
-  // public barChartType: ChartType = 'bar';
-  // public barChartLegend = true;
+
   public barChartPlugins = [];
-
-  // public barChartData: ChartDataset<'bar'>[] = [
-  //   { data: [], label: 'Projetos Cadastrados' }
-  // ];
-
-  // Gráfico 2: Acertos e Erros por Tipo de Prova
   public barChartOptions: ChartOptions = {
     responsive: true,
     plugins: {
       title: {
         display: true,
-        text: 'Projetos Cadastrados por Mês',
+        text: '',
       }
     },
     scales: {
-      x: {
+      xAxes: {
         beginAtZero: true,
         ticks: {
           stepSize: 1,
+          maxRotation: 90,
+          font: {
+            size: 10,
+          }
         },
       },
     },
   };
   public barChartLabels: string[] = [
-    'Janeiro',
-    'Fevereiro',
-    'Março',
-    'Abril',
-    'Maio',
-    'Junho',
-    'Julho',
-    'Agosto',
-    'Setembro',
-    'Outubro',
-    'Novembro',
-    'Dezembro',
+    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
   ];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
@@ -63,6 +46,8 @@ export class ChartComponent {
       label: 'Quantidade de Projetos',
       backgroundColor: '#1C9212',
       borderColor: '#1C9212',
+      maxBarThickness: 20,
+      minBarLength: 2
     },
   ];
 
@@ -72,12 +57,15 @@ export class ChartComponent {
     this.graficoService.getGraficoProjetosCadastro().subscribe(
       data => {
         console.log('Dados recebidos do backend:', data);
-        const sortedKeys = Object.keys(data).sort();
-        this.barChartLabels = sortedKeys.map(key => {
+        const monthData = new Array(12).fill(0);
+        const labels = new Array(12).fill('').map((_, index) => this.getMonthYearString(index));
+        Object.keys(data).forEach(key => {
           const [year, month] = key.split('-');
-          return `${month.padStart(2, '0')}/${year}`;
+          const monthIndex = parseInt(month, 10) - 1;
+          monthData[monthIndex] += data[key];
         });
-        this.barChartData[0].data = sortedKeys.map(key => data[key]);
+        this.barChartData[0].data = monthData;
+        this.barChartLabels = labels;
       },
       error => {
         console.error('Erro ao buscar dados do gráfico:', error);
@@ -86,8 +74,11 @@ export class ChartComponent {
   }
 
   private getMonthYearString(index: number): string {
-    const year = new Date().getFullYear();
-    const month = (index + 1).toString().padStart(2, '0');
-    return `${month}/${year}`;
+    const monthNames = [
+      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    ];
+    const month = monthNames[index];
+    return `${month}`;
   }
 }

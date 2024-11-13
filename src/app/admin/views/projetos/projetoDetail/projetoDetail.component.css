@@ -157,6 +157,28 @@
   height: 100%;
 }
 
-/* .localizacao {
-  height: 350px;
-} */
+/* Lista de arquivos */
+.arquivo-lista {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.arquivo-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.arquivo-item img {
+  margin-right: 8px;
+}
+
+.arquivo-item a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.arquivo-item a:hover {
+  color: #dc3545;
+}
