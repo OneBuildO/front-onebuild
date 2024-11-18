@@ -54,6 +54,9 @@ export class OportunidadesComponent implements OnInit {
   serverMessages: string[] = [];
   tipoAlerta = AlertType.Warning;
   listaProjetosDisponiveis : ProjetoResumoDTO[] = []
+  selectedOportunidade: ProjetoResumoDTO | null = null;
+
+  showDetailModal: boolean = false;
 
   ngOnInit() {
     this.listaProjetosDisponiveis = [];
@@ -70,4 +73,18 @@ export class OportunidadesComponent implements OnInit {
   protected onAlertCloseHandler = (e: any) => {
     this.serverMessages = [];
   };
+
+  detailsModal(projeto?: ProjetoResumoDTO) {
+    if (projeto) {
+      this.selectedOportunidade = projeto;
+      this.showDetailModal = true;
+    } else {
+      this.selectedOportunidade = null;
+      this.showDetailModal = false;
+    }
+  }
+
+  onModalDetailsHandler(event: boolean) {
+    this.showDetailModal = event;
+  }
 }

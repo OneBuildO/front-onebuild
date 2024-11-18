@@ -120,3 +120,130 @@
   font-size: 16px;
   font-weight: 100;
 }
+
+/* DETALHES PROJETOS */
+.container-modal {
+  width: 500px;
+  margin: 1rem;
+}
+
+.modal-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.close-modal {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.modal-header .close {
+  background: none;
+  color: var(--grey-50);
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.detail-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 8px;
+}
+.title-detalhes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 16px;
+}
+
+.title-detalhes h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--font-color-dark);
+}
+
+.title-detalhes p {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--font-color-dark);
+}
+
+.body-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detail-item h4 {
+  font-size: 16px;
+  font-weight: 700;
+  padding-bottom: 4px;
+}
+
+.detail-item p {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--font-color-dark);
+  text-align: justify;
+}
+
+.container-stars {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding-bottom: 16px;
+}
+
+.stars-details {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-color-light);
+  border-radius: 8px;
+  margin: 8px;
+  padding: 0 8px;
+}
+
+.stars-details h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--grey-text);
+}
+
+.contato-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contato-item span {
+  font-size: 14px;
+  font-weight: 200;
+}
+
+.container-dados {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+}
+
+.grid-item {
+  padding: 10px;
+  min-height: 400px;
+}

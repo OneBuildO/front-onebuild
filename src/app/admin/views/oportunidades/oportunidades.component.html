@@ -26,12 +26,58 @@
               <h3>Victor Wesley</h3>
               <p>Arquiteto (a)</p>
             </div>
-            <button>Saiba mais</button>
+            <button (click)="detailsModal(projeto)">Saiba mais</button>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+   <!-- Details Modal -->
+   <app-modal [show]="showDetailModal" [footer]="false" (closeModal)="onModalDetailsHandler($event)">
+    <div class="sm:flex sm:items-start container-modal">
+      <div class="modal-header">
+        <div class="close-modal">
+          <button type="button" class="close" aria-label="Close" (click)="detailsModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="detail-img">
+          <img src="assets/icons/padrao-fornecedor.svg">
+        </div>
+        <div class="title-detalhes">
+          <h3></h3>
+          <p></p>
+        </div>
+      </div>
+      <div class="body-details">
+        <div class="detail-item">
+          <h4>Descrição do Projeto</h4>
+          <p>{{ selectedOportunidade?.observacoes }}</p>
+        </div>
+        <div class="detail-item">
+          <h4>Categoria</h4>
+          <p>{{ selectedOportunidade?.categoria }}</p>
+        </div>
+        <div class="detail-item">
+          <h4>Endereço</h4>
+          <p>{{ selectedOportunidade?.endereco }}</p>
+        </div>
+        <div class="detail-item contato-item">
+          <h4>Contato</h4>
+          <p>E-mail:
+            <span></span>
+          </p>
+          <p>CNPJ:
+            <span></span>
+          </p>
+          <p>Telefone:
+            <span></span>
+          </p>
+        </div>
+      </div>
+    </div>
+   </app-modal>
 
   <p class="" *ngIf="listaProjetosDisponiveis.length == 0 && idClienteSelecionado == 0">Nenhum projeto encontrado</p>
 </div>
