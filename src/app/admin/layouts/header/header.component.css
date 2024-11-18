@@ -1,24 +1,89 @@
 .admin-navbar {
-    z-index: 10;
-    background: var(--bg-color-dark);
+  z-index: 10;
+  background: var(--bg-color-dark);
 }
 
 .btn-drop {
-  background: var(--bg-color-light);
+  background: var(--bg-surface-white);
+  text-align: center;
+  display: flex;
+  cursor: pointer;
+  width: 120px;
+  height: 56px;
+  justify-content: center;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.text-btn {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-btn p {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--font-color-dark);
+  margin: 0;
+}
+
+.text-btn span {
+  font-size: 12px;
+  font-weight: 100;
+  color: var(--font-color-dark);
+  margin: 0;
 }
 
 .profile-dropdown-list {
-    @apply absolute top-9 -right-3 mt-2 flex w-60 flex-col gap-3 rounded-xl bg-slate-100 border border-slate-500/30 p-4 shadow-lg transition ease-in-out duration-150
+  @apply absolute top-14 -right-3 mt-2 flex w-80 flex-col gap-3 rounded-xl bg-slate-100 border border-slate-500/30 p-4 shadow-lg transition ease-in-out duration-150;
+  background: var(--bg-surface-white);
+  padding: 18px;
 }
 
-.profile-dropdown-list[aria-expanded=false] {
-    @apply invisible scale-90 opacity-0
+.profile-dropdown-list[aria-expanded="false"] {
+  @apply invisible scale-90 opacity-0;
 }
 
-.notification-dropdown-list {
-    @apply absolute top-9 -right-3 mt-2 flex w-60 flex-col gap-3 rounded-xl bg-slate-100 border border-slate-500/30 p-4 shadow-lg transition ease-in-out duration-150
+/* .notification-dropdown-list {
+  @apply absolute top-9 -right-3 mt-2 flex w-60 flex-col gap-3 rounded-xl bg-slate-100 border border-slate-500/30 p-4 shadow-lg transition ease-in-out duration-150;
 }
 
-.notification-dropdown-list[aria-expanded=false] {
-    @apply invisible scale-90 opacity-0
+.notification-dropdown-list[aria-expanded="false"] {
+  @apply invisible scale-90 opacity-0;
+} */
+
+.dados-base-user {
+  display: flex;
+  flex-direction: column;
+}
+
+.dados-base-user span {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--accent-color);
+}
+
+.dados-base-user p {
+  font-size: 14px;
+  font-weight: 100;
+  color: var(--font-color-dark);
+}
+
+.btn-menu-profile {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 200;
+  align-items: center;
+}
+
+.btn-menu-profile:hover {
+  background: var(--bg-color-light);
+}
+
+.container-btn {
+  margin: 8px 0;
 }
