@@ -1,0 +1,122 @@
+.title-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  margin-bottom: 32px;
+  background: #e8e8e8;
+  border-radius: 8px;
+}
+
+.title-header h1 {
+  font-size: 1.3em;
+  font-weight: 400;
+  color: var(--font-color-dark);
+}
+
+.title-header span {
+  font-weight: 700;
+  color: var(--accent-color);
+}
+
+/* CARDS */
+.body-fornecedor {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.body-fornecedor h2 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--font-color-dark);
+  padding-left: 1rem;
+}
+
+.container-oportunidades {
+  display: flex;
+}
+
+.body-card {
+  background: var(--font-color-light);
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 1rem;
+  padding: 2rem;
+  width: 400px;
+  height: 230px;
+  display: flex;
+  gap: 32px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.body-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.col-dados {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.container-info {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  flex-direction: row;
+}
+
+.info-detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.col-dados button {
+  background: var(--gradient-primary);
+  color: var(--font-color-dark);
+  padding: 4px 32px;
+  border-radius: 32px;
+  height: 38px;
+}
+
+.col-dados button:hover {
+  background: var(--gradient-secondary);
+}
+
+.title-dados span {
+  font-size: 14px;
+  font-weight: 100;
+}
+
+.title-dados h1 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.title-dados h2 {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.title-dados p {
+  font-size: 12px;
+  font-weight: 100;
+}
+
+.user-name {
+    text-align: center;
+}
+
+.user-name h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.user-name p {
+  font-size: 16px;
+  font-weight: 100;
+}

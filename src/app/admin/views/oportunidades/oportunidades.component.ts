@@ -14,10 +14,12 @@ import {SelectClienteComponent} from "src/app//shared/components/select-cliente/
 import {DatatableOportunidadesComponent} from "./datatableOportunidades/datatable-oportunidades.component";
 import {ProjetoResumoDTO} from "../../../_core/models/projeto.model";
 Chart.register(...registerables);
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-oportunidades',
     templateUrl: './oportunidades.component.html',
+    styleUrls: ['./oportunidades.component.css'],
     standalone: true,
   imports: [
     ModalComponent,
@@ -29,7 +31,8 @@ Chart.register(...registerables);
     AlertComponent,
     SelectClienteComponent,
     DatatableOportunidadesComponent,
-    NgForOf
+    NgForOf,
+    CommonModule
   ],
     animations: [pageTransition]
 })
