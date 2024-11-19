@@ -12,7 +12,7 @@
   </div>
 
   <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-    <div class="card flex items-center card-dashboard">
+    <div class="card flex items-center card-dashboard" (click)="openClientesPopup()">
       <div class="info-card">
         <h4>{{ dadosPerfil.qtdTotalClientes }}</h4>
         <p>Total de Clientes</p>
@@ -113,5 +113,16 @@
 <!--      </div>-->
 <!--    </div>-->
 <!--  </section>-->
+
+<!-- Popup para lista de clientes -->
+<div *ngIf="showClientesPopup" class="popup">
+  <div class="popup-content">
+    <span class="close" (click)="closeClientesPopup()">&times;</span>
+    <h2>Lista de Clientes</h2>
+    <ul>
+      <li *ngFor="let cliente of listaClientes">{{ cliente?.nome }}</li>
+    </ul>
+  </div>
+</div>
 
 </div>

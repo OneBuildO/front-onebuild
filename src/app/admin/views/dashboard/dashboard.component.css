@@ -19,16 +19,16 @@
   color: var(--accent-color);
 }
 
-.container-btn{
+.container-btn {
   display: flex;
 }
 
-.button-convite{
+.button-convite {
   background: var(--gradient-primary);
   font-weight: 700;
 }
 
-.button-convite:hover{
+.button-convite:hover {
   background: var(--gradient-secondary);
 }
 
@@ -71,6 +71,43 @@
 }
 
 .card-dashboard img {
-  width: 90px !important; 
-  height: 90px !important; 
+  width: 90px !important;
+  height: 90px !important;
+}
+
+/* Estilos para o popup */
+.popup-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 500px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.popup-content h2 {
+  margin-top: 0;
+}
+
+.popup-content ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.popup-content ul li {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.popup-content ul li:last-child {
+  border-bottom: none;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
 }

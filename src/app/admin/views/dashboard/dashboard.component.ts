@@ -1,11 +1,14 @@
 import { formatDate } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { pageTransition } from 'src/app/shared/utils/animations';
 import {DadosEstatisticaUsuario} from "../../../_core/models/usuario.model";
 import {CategoriasProjetoArr} from "../../../_core/enums/e-categorias-projeto";
 import {UsuarioService} from "../../../_core/services/usuario.service";
 Chart.register(...registerables);
+
+import {ClienteResumoDTO} from "src/app/_core/models/clienteResumo";
+import {ClienteService} from "src/app/_core/services/cliente.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -18,8 +21,13 @@ export class DashboardComponent implements OnInit {
   dadosPerfil!: DadosEstatisticaUsuario;
   showModal: boolean = false;
 
+ public listaClientes: ClienteResumoDTO[] = [];
+  clienteSelected! : ClienteResumoDTO;
+  showClientesPopup: boolean = false;
+
   constructor(
     private readonly serviceUsuario : UsuarioService,
+    private serviceCliente: ClienteService,
   ) {}
 
   ngOnInit(): void {
@@ -68,5 +76,13 @@ export class DashboardComponent implements OnInit {
 
   onModalCloseHandler(event: boolean) {
     this.showModal = event; // Atualiza o estado do modal com base no evento de fechamento
+  }
+
+  openClientesPopup(): void {
+    this.showClientesPopup = true;
+  }
+
+  closeClientesPopup(): void {
+    this.showClientesPopup = false;
   }
 }
