@@ -6,7 +6,7 @@
     </h1>
   </div>
 
-  <div class="body-oportunidades">
+  <div class="body-oportunidade">
     <div class="container-oportunidades">
       <div *ngFor="let projeto of listaProjetosDisponiveis" class="body-card">
         <div class="col-dados">
@@ -28,6 +28,24 @@
             </div>
             <button (click)="detailsModal(projeto)">Saiba mais</button>
           </div>
+        </div>
+      </div>
+    </div>
+    <h2>Promoções</h2>
+    <div>
+      <div class="card-sale">
+        <div class="sale-image-container">
+          <img src="assets/images/promocao-teste.png" alt="Promoção">
+          <div class="discount-badge">-20%</div>
+        </div>
+        <div class="sale-info">
+          <h3>Ar-Condicionado</h3>
+          <div class="price">
+            <span class="currency">R$</span>
+            <span class="current-price">100,00</span>
+            <span class="old-price">De: R$ 120,00</span>
+          </div>
+          <button>Ver mais</button>
         </div>
       </div>
     </div>
