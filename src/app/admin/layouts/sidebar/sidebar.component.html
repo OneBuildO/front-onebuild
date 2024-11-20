@@ -65,7 +65,7 @@
         <li *ngIf="userLogged?.perfilUsuario == EPerfilUsuario.FORNECEDOR">
           <a class="menu-item" [routerLink]="commonServices.prepareRoute(appRoutes.Admin, adminRoutes.Oportunidades)"
             routerLinkActive="active" ariaCurrentWhenActive="page">
-            <i class="bi bi-shop-window"></i>
+            <mat-icon class="menu-icon" svgIcon="fornecedores"></mat-icon>
             <span>Oportunidades</span>
           </a>
         </li>
