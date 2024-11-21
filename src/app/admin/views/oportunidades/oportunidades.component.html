@@ -16,15 +16,15 @@
             </div>
             <div class="title-dados">
               <span>Público</span>
-              <h1>Minha Casa</h1>
-              <h3>{{ projeto.categoria }}</h3>
+              <h1>{{ projeto.nomeProjeto }}</h1>
+              <h3>{{ projeto.categoriaProjeto }}</h3>
               <p>{{ projeto.dataLimiteOrcamento | date: 'dd/MM/yyyy' }}</p>
             </div>
           </div>
           <div class="info-detail">
             <div class="user-name">
-              <h3>Victor Wesley</h3>
-              <p>Arquiteto (a)</p>
+              <h3>{{  projeto.nomeUsuario }}</h3>
+              <p>{{ projeto.tipoUsuario }}</p>
             </div>
             <button (click)="detailsModal(projeto)">Saiba mais</button>
           </div>
@@ -71,11 +71,11 @@
       <div class="body-details">
         <div class="detail-item">
           <h4>Descrição do Projeto</h4>
-          <p>{{ selectedOportunidade?.observacoes }}</p>
+          <p>{{ selectedOportunidade?.descricaoProjeto }}</p>
         </div>
         <div class="detail-item">
           <h4>Categoria</h4>
-          <p>{{ selectedOportunidade?.categoria }}</p>
+          <p>{{ selectedOportunidade?.categoriaProjeto }}</p>
         </div>
         <div class="detail-item">
           <h4>Endereço</h4>
@@ -84,7 +84,7 @@
         <div class="detail-item contato-item">
           <h4>Contato</h4>
           <p>E-mail:
-            <span></span>
+            <span>{{ selectedOportunidade?.email }}</span>
           </p>
           <p>CNPJ:
             <span></span>

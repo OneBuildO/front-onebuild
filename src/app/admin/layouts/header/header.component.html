@@ -5,12 +5,14 @@
 
             <!-- PROFILE -->
             <div class="relative inline-block profile-dropdown">
-                <div class="flex items-center shadow rounded-full px-4 btn-drop" (click)="onClickProfile()">
+                <div class="profile">
                     <div class="text-btn">
                         <p>{{userLogged?.nome}}</p>
                         <span>{{userLogged?.tipoUsuario}}</span>
                     </div>
-                    <!-- <img src="assets/icons/profile-user.svg" alt="logout"> -->
+                    <div class="flex items-center shadow rounded-full px-4 btn-drop" (click)="onClickProfile()">
+                        <img src="assets/icons/padrao-fornecedor.svg" alt="profile">
+                    </div>
                 </div>
 
                 <div class="profile-dropdown-list" aria-expanded="false">

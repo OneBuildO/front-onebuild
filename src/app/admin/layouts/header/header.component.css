@@ -3,16 +3,24 @@
   background: var(--bg-color-dark);
 }
 
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .btn-drop {
-  background: var(--bg-surface-white);
+  background: none;
   text-align: center;
   display: flex;
   cursor: pointer;
-  min-width: 120px;
-  height: 56px;
   justify-content: center;
-  flex-direction: row;
-  gap: 8px;
+}
+
+.btn-drop img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
 }
 
 .text-btn {
@@ -23,15 +31,17 @@
 .text-btn p {
   font-size: 16px;
   font-weight: 600;
-  color: var(--font-color-dark);
+  color: var(--font-color-light);
   margin: 0;
+  text-align: end;
 }
 
 .text-btn span {
   font-size: 12px;
   font-weight: 100;
-  color: var(--font-color-dark);
+  color: var(--font-color-light);
   margin: 0;
+  text-align: end;
 }
 
 .profile-dropdown-list {

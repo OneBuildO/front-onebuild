@@ -40,4 +40,8 @@ export const iconsArray: customIcon[] = [
     iconName: 'document-add',
     iconPath: './assets/icons/document-add.svg',
   },
+  {
+    iconName: 'minhas-ofertas',
+    iconPath: './assets/icons/oferta.svg',
+  },
 ];

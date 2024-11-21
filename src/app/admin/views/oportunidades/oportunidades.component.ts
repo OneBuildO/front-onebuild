@@ -12,7 +12,7 @@ import {AlertType} from "src/app//shared/components/alert/alert.type";
 import {ProjetoService} from "src/app//_core/services/projeto.service";
 import {SelectClienteComponent} from "src/app//shared/components/select-cliente/select-cliente.component";
 import {DatatableOportunidadesComponent} from "./datatableOportunidades/datatable-oportunidades.component";
-import {ProjetoResumoDTO} from "../../../_core/models/projeto.model";
+import { ProjetosDisponiveisDTO } from "../../../_core/models/projeto.model";
 Chart.register(...registerables);
 import { CommonModule } from '@angular/common';
 
@@ -53,8 +53,8 @@ export class OportunidadesComponent implements OnInit {
   isLoading: boolean = false;
   serverMessages: string[] = [];
   tipoAlerta = AlertType.Warning;
-  listaProjetosDisponiveis : ProjetoResumoDTO[] = []
-  selectedOportunidade: ProjetoResumoDTO | null = null;
+  listaProjetosDisponiveis : ProjetosDisponiveisDTO[] = []
+  selectedOportunidade: ProjetosDisponiveisDTO | null = null;
 
   showDetailModal: boolean = false;
 
@@ -74,7 +74,7 @@ export class OportunidadesComponent implements OnInit {
     this.serverMessages = [];
   };
 
-  detailsModal(projeto?: ProjetoResumoDTO) {
+  detailsModal(projeto?: ProjetosDisponiveisDTO) {
     if (projeto) {
       this.selectedOportunidade = projeto;
       this.showDetailModal = true;

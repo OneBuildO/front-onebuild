@@ -4,5 +4,93 @@
         <span>|</span>
         Minhas ofertas
       </h1>
+      <div class="container-btn">
+        <button type="button" class="btn button-adicionar" (click)="handleModal()">
+          Adicionar +
+        </button>
+      </div>
     </div>
 </div>
+
+
+<!-- MODAL DE CADASTRO -->
+<app-modal [show]="showModalAdd" size="max-w-7xl" [footer]="false" (closeModal)="onModalCloseHandler($event)">
+    <div class="container-modal sm:items-start">
+      <div class="modal-header">
+        <div class="close-modal">
+          <button type="button" class="close" aria-label="Close" (click)="handleModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <h3 id="modal-title">
+          Cadastrar oferta
+        </h3>
+        <hr>
+      </div>
+
+      <!-- <app-alert (hideAlert)="onAlertCloseHandler($event)" [dismissible]="true" [messages]="serverMessages" [show]="serverMessages.length > 0" [type]="tipoAlerta">
+      </app-alert> -->
+
+      <form>
+        <div class="grid grid-cols-12 gap-x-6 space-y-4">
+          <div class="col-span-12 md:col-span-6">
+            <div class="form-group">
+              <label for="nome" class="form-label required text-left">Nome do produto</label>
+              <input type="text" id="nomeproduto" formControlName="nomeproduto" placeholder="Ex: Lâmpada" class="form-control"/>
+              <!-- <small *ngIf="submited && !clienteForm.get('nome')?.value?.toString()" class="text-red-500 text-left">{{ ERROR_MESSAGES.required() }}</small> -->
+            </div>
+          </div>
+
+          <div class="col-span-12 md:col-span-6">
+            <div class="form-group">
+              <label for="nome" class="form-label required text-left">Descrição</label>
+              <input type="text" id="descricao" formControlName="descricao" placeholder="Ex: De LED" class="form-control"/>
+              <!-- <small *ngIf="submited && !clienteForm.get('projeto')?.value?.toString()" class="text-red-500 text-left">{{ ERROR_MESSAGES.required() }}</small> -->
+            </div>
+          </div>
+
+          <div class="container-value col-span-12 md:col-span-6">
+            <div class="col-span-12 md:col-span-6">
+                <div class="form-group">
+                  <label for="valor" class="form-label required text-left">Valor (R$)</label>
+                  <input type="number" id="valor" formControlName="valor" placeholder="Ex: 100" class="form-control" (input)="calculateDiscount()"/>
+                </div>
+              </div>
+          
+              <div class="col-span-12 md:col-span-6">
+                <div class="form-group">
+                  <label for="porcentagem" class="form-label required text-left">Desconto (%)</label>
+                  <input type="number" id="porcentagem" formControlName="porcentagem" placeholder="Ex: 20" class="form-control" (input)="calculateDiscount()"/>
+                </div>
+              </div>
+          </div>
+      
+          <div class="col-span-12">
+            <div class="form-group">
+              <label for="resultado" class="form-label text-left">Preço com Desconto</label>
+              <p id="resultado">{{ resultado | currency:'BRL' }}</p>
+            </div>
+          </div>
+
+          <div class="col-span-12 md:col-span-6">
+            <div class="form-group">
+              <label for="contato" class="form-label text-left">Contato/Instagram <span>(opcional)</span></label>
+              <input type="text" id="contato" formControlName="contato" placeholder="Ex: @onebuild" class="form-control"/>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="button-container">
+      <button type="button" class="btn button-cancel" (click)="handleModal()">
+        Cancelar
+      </button>
+      <button type="button" class="btn button-confirm">
+        <btn-spinner *ngIf="isLoading"></btn-spinner>
+        <span class="text-branco">
+          Salvar
+        </span>
+      </button>
+    </div>
+  </app-modal>
