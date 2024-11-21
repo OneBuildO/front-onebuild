@@ -42,33 +42,16 @@ export class DashboardComponent implements OnInit {
         }
       });
 
-    var myChart = new Chart("areaWiseSale", {
-      type: 'doughnut',
-      data: {
-        labels: CategoriasProjetoArr,
-        datasets: [{
-          label: 'quantidade: ',
-          data: [12, 19, 3, 5],
-        }]
-      },
-      options: {
-        scales: {
-          x: {
-            display: false
-          },
-          y: {
-            display: false
-          },
+      this.serviceCliente. getAllForUser()
+      .subscribe({
+        next: (data: ClienteResumoDTO[]) => {
+          this.listaClientes = data;
         },
-        plugins: {
-          legend: {
-            position: 'right',
-            align: 'center',
-          },
-        },
-      },
-    });
-  }
+        error: (err) => {
+          console.error(err);
+        }
+      });
+    }
 
   handleModal() {
     this.showModal = !this.showModal; // Alterna o estado do modal manualmente

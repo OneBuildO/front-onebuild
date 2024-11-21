@@ -114,15 +114,14 @@
 <!--    </div>-->
 <!--  </section>-->
 
-<!-- Popup para lista de clientes -->
-<div *ngIf="showClientesPopup" class="popup">
-  <div class="popup-content">
-    <span class="close" (click)="closeClientesPopup()">&times;</span>
-    <h2>Lista de Clientes</h2>
-    <ul>
-      <li *ngFor="let cliente of listaClientes">{{ cliente?.nome }}</li>
-    </ul>
+  <!-- Popup para lista de clientes -->
+  <div *ngIf="showClientesPopup" class="popup">
+    <div class="popup-content">
+      <span class="close" (click)="closeClientesPopup()">&times;</span>
+      <h2>Lista de Clientes</h2>
+      <ul>
+        <li *ngFor="let cliente of listaClientes">{{ cliente.nome }}</li>
+      </ul>
+    </div>
   </div>
-</div>
-
 </div>
