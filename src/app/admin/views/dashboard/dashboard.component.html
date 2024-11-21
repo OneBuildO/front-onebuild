@@ -115,13 +115,41 @@
 <!--  </section>-->
 
   <!-- Popup para lista de clientes -->
-  <div *ngIf="showClientesPopup" class="popup">
-    <div class="popup-content">
-      <span class="close" (click)="closeClientesPopup()">&times;</span>
-      <h2>Lista de Clientes</h2>
-      <ul>
-        <li *ngFor="let cliente of listaClientes">{{ cliente.nome }}</li>
-      </ul>
+<div *ngIf="showClientesPopup" class="popup" (click)="onBackgroundClick($event)">
+  <div class="popup-content" (click)="$event.stopPropagation()">
+    <span class="close" (click)="closeClientesPopup()">&times;</span>
+    <h2>Lista de Clientes</h2>
+    <hr class="line">
+    <div class="dados-client">
+      <div class="header">
+        <div class="header-item">
+          <span>Nome</span>
+          <button (click)="sortByNome()">
+            <div [ngClass]="{'asc': sortDirectionNome, 'desc': !sortDirectionNome}">
+              <img [ngClass]="{'asc': sortDirectionNome, 'desc': !sortDirectionNome}" src="assets/icons/order-up.svg" alt="seta de ordenação" style="width: 10px;">
+            </div>
+          </button>
+        </div>
+        <div class="header-item">
+          <span>Projeto</span>
+          <button (click)="sortByProjeto()">
+            <img [ngClass]="{'asc': sortDirectionProjeto, 'desc': !sortDirectionProjeto}" src="assets/icons/order-up.svg" alt="seta de ordenação" style="width: 10px;">
+          </button>
+        </div>
+      </div>
+      <hr>
+      <div class="content">
+        <div class="column">
+          <ul>
+            <li *ngFor="let cliente of listaClientes">{{ cliente.nome }}</li>
+          </ul>
+        </div>
+        <div class="column">
+          <ul>
+            <li *ngFor="let cliente of listaClientes">{{ cliente.projeto }}</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>

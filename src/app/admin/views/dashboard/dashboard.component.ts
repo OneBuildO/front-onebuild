@@ -25,6 +25,9 @@ export class DashboardComponent implements OnInit {
   clienteSelected! : ClienteResumoDTO;
   showClientesPopup: boolean = false;
 
+  sortDirectionNome: boolean = true;
+  sortDirectionProjeto: boolean = true;
+
   constructor(
     private readonly serviceUsuario : UsuarioService,
     private serviceCliente: ClienteService,
@@ -67,5 +70,41 @@ export class DashboardComponent implements OnInit {
 
   closeClientesPopup(): void {
     this.showClientesPopup = false;
+  }
+
+  onBackgroundClick(event: MouseEvent): void {
+    if ((event.target as HTMLElement).classList.contains('popup')) {
+      this.closeClientesPopup();
+    }
+  }
+
+  sortByNome(): void {
+    this.listaClientes.sort((a, b) => {
+      const aValue = a.nome ?? '';
+      const bValue = b.nome ?? '';
+      if (aValue < bValue) {
+        return this.sortDirectionNome ? -1 : 1;
+      } else if (aValue > bValue) {
+        return this.sortDirectionNome ? 1 : -1;
+      } else {
+        return 0;
+      }
+    });
+    this.sortDirectionNome = !this.sortDirectionNome; // Toggle the sort direction
+  }
+
+  sortByProjeto(): void {
+    this.listaClientes.sort((a, b) => {
+      const aValue = a.projeto ?? '';
+      const bValue = b.projeto ?? '';
+      if (aValue < bValue) {
+        return this.sortDirectionProjeto ? -1 : 1;
+      } else if (aValue > bValue) {
+        return this.sortDirectionProjeto ? 1 : -1;
+      } else {
+        return 0;
+      }
+    });
+    this.sortDirectionProjeto = !this.sortDirectionProjeto; // Toggle the sort direction
   }
 }
