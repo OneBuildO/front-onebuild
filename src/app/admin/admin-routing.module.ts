@@ -18,6 +18,7 @@ import {FornecedoresComponent} from "./views/fornecedores/fornecedores.component
 import {ClientesComponent} from "./views/clientes/clientes.component";
 import {ProjetoDetailComponent} from "./views/projetos/projetoDetail/projetoDetail.component";
 import {OportunidadesComponent} from "./views/oportunidades/oportunidades.component";
+import {MinhasOfertasComponent} from "./views/minhas-ofertas/minhas-ofertas.component";
 
 
 const routes: Routes = [
@@ -55,6 +56,11 @@ const routes: Routes = [
     title: 'Clientes',
     path: AdminRoutes.Clientes,
     component: ClientesComponent,
+  },
+  {
+    title: 'Minhas ofertas',
+    path: AdminRoutes.MinhasOfertas,
+    component: MinhasOfertasComponent,
   },
   {
     title: 'Events',

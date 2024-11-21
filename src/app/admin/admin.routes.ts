@@ -8,6 +8,7 @@ export enum AdminRoutes {
   Events = 'events',
   Settings = 'settings',
   Elements = 'elements',
+  MinhasOfertas = 'minhas-ofertas'
 }
 
 export enum ElementRoutes {

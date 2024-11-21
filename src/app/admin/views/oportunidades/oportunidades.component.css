@@ -339,31 +339,3 @@
 .sale-info button:hover {
   background: var(--gradient-secondary);
 }
-
-/* MINHAS OFERTAS */
-.cadastro-sale {
-  margin-top: 20px;
-  display: flex;
-  background: var(--bg-surface-white);
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 5px;
-  padding: 14px;
-}
-
-.cadastro-sale h2 {
-  font-size: 18px;
-}
-
-.cadastro-sale button {
-  background: var(--gradient-primary);
-  color: var(--font-color-dark);
-  padding: 4px 32px;
-  border-radius: 32px;
-  height: 38px;
-  width: 100%;
-}
-
-.cadastro-sale button:hover {
-  background: var(--gradient-secondary);
-}

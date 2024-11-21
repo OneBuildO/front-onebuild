@@ -69,6 +69,14 @@
             <span>Oportunidades</span>
           </a>
         </li>
+
+        <li *ngIf="userLogged?.perfilUsuario == EPerfilUsuario.FORNECEDOR">
+          <a class="menu-item" [routerLink]="commonServices.prepareRoute(appRoutes.Admin, adminRoutes.MinhasOfertas)"
+            routerLinkActive="active" ariaCurrentWhenActive="page">
+            <mat-icon class="menu-icon" svgIcon="fornecedores"></mat-icon>
+            <span>Minhas ofertas</span>
+          </a>
+        </li>
     
         <li>
           <a href="javascript:void(0)" class="menu-item sub-menu" aria-expanded="false"
