@@ -38,6 +38,12 @@ export class MinhasOfertasComponent implements OnInit {
   modalComponent: ModalComponent;
   resultado: number = 0;
 
+  selectedImage: string='';
+  uploadedImage: string='';
+  fotoPreviews: { [key: string]: string | ArrayBuffer | null } = {};
+
+  fotoProd: File | null = null;
+
   ngOnInit(): void {
     this.ofertaForm.valueChanges.subscribe(() => {
       this.calculateDiscount();
@@ -56,6 +62,67 @@ export class MinhasOfertasComponent implements OnInit {
     const valor = this.ofertaForm.get('valor')?.value || 0;
     const porcentagem = this.ofertaForm.get('porcentagem')?.value || 0;
     this.resultado = valor - (valor * (porcentagem / 100));
+  }
+
+  onDrop(event: DragEvent, field: string) {
+    event.preventDefault();
+    const file = event.dataTransfer?.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.fotoPreviews[field] = reader.result;
+        console.debug(`Imagem arrastada para o campo ${field}.`);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+  }
+
+  onFileSelectedImage(event: any, alternativaIndex: string) {
+    const file = event.target.files[0];
+  
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.fotoPreviews[alternativaIndex] = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  onFileSelected(event: any, field: string) {
+    const file = event.target.files[0];
+    if (file) {
+      switch (field) {
+        case 'fotoProd':
+          this.fotoProd = file;
+          break;
+        default:
+          break;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.fotoPreviews[field] = reader.result;
+        console.log(`Arquivo carregado para o campo ${field}.`);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  isImage(file: any): boolean {
+    return file && file.startsWith('data:image/');
+  }
+
+  handleImageChange(event: any, index: number) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.uploadedImage = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 
 }

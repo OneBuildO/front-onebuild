@@ -32,6 +32,26 @@
       </app-alert> -->
 
       <form>
+        <div class="cont-imgs">
+          <div class="form-group">
+            <div class="image-upload" (drop)="onDrop($event, 'fotoProd')" (dragover)="onDragOver($event)">
+              <input type="file" id="fotoProd" name="fotoProd"
+                (change)="onFileSelected($event, 'fotoProd')" accept="image/*" style="display: none;" />
+              <label for="fotoProd">
+                <div class="foto-preview" id="fotoPreview">
+                  <ng-container *ngIf="fotoPreviews['fotoProd']">
+                    <img *ngIf="isImage(fotoPreviews['fotoProdo'])" [src]="fotoPreviews['fotoProd']" alt="Image Preview" />
+                  </ng-container>
+                  <span *ngIf="!fotoPreviews['fotoProd']" class="upload-placeholder">
+                    <img src="assets/icons/add-img.svg" style="width: 50px; opacity: 0.5;" class="upload-icon">
+                    Clique para fazer upload da imagem
+                  </span>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
         <div class="grid grid-cols-12 gap-x-6 space-y-4">
           <div class="col-span-12 md:col-span-6">
             <div class="form-group">

@@ -122,3 +122,57 @@
   flex-direction: row;
   width: 100%;
 }
+
+/* Imagens e Upload */
+.image-upload {
+  border: 2px dashed #ccc;
+  border-radius: 5px;
+  position: relative;
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+}
+
+.foto-preview {
+  max-width: 100%;
+  height: 200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  padding: 16px;
+  cursor: pointer;
+  border: 1px solid #dee2e6;
+  background: #f8f9fa;
+}
+
+.foto-preview img,
+.foto-preview video {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.image-upload input[type="file"] {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #7E7E7F;
+}
+
+.upload-icon {
+  width: 50px;
+  opacity: 0.5;
+  margin-bottom: 10px;
+}
