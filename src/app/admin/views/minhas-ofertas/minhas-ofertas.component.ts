@@ -140,7 +140,8 @@ export class MinhasOfertasComponent implements OnInit {
   calculateDiscount(): void {
     const valorOriginal = this.ofertaForm.get('valorOriginal')?.value || 0;
     const porcentagemDesconto = this.ofertaForm.get('porcentagemDesconto')?.value || 0;
-    this.valor = valorOriginal - (valorOriginal * (porcentagemDesconto / 100));
+    const valor = valorOriginal - (valorOriginal * (porcentagemDesconto / 100));
+    this.ofertaForm.patchValue({ valor: valor });
   }
   
   

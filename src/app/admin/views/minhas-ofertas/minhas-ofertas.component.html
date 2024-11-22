@@ -88,7 +88,7 @@
           <div class="col-span-12">
             <div class="form-group">
               <label for="valor" class="form-label text-left">Preço com Desconto</label>
-              <p id="valor" formControlName="valor">{{ valor | currency: 'BRL':'symbol':'1.2-2' }}</p>
+              <p id="valor" formControlName="valor">{{ ofertaForm.get('valor')?.value | currency: 'BRL':'symbol':'1.2-2' }}</p>
             </div>
           </div>
 
