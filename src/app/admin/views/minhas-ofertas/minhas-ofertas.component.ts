@@ -38,7 +38,7 @@ export class MinhasOfertasComponent implements OnInit {
       titulo: [''],
       descricao: [''],
       instagram: [''],
-      valor: [''],
+      valor: [0],
       valorOriginal: [0],
       porcentagemDesconto: [0],
       dataLimitePromocao: ['']
@@ -63,7 +63,7 @@ export class MinhasOfertasComponent implements OnInit {
   arquivosPromocao: File[] = [];
   idPromocao: number | null = null;
 
-  resultado: number = 0; // Resultado do cálculo
+  valor: number = 0;
 
   ngOnInit(): void {
     this.ofertaForm.valueChanges.subscribe(() => {
@@ -138,9 +138,9 @@ export class MinhasOfertasComponent implements OnInit {
   }
 
   calculateDiscount(): void {
-    const valorOriginal = this.ofertaForm.get('valor')?.value || 0;
-    const porcentagemDesconto = this.ofertaForm.get('porcentagem')?.value || 0;
-    this.resultado = valorOriginal - (valorOriginal * (porcentagemDesconto / 100));
+    const valorOriginal = this.ofertaForm.get('valorOriginal')?.value || 0;
+    const porcentagemDesconto = this.ofertaForm.get('porcentagemDesconto')?.value || 0;
+    this.valor = valorOriginal - (valorOriginal * (porcentagemDesconto / 100));
   }
   
   
