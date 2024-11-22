@@ -15,6 +15,8 @@ import {DatatableOportunidadesComponent} from "./datatableOportunidades/datatabl
 import { ProjetosDisponiveisDTO } from "../../../_core/models/projeto.model";
 Chart.register(...registerables);
 import { CommonModule } from '@angular/common';
+import { MinhasOfertasDTO } from '../../../_core/models/oferta.model';
+import { OfertaService } from "src/app/_core/services/oferta.service";
 
 @Component({
     selector: 'app-oportunidades',
@@ -41,6 +43,7 @@ export class OportunidadesComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private projectService : ProjetoService,
+    private ofertaService: OfertaService,
   ) {}
 
   urlParams = new URL(window.location.href);
