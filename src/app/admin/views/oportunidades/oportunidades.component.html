@@ -60,15 +60,28 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="detail-img">
-          <img src="assets/icons/padrao-fornecedor.svg">
-        </div>
-        <div class="title-detalhes">
-          <h3></h3>
-          <p></p>
+        <div class="container-title">
+          <div class="detail-img">
+            <img src="assets/images/perfil-cubo.png">
+          </div>
+          <div class="title-detalhes">
+            <span>Público</span>
+            <h3>{{ selectedOportunidade?.nomeProjeto }}</h3>
+            <p>{{ selectedOportunidade?.categoriaProjeto }}</p>
+          </div>
         </div>
       </div>
       <div class="body-details">
+        <div class="container-two">
+          <div class="detail-item">
+            <h4>{{ selectedOportunidade?.nomeUsuario }}</h4>
+            <p>{{ selectedOportunidade?.tipoUsuario }}</p>
+          </div>
+          <div class="detail-item">
+            <h4>Data limite</h4>
+            <p>{{ selectedOportunidade?.dataLimiteOrcamento | date: 'dd/MM/yyyy' }}</p>
+          </div>
+        </div>
         <div class="detail-item">
           <h4>Descrição do Projeto</h4>
           <p>{{ selectedOportunidade?.descricaoProjeto }}</p>
@@ -76,6 +89,16 @@
         <div class="detail-item">
           <h4>Categoria</h4>
           <p>{{ selectedOportunidade?.categoriaProjeto }}</p>
+        </div>
+        <div class="container-two">
+          <div class="detail-item">
+            <h4>Cidade</h4>
+            <p>{{ selectedOportunidade?.cidade }}</p>
+          </div>
+          <div class="detail-item">
+            <h4>Estado</h4>
+            <p>{{ selectedOportunidade?.estado }}</p>
+          </div>
         </div>
         <div class="detail-item">
           <h4>Endereço</h4>
@@ -86,11 +109,8 @@
           <p>E-mail:
             <span>{{ selectedOportunidade?.email }}</span>
           </p>
-          <p>CNPJ:
-            <span></span>
-          </p>
           <p>Telefone:
-            <span></span>
+            <span>{{ selectedOportunidade?.contato }}</span>
           </p>
         </div>
       </div>
