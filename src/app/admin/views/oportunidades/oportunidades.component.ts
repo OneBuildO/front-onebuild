@@ -61,6 +61,8 @@ export class OportunidadesComponent implements OnInit {
 
   showDetailModal: boolean = false;
   promocoes: MinhasOfertasDTO[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
 
   ngOnInit() {
     this.listaProjetosDisponiveis = [];
@@ -99,5 +101,23 @@ export class OportunidadesComponent implements OnInit {
 
   onModalDetailsHandler(event: boolean) {
     this.showDetailModal = event;
+  }
+
+  get paginatedPromocoes(): MinhasOfertasDTO[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.promocoes.slice(startIndex, endIndex);
+  }
+
+  nextPage(): void {
+    if ((this.currentPage * this.itemsPerPage) < this.promocoes.length) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
   }
 }

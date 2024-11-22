@@ -33,7 +33,7 @@
     </div>
     <h2>Promoções</h2>
     <div class="bodyOfertas">
-      <div *ngFor="let promocao of promocoes" class="card-sale">
+      <div *ngFor="let promocao of paginatedPromocoes" class="card-sale">
         <div class="sale-image-container">
           <img src="assets/images/promocao-teste.png" alt="Promoção">
           <div class="discount-badge">-{{ promocao.porcentagemDesconto }}%</div>
@@ -48,6 +48,11 @@
           <button>Ver mais</button>
         </div>
       </div>
+    </div>
+    <div class="pagination-controls">
+      <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+      <span>Página {{ currentPage }}</span>
+      <button (click)="nextPage()" [disabled]="(currentPage * itemsPerPage) >= promocoes.length">Próxima</button>
     </div>
   </div>
 
