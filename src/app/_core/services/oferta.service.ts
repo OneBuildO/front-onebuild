@@ -21,9 +21,9 @@ export class OfertaService {
     formData.append("reportProgress", "true");
     formData.append("newOferta", JSON.stringify(newOferta));
   
-    return this.httpClient.post(`${this._apiBaseUrl}/nova/promocao?idProjeto=${idPromocao}`, formData, {
+    return this.httpClient.post(`${this._apiBaseUrl}/promocao`, formData, {
       responseType: "text",
-      headers: this.authService.generateHeaderFile()
+      headers: this.authService.generateHeader()
     }).pipe(first());
   }
 

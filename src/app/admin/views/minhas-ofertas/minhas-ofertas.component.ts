@@ -34,12 +34,14 @@ export class MinhasOfertasComponent implements OnInit {
   ) {
     this.modalComponent = new ModalComponent();
     this.ofertaForm = this.formBuilder.group({
-      nomeproduto: [''],
+      id: [''],
+      titulo: [''],
       descricao: [''],
-      contato: [''],
+      instagram: [''],
       valor: [''],
-      porcentagem: [''],
-      datapromocao: ['']
+      valorOriginal: [''],
+      porcentagemDesconto: [''],
+      dataLimitePromocao: ['']
     });
   }
 
@@ -92,24 +94,27 @@ export class MinhasOfertasComponent implements OnInit {
     this.isLoading = true;
 
     if (cadastroOferta.id && cadastroOferta.id != 0) {
-      this.ofertaService.editOferta(cadastroOferta)
-        .subscribe({
-          next: (data: any) => {
-            this.isLoading = false;
-            this.handleModal();
-            localStorage.setItem('successMessage', `Oferta ${cadastroOferta.titulo} editada com sucesso!`);
-            window.location.reload();
-          },
-          error: (err: any) => {
-            this.tipoAlerta = AlertType.Danger
-            this.serverMessages.push(err.error);
-            this.isLoading = false;
-          }
-        });
+      console.log('Editando oferta existente...');
+      this.ofertaService.editOferta(cadastroOferta).subscribe({
+        next: (data: any) => {
+          console.log('Resposta da edição:', data);
+          this.isLoading = false;
+          this.handleModal();
+          localStorage.setItem('successMessage', `Oferta ${cadastroOferta.titulo} editada com sucesso!`);
+          window.location.reload();
+        },
+        error: (err: any) => {
+          console.error('Erro na edição:', err);
+          this.tipoAlerta = AlertType.Danger;
+          this.serverMessages.push(err.error);
+          this.isLoading = false;
+        }
+      });
     } else {
       console.log('Salvando nova oferta...');
       this.ofertaService.saveNewOferta(cadastroOferta, this.arquivosPromocao, this.idPromocao).subscribe({
         next: (data: any) => {
+          console.log('Resposta do salvamento:', data);
           this.tipoAlerta = AlertType.Success;
           this.isLoading = false;
           this.handleModal();
