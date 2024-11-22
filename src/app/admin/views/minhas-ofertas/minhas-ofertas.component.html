@@ -31,7 +31,7 @@
       <!-- <app-alert (hideAlert)="onAlertCloseHandler($event)" [dismissible]="true" [messages]="serverMessages" [show]="serverMessages.length > 0" [type]="tipoAlerta">
       </app-alert> -->
 
-      <form>
+      <form [formGroup]="ofertaForm">
         <div class="cont-imgs">
           <div class="form-group">
             <div class="image-upload" (drop)="onDrop($event, 'fotoProd')" (dragover)="onDragOver($event)">
@@ -88,7 +88,16 @@
           <div class="col-span-12">
             <div class="form-group">
               <label for="resultado" class="form-label text-left">Preço com Desconto</label>
-              <p id="resultado">{{ resultado | currency:'BRL' }}</p>
+              <p id="resultado">{{ resultado | currency: 'BRL':'symbol':'1.2-2' }}</p>
+            </div>
+          </div>
+
+           <div class="col-span-12 md:col-span-6">
+            <div class="form-group">
+              <label for="datapromocao" class="form-label required text-left">
+                Data limite da promoção
+              </label>
+              <input type="date" id="datapromocao" formControlName="datapromocao" class="form-control"/>
             </div>
           </div>
 
@@ -106,7 +115,7 @@
       <button type="button" class="btn button-cancel" (click)="handleModal()">
         Cancelar
       </button>
-      <button type="button" class="btn button-confirm">
+      <button type="button" class="btn button-confirm" (click)="onFormSubmitHandler()">
         <btn-spinner *ngIf="isLoading"></btn-spinner>
         <span class="text-branco">
           Salvar
