@@ -39,8 +39,8 @@ export class MinhasOfertasComponent implements OnInit {
       descricao: [''],
       instagram: [''],
       valor: [''],
-      valorOriginal: [''],
-      porcentagemDesconto: [''],
+      valorOriginal: [0],
+      porcentagemDesconto: [0],
       dataLimitePromocao: ['']
     });
   }
@@ -63,8 +63,6 @@ export class MinhasOfertasComponent implements OnInit {
   arquivosPromocao: File[] = [];
   idPromocao: number | null = null;
 
-  valor: number = 0; // Valor inicial
-  porcentagem: number = 0; // Desconto inicial
   resultado: number = 0; // Resultado do cálculo
 
   ngOnInit(): void {
@@ -91,7 +89,7 @@ export class MinhasOfertasComponent implements OnInit {
       dataLimitePromocao: this.ofertaForm.controls['dataLimitePromocao'].value
     };
 
-    this.isLoading = true;
+    // this.isLoading = true;
 
     if (cadastroOferta.id && cadastroOferta.id != 0) {
       console.log('Editando oferta existente...');
@@ -140,11 +138,9 @@ export class MinhasOfertasComponent implements OnInit {
   }
 
   calculateDiscount(): void {
-    if (this.valor > 0 && this.porcentagem >= 0 && this.porcentagem <= 100) {
-      this.resultado = this.valor - (this.valor * (this.porcentagem / 100));
-    } else {
-      this.resultado = 0;
-    }
+    const valorOriginal = this.ofertaForm.get('valor')?.value || 0;
+    const porcentagemDesconto = this.ofertaForm.get('porcentagem')?.value || 0;
+    this.resultado = valorOriginal - (valorOriginal * (porcentagemDesconto / 100));
   }
   
   
