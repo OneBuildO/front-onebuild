@@ -58,6 +58,8 @@ export class MinhasOfertasComponent implements OnInit {
   fotoPreviews: { [key: string]: string | ArrayBuffer | null } = {};
 
   fotoProd: File | null = null;
+  arquivosPromocao: File[] = [];
+  idPromocao: number | null = null;
 
   valor: number = 0; // Valor inicial
   porcentagem: number = 0; // Desconto inicial
@@ -105,23 +107,24 @@ export class MinhasOfertasComponent implements OnInit {
           }
         });
     } else {
-      this.ofertaService.saveNewOferta(cadastroOferta)
-        .subscribe({
-          next: (data: any) => {
-            this.tipoAlerta = AlertType.Success
-            this.isLoading = false;
-            this.handleModal();
-            localStorage.setItem('successMessage', `Oferta ${cadastroOferta.titulo} salva com sucesso!`);
-            window.location.reload();
-          },
-          error: (err: any) => {
-            this.tipoAlerta = AlertType.Danger
-            this.serverMessages.push(err.error);
-            this.isLoading = false;
-          }
-        });
+      console.log('Salvando nova oferta...');
+      this.ofertaService.saveNewOferta(cadastroOferta, this.arquivosPromocao, this.idPromocao).subscribe({
+        next: (data: any) => {
+          this.tipoAlerta = AlertType.Success;
+          this.isLoading = false;
+          this.handleModal();
+          localStorage.setItem('successMessage', `Oferta ${cadastroOferta.titulo} salva com sucesso!`);
+          window.location.reload();
+        },
+        error: (err: any) => {
+          console.error('Erro no salvamento:', err);
+          this.tipoAlerta = AlertType.Danger;
+          this.serverMessages.push(err.error);
+          this.isLoading = false;
+        }
+      });
     }
-  }
+  };
 
   handleModal() {
     this.showModalAdd = !this.showModalAdd;

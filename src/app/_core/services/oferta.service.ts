@@ -15,10 +15,16 @@ export class OfertaService {
     private readonly authService : AuthService,
   ) {}
 
-  saveNewOferta(newOferta: MinhasOfertasDTO): Observable<any> {
-    return this.httpClient.post<any>(`${this._apiBaseUrl}/nova/promocao`, newOferta, {
-        headers : this.authService.generateHeader()
-      }).pipe(first())
+  saveNewOferta(newOferta: MinhasOfertasDTO, files: File[], idPromocao: number | null): Observable<any> {
+    const formData = new FormData();
+    files.map((file) => formData.append('arquivo', file));
+    formData.append("reportProgress", "true");
+    formData.append("newOferta", JSON.stringify(newOferta));
+  
+    return this.httpClient.post(`${this._apiBaseUrl}/nova/promocao?idProjeto=${idPromocao}`, formData, {
+      responseType: "text",
+      headers: this.authService.generateHeaderFile()
+    }).pipe(first());
   }
 
   editOferta(newOferta: MinhasOfertasDTO): Observable<any> {
