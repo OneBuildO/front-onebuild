@@ -38,4 +38,10 @@ export class OfertaService {
       )
       .pipe(first());
   }
+
+  getPromocoes(): Observable<MinhasOfertasDTO[]> {
+    return this.httpClient.get<MinhasOfertasDTO[]>(`${this._apiBaseUrl}/promocoes`, {
+      headers: this.authService.generateHeader()
+    }).pipe(first());
+  }
 }

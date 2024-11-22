@@ -33,17 +33,17 @@
     </div>
     <h2>Promoções</h2>
     <div class="bodyOfertas">
-      <div class="card-sale">
+      <div *ngFor="let promocao of promocoes" class="card-sale">
         <div class="sale-image-container">
           <img src="assets/images/promocao-teste.png" alt="Promoção">
-          <div class="discount-badge">-20%</div>
+          <div class="discount-badge">-{{ promocao.porcentagemDesconto }}%</div>
         </div>
         <div class="sale-info">
-          <h3>Ar-Condicionado</h3>
+          <h3>{{ promocao.titulo }}</h3>
           <div class="price">
             <span class="currency">R$</span>
-            <span class="current-price">100,00</span>
-            <span class="old-price">De: R$ 120,00</span>
+            <span class="current-price">{{ promocao.valor | currency: 'BRL':'symbol':'1.2-2' }}</span>
+            <span class="old-price">De: {{ promocao.valorOriginal | currency: 'BRL':'symbol':'1.2-2' }}</span>
           </div>
           <button>Ver mais</button>
         </div>

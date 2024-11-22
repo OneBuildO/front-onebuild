@@ -361,3 +361,9 @@
 .sale-info button:hover {
   background: var(--gradient-secondary);
 }
+
+.bodyOfertas {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}

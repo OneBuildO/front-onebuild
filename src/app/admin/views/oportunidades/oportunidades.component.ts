@@ -60,6 +60,7 @@ export class OportunidadesComponent implements OnInit {
   selectedOportunidade: ProjetosDisponiveisDTO | null = null;
 
   showDetailModal: boolean = false;
+  promocoes: MinhasOfertasDTO[] = [];
 
   ngOnInit() {
     this.listaProjetosDisponiveis = [];
@@ -69,6 +70,15 @@ export class OportunidadesComponent implements OnInit {
           this.listaProjetosDisponiveis = data
         },
         error: (err) => {
+        }
+      });
+
+      this.ofertaService.getPromocoes().subscribe({
+        next: (data: MinhasOfertasDTO[]) => {
+          this.promocoes = data;
+        },
+        error: (err) => {
+          console.error('Erro ao buscar promoções:', err);
         }
       });
   }
