@@ -147,9 +147,9 @@
   background: #f8f9fa;
 }
 
-.foto-preview img,
-.foto-preview video {
-  max-width: 100%;
+.foto-preview img {
+  max-width: 300px;
+  max-height: 180px;
   height: auto;
   border-radius: 5px;
 }
