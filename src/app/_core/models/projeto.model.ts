@@ -51,3 +51,20 @@ export interface Arquivo {
   base64Data: string | null;
   fileName: string | null;
 }
+
+export interface ProjetosDisponiveisDTO {
+  id: number;
+  idCliente: number;
+  nomeUsuario: string | null;
+  email: string | null;
+  contato: string  | null;
+  tipoUsuario: string | null;
+  nomeProjeto: string | null;
+  descricaoProjeto: string | null;
+  categoriaProjeto: string | null;
+  dataLimiteOrcamento: string | null;
+  endereco: string | null;
+  cidade: string | null;
+  estado: string | null;
+  publico: boolean;
+}

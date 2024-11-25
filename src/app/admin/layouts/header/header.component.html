@@ -2,58 +2,39 @@
     <div class="flex justify-between items-center">
         <div class="flex justify-start items-center gap-x-3"></div>
         <div class="flex justify-end items-center gap-x-3">
-<!--            <div class="relative inline-block">-->
-<!--                <button type="button" class="text-xl text-light rounded-full w-10 h-10 transition hover:bg-slate-200">-->
-<!--                    <i class="bi bi-moon-stars text-amber-600"></i>-->
-<!--                </button>-->
-<!--            </div>-->
 
-<!--        PROFILE -->
+            <!-- PROFILE -->
             <div class="relative inline-block profile-dropdown">
-                <div class="flex items-center cursor-pointer shadow rounded-full px-4 btn-drop" (click)="onClickProfile()">
-<!--                    <button type="button" (click)="onClickProfile()"-->
-<!--                        class="flex w-10 h-10 overflow-hidden rounded-full border-2 border-emerald-600 shadow">-->
-<!--                        <img src={{userOne}} alt="john doe" class="w-full object-cover">-->
-<!--                    </button>-->
-                    <div class="text-right ml-3">
+                <div class="profile">
+                    <div class="text-btn">
                         <p>{{userLogged?.nome}}</p>
-                        <p class="text-light text-xs">{{userLogged?.tipoUsuario}}</p>
+                        <span>{{userLogged?.tipoUsuario}}</span>
+                    </div>
+                    <div class="flex items-center shadow rounded-full px-4 btn-drop" (click)="onClickProfile()">
+                        <img src="assets/icons/padrao-fornecedor.svg" alt="profile">
                     </div>
                 </div>
 
                 <div class="profile-dropdown-list" aria-expanded="false">
-                    <div class="flex gap-3 items-center">
-<!--                        <div-->
-<!--                            class="flex items-center justify-center rounded-full h-12 w-12 overflow-hidden border-2 border-emerald-600">-->
-<!--                            <img class="w-full object-cover" src={{userOne}} alt="Profile">-->
-<!--                        </div>-->
-                        <div>
-                            <div class="flex gap-1 text-sm font-semibold">
-                                <span>{{userLogged?.nome}}</span>
-                                <span class="text-emerald-600">
-                                    <i class="bi bi-check2-circle"></i>
-                                </span>
-                            </div>
-                            <div class="text-xs text-slate-400">{{userLogged?.email}}</div>
-                        </div>
+                    <div class="dados-base-user">
+                        <span class="name-user">
+                            {{userLogged?.nome}}
+                        </span>
+                        <p class="email-user">
+                            {{userLogged?.email}}
+                        </p>
                     </div>
                     <div class="border-t border-slate-500/30"></div>
-                    <div class="flex flex-col text-sm">
-                        <a [routerLink]="commonService.prepareRoute(appRoutes.Admin, adminRoutes.Settings, settingRoutes.Profile)" class="flex items-center gap-3 rounded-md p-2 hover:bg-slate-200">
-                            <i class="bi bi-person-circle"></i>
-                            <span>Perfil</span>
+                    <div class="container-btn">
+                        <a [routerLink]="commonService.prepareRoute(appRoutes.Admin, adminRoutes.Settings, settingRoutes.Profile)" class="btn-menu-profile">
+                            <img src="assets/icons/profile-user.svg" alt="profile">
+                            <span> Perfil </span>
                         </a>
-<!--                        <a href="#" class="flex items-center gap-3 rounded-md p-2 hover:bg-slate-200">-->
-<!--                            <i class="bi bi-info-circle"></i>-->
-<!--                            <span>Help Center</span>-->
-<!--                        </a>-->
                     </div>
                     <div class="border-t border-slate-500/30"></div>
-                    <div class="">
-                        <button type="button"
-                            class="w-full p-2 text-left text-sm text-red-400 font-semibold rounded transition hover:bg-slate-200"
-                            (click)="authService.logout()">
-                            <i class="bi bi-power"></i>
+                    <div class="container-btn">
+                        <button type="button" class="btn-menu-profile" (click)="authService.logout()">
+                            <img src="assets/icons/logout.svg" alt="logout">
                             Sair
                         </button>
                     </div>

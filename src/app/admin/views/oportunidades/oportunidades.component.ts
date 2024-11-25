@@ -12,12 +12,16 @@ import {AlertType} from "src/app//shared/components/alert/alert.type";
 import {ProjetoService} from "src/app//_core/services/projeto.service";
 import {SelectClienteComponent} from "src/app//shared/components/select-cliente/select-cliente.component";
 import {DatatableOportunidadesComponent} from "./datatableOportunidades/datatable-oportunidades.component";
-import {ProjetoResumoDTO} from "../../../_core/models/projeto.model";
+import { ProjetosDisponiveisDTO } from "../../../_core/models/projeto.model";
 Chart.register(...registerables);
+import { CommonModule } from '@angular/common';
+import { MinhasOfertasDTO } from '../../../_core/models/oferta.model';
+import { OfertaService } from "src/app/_core/services/oferta.service";
 
 @Component({
     selector: 'app-oportunidades',
     templateUrl: './oportunidades.component.html',
+    styleUrls: ['./oportunidades.component.css'],
     standalone: true,
   imports: [
     ModalComponent,
@@ -29,7 +33,8 @@ Chart.register(...registerables);
     AlertComponent,
     SelectClienteComponent,
     DatatableOportunidadesComponent,
-    NgForOf
+    NgForOf,
+    CommonModule
   ],
     animations: [pageTransition]
 })
@@ -38,6 +43,7 @@ export class OportunidadesComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private projectService : ProjetoService,
+    private ofertaService: OfertaService,
   ) {}
 
   urlParams = new URL(window.location.href);
@@ -50,7 +56,13 @@ export class OportunidadesComponent implements OnInit {
   isLoading: boolean = false;
   serverMessages: string[] = [];
   tipoAlerta = AlertType.Warning;
-  listaProjetosDisponiveis : ProjetoResumoDTO[] = []
+  listaProjetosDisponiveis : ProjetosDisponiveisDTO[] = []
+  selectedOportunidade: ProjetosDisponiveisDTO | null = null;
+
+  showDetailModal: boolean = false;
+  promocoes: MinhasOfertasDTO[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
 
   ngOnInit() {
     this.listaProjetosDisponiveis = [];
@@ -62,9 +74,50 @@ export class OportunidadesComponent implements OnInit {
         error: (err) => {
         }
       });
+
+      this.ofertaService.getPromocoes().subscribe({
+        next: (data: MinhasOfertasDTO[]) => {
+          this.promocoes = data;
+        },
+        error: (err) => {
+          console.error('Erro ao buscar promoções:', err);
+        }
+      });
   }
 
   protected onAlertCloseHandler = (e: any) => {
     this.serverMessages = [];
   };
+
+  detailsModal(projeto?: ProjetosDisponiveisDTO) {
+    if (projeto) {
+      this.selectedOportunidade = projeto;
+      this.showDetailModal = true;
+    } else {
+      this.selectedOportunidade = null;
+      this.showDetailModal = false;
+    }
+  }
+
+  onModalDetailsHandler(event: boolean) {
+    this.showDetailModal = event;
+  }
+
+  get paginatedPromocoes(): MinhasOfertasDTO[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.promocoes.slice(startIndex, endIndex);
+  }
+
+  nextPage(): void {
+    if ((this.currentPage * this.itemsPerPage) < this.promocoes.length) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
 }

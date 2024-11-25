@@ -1,0 +1,125 @@
+<div [@pageTransition]>
+    <div class="title-header">
+      <h1>
+        <span>|</span>
+        Minhas ofertas
+      </h1>
+      <div class="container-btn">
+        <button type="button" class="btn button-adicionar" (click)="handleModal()">
+          Adicionar +
+        </button>
+      </div>
+    </div>
+</div>
+
+
+<!-- MODAL DE CADASTRO -->
+<app-modal [show]="showModalAdd" size="max-w-7xl" [footer]="false" (closeModal)="onModalCloseHandler($event)">
+    <div class="container-modal sm:items-start">
+      <div class="modal-header">
+        <div class="close-modal">
+          <button type="button" class="close" aria-label="Close" (click)="handleModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <h3 id="modal-title">
+          Cadastrar oferta
+        </h3>
+        <hr>
+      </div>
+
+      <!-- <app-alert (hideAlert)="onAlertCloseHandler($event)" [dismissible]="true" [messages]="serverMessages" [show]="serverMessages.length > 0" [type]="tipoAlerta">
+      </app-alert> -->
+
+      <form [formGroup]="ofertaForm">
+        <div class="cont-imgs">
+          <div class="form-group">
+            <div class="image-upload" (drop)="onDrop($event, 'fotoProd')" (dragover)="onDragOver($event)">
+              <input type="file" id="fotoProd" name="fotoProd"
+                (change)="onFileSelected($event, 'fotoProd')" accept="image/*" style="display: none;" />
+              <label for="fotoProd">
+                <div class="foto-preview" id="fotoPreview">
+                  <ng-container *ngIf="fotoPreviews['fotoProd']">
+                    <img *ngIf="isImage(fotoPreviews['fotoProd'])" [src]="fotoPreviews['fotoProd']" alt="Image Preview" />
+                  </ng-container>
+                  <span *ngIf="!fotoPreviews['fotoProd']" class="upload-placeholder">
+                    <img src="assets/icons/add-img.svg" style="width: 50px; opacity: 0.5;" class="upload-icon">
+                    Clique para fazer upload da imagem
+                  </span>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-12 gap-x-6 space-y-4">
+          <div class="col-span-12 md:col-span-6">
+            <div class="form-group">
+              <label for="titulo" class="form-label required text-left">Nome do produto</label>
+              <input type="text" id="titulo" formControlName="titulo" placeholder="Ex: Lâmpada" class="form-control"/>
+              <!-- <small *ngIf="submited && !clienteForm.get('nome')?.value?.toString()" class="text-red-500 text-left">{{ ERROR_MESSAGES.required() }}</small> -->
+            </div>
+          </div>
+
+          <div class="col-span-12 md:col-span-6">
+            <div class="form-group">
+              <label for="descricao" class="form-label required text-left">Descrição</label>
+              <input type="text" id="descricao" formControlName="descricao" placeholder="Ex: De LED" class="form-control"/>
+              <!-- <small *ngIf="submited && !clienteForm.get('projeto')?.value?.toString()" class="text-red-500 text-left">{{ ERROR_MESSAGES.required() }}</small> -->
+            </div>
+          </div>
+
+          <div class="container-value col-span-12 md:col-span-6">
+            <div class="col-span-12 md:col-span-6">
+                <div class="form-group">
+                  <label for="valorOriginal" class="form-label required text-left">Valor (R$)</label>
+                  <input type="number" id="valorOriginal" formControlName="valorOriginal" placeholder="Ex: 100" class="form-control" (input)="calculateDiscount()"/>
+                </div>
+              </div>
+          
+              <div class="col-span-12 md:col-span-6">
+                <div class="form-group">
+                  <label for="porcentagemDesconto" class="form-label required text-left">Desconto (%)</label>
+                  <input type="number" id="porcentagemDesconto" formControlName="porcentagemDesconto" placeholder="Ex: 20" class="form-control" (input)="calculateDiscount()"/>
+                </div>
+              </div>
+          </div>
+      
+          <div class="col-span-12">
+            <div class="form-group">
+              <label for="valor" class="form-label text-left">Preço com Desconto</label>
+              <p id="valor" formControlName="valor">{{ ofertaForm.get('valor')?.value | currency: 'BRL':'symbol':'1.2-2' }}</p>
+            </div>
+          </div>
+
+           <div class="col-span-12 md:col-span-6">
+            <div class="form-group">
+              <label for="dataLimitePromocao" class="form-label required text-left">
+                Data limite da promoção
+              </label>
+              <input type="date" id="dataLimitePromocao" formControlName="dataLimitePromocao" class="form-control"/>
+            </div>
+          </div>
+
+          <div class="col-span-12 md:col-span-6">
+            <div class="form-group">
+              <label for="instagram" class="form-label text-left">Contato/Instagram <span>(opcional)</span></label>
+              <input type="text" id="instagram" formControlName="instagram" placeholder="Ex: @onebuild" class="form-control"/>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="button-container">
+      <button type="button" class="btn button-cancel" (click)="handleModal()">
+        Cancelar
+      </button>
+      <button type="button" class="btn button-confirm" (click)="onFormSubmitHandler()">
+        <!-- <btn-spinner *ngIf="isLoading"></btn-spinner> -->
+        <span class="text-branco">
+          Salvar
+        </span>
+      </button>
+    </div>
+  </app-modal>

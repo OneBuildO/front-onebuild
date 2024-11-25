@@ -44,8 +44,8 @@ export class ChartComponent {
     {
       data: [],
       label: 'Quantidade de Projetos',
-      backgroundColor: '#1C9212',
-      borderColor: '#1C9212',
+      backgroundColor: '#004590',
+      borderColor: '#004590',
       maxBarThickness: 20,
       minBarLength: 2
     },

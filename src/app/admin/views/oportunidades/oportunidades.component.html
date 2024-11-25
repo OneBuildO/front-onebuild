@@ -1,40 +1,126 @@
 <div [@pageTransition]>
-  <div class="card p-5">
-    <div class="card-title">
-      <h3 class="text-xl font-bold leading-none">Projetos disponíveis</h3>
-    </div>
+  <div class="title-header">
+    <h1>
+      <span>|</span>
+      Oportunidades
+    </h1>
   </div>
 
-  <div class="card">
-    <div *ngFor="let projeto of listaProjetosDisponiveis">
-      <div class="w-full lg:flex mb-4">
-        <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url('https://images.pexels.com/photos/866351/pexels-photo-866351.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')" title="Woman holding a mug">
-        </div>
-        <div class="w-full border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-          <div class="mb-8">
-            <p class="text-sm text-gray-600 flex items-center">
-              <svg class="fill-current text-gray-500 w-3 h-3 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                <path d="M4 8V6a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2h1zm5 6.73V17h2v-2.27a2 2 0 1 0-2 0zM7 6v2h6V6a3 3 0 0 0-6 0z" />
-              </svg>
-              Público
-            </p>
-            <div class="text-gray-900 font-bold text-xl mb-2">{{ projeto.categoria }}</div>
-            <p class="text-gray-700 text-base">{{ projeto.observacoes }}</p>
-            <p class="text-gray-700 text-base">{{ projeto.categoria }}</p>
-            <p class="text-gray-700 text-base">{{ projeto.dataLimiteOrcamento }}</p>
-          </div>
-          <div class="flex items-center">
-<!--            <img class="w-10 h-10 rounded-full mr-4" src="/img/jonathan.jpg" alt="Avatar of Jonathan Reinink">-->
-            <div class="text-sm">
-              <p class="text-gray-900 leading-none">Jonathan Reinink</p>
-              <p class="text-gray-600">Aug 18</p>
+  <div class="body-oportunidade">
+    <div class="container-oportunidades">
+      <div *ngFor="let projeto of listaProjetosDisponiveis" class="body-card">
+        <div class="col-dados">
+          <div class="container-info">
+            <div class="col-img">
+              <img src="assets/icons/padrao-fornecedor.svg">
             </div>
+            <div class="title-dados">
+              <span>Público</span>
+              <h1>{{ projeto.nomeProjeto }}</h1>
+              <h3>{{ projeto.categoriaProjeto }}</h3>
+              <p>{{ projeto.dataLimiteOrcamento | date: 'dd/MM/yyyy' }}</p>
+            </div>
+          </div>
+          <div class="info-detail">
+            <div class="user-name">
+              <h3>{{  projeto.nomeUsuario }}</h3>
+              <p>{{ projeto.tipoUsuario }}</p>
+            </div>
+            <button (click)="detailsModal(projeto)">Saiba mais</button>
           </div>
         </div>
       </div>
     </div>
+    <h2>Promoções</h2>
+    <div class="bodyOfertas">
+      <div *ngFor="let promocao of paginatedPromocoes" class="card-sale">
+        <div class="sale-image-container">
+          <img src="assets/images/promocao-teste.png" alt="Promoção">
+          <div class="discount-badge">-{{ promocao.porcentagemDesconto }}%</div>
+        </div>
+        <div class="sale-info">
+          <h3>{{ promocao.titulo }}</h3>
+          <div class="price">
+            <span class="currency">R$</span>
+            <span class="current-price">{{ promocao.valor | currency: 'BRL':'symbol':'1.2-2' }}</span>
+            <span class="old-price">De: {{ promocao.valorOriginal | currency: 'BRL':'symbol':'1.2-2' }}</span>
+          </div>
+          <button>Ver mais</button>
+        </div>
+      </div>
+    </div>
+    <div class="pagination-controls">
+      <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+      <span>Página {{ currentPage }}</span>
+      <button (click)="nextPage()" [disabled]="(currentPage * itemsPerPage) >= promocoes.length">Próxima</button>
+    </div>
   </div>
 
+   <!-- Details Modal -->
+   <app-modal [show]="showDetailModal" [footer]="false" (closeModal)="onModalDetailsHandler($event)">
+    <div class="sm:flex sm:items-start container-modal">
+      <div class="modal-header">
+        <div class="close-modal">
+          <button type="button" class="close" aria-label="Close" (click)="detailsModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="container-title">
+          <div class="detail-img">
+            <img src="assets/images/perfil-cubo.png">
+          </div>
+          <div class="title-detalhes">
+            <span>Público</span>
+            <h3>{{ selectedOportunidade?.nomeProjeto }}</h3>
+            <p>{{ selectedOportunidade?.categoriaProjeto }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="body-details">
+        <div class="container-two">
+          <div class="detail-item">
+            <h4>{{ selectedOportunidade?.nomeUsuario }}</h4>
+            <p>{{ selectedOportunidade?.tipoUsuario }}</p>
+          </div>
+          <div class="detail-item">
+            <h4>Data limite</h4>
+            <p>{{ selectedOportunidade?.dataLimiteOrcamento | date: 'dd/MM/yyyy' }}</p>
+          </div>
+        </div>
+        <div class="detail-item">
+          <h4>Descrição do Projeto</h4>
+          <p>{{ selectedOportunidade?.descricaoProjeto }}</p>
+        </div>
+        <div class="detail-item">
+          <h4>Categoria</h4>
+          <p>{{ selectedOportunidade?.categoriaProjeto }}</p>
+        </div>
+        <div class="container-two">
+          <div class="detail-item">
+            <h4>Cidade</h4>
+            <p>{{ selectedOportunidade?.cidade }}</p>
+          </div>
+          <div class="detail-item">
+            <h4>Estado</h4>
+            <p>{{ selectedOportunidade?.estado }}</p>
+          </div>
+        </div>
+        <div class="detail-item">
+          <h4>Endereço</h4>
+          <p>{{ selectedOportunidade?.endereco }}</p>
+        </div>
+        <div class="detail-item contato-item">
+          <h4>Contato</h4>
+          <p>E-mail:
+            <span>{{ selectedOportunidade?.email }}</span>
+          </p>
+          <p>Telefone:
+            <span>{{ selectedOportunidade?.contato }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+   </app-modal>
 
   <p class="" *ngIf="listaProjetosDisponiveis.length == 0 && idClienteSelecionado == 0">Nenhum projeto encontrado</p>
 </div>
