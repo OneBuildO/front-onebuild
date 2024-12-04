@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
   sortDirectionNome: boolean = true;
   sortDirectionProjeto: boolean = true;
 
-  // tipoUsuario!: ETipoUsuario;
+  tipoUsuario!: ETipoUsuario;
   @Input()
   userLogged? : UsuarioModel | null;
 
@@ -52,6 +52,13 @@ export class DashboardComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           this.dadosPerfil = data;
+          this.serviceUsuario.getUserLogged()
+            .subscribe({
+              next: (data: any) => {
+                this.userLogged = data;
+                console.log("userLogged:", this.userLogged);
+              },
+            });
         },
         error: (err) => {
           console.error(err);
