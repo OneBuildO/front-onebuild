@@ -12,7 +12,6 @@ import { SettingsModule } from './views/settings/settings.module';
 import { ElementsModule } from './views/elements/elements.module';
 import {ModalComponent} from "../shared/components/modal/modal.component";
 
-
 @NgModule({
   declarations: [
     AdminComponent,

@@ -19,6 +19,7 @@ import {ClientesComponent} from "./views/clientes/clientes.component";
 import {ProjetoDetailComponent} from "./views/projetos/projetoDetail/projetoDetail.component";
 import {OportunidadesComponent} from "./views/oportunidades/oportunidades.component";
 import {MinhasOfertasComponent} from "./views/minhas-ofertas/minhas-ofertas.component";
+import { QuadroKanbanComponent } from './views/quadro-kanban/quadro-kanban.component';
 
 
 const routes: Routes = [
@@ -61,6 +62,11 @@ const routes: Routes = [
     title: 'Minhas ofertas',
     path: AdminRoutes.MinhasOfertas,
     component: MinhasOfertasComponent,
+  },
+  {
+    title: 'Quadro Kanban',
+    path: AdminRoutes.QuadroKanban,
+    component: QuadroKanbanComponent,
   },
   {
     title: 'Events',

@@ -51,7 +51,10 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
     protected authService : AuthService,
   ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log("userLogged:", this.userLogged);
+    console.log("perfilUsuario:", this.userLogged?.perfilUsuario); 
+  }
 
   ngAfterViewInit(): void {
     this.subMenuToggleHandlerOnRouteChange();

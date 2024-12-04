@@ -9,7 +9,10 @@ Chart.register(...registerables);
 
 import {ClienteResumoDTO} from "src/app/_core/models/clienteResumo";
 import {ClienteService} from "src/app/_core/services/cliente.service";
-import { ETipoUsuario, TipoUsuarioArr } from "src/app/_core/enums/e-tipo-usuario";
+import {ETipoUsuario} from "src/app/_core/enums/e-tipo-usuario";
+import {EPerfilUsuario} from "src/app/_core/enums/e-perfil-usuario";
+import {UsuarioModel} from "src/app/_core/models/usuario.model";
+import {AuthService} from "src/app/_core/services/auth.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -29,25 +32,21 @@ export class DashboardComponent implements OnInit {
   sortDirectionNome: boolean = true;
   sortDirectionProjeto: boolean = true;
 
-  tipoUsuario!: ETipoUsuario;
+  // tipoUsuario!: ETipoUsuario;
+  @Input()
+  userLogged? : UsuarioModel | null;
 
 
   constructor(
     private readonly serviceUsuario : UsuarioService,
     private serviceCliente: ClienteService,
+    protected authService : AuthService,
   ) {}
 
   ngOnInit(): void {
     this.showModal = false;
-    this.serviceUsuario.getEstatisticResumeUser().subscribe({
-      next: (data: any) => {
-        this.dadosPerfil = data;
-        this.tipoUsuario = data.tipoUsuario as ETipoUsuario;
-      },
-      error: (err) => {
-        console.error(err);
-      },
-    });
+    console.log("userLogged:", this.userLogged);
+    console.log("perfilUsuario:", this.userLogged?.perfilUsuario); 
 
     this.serviceUsuario.getEstatisticResumeUser()
       .subscribe({
@@ -123,4 +122,5 @@ export class DashboardComponent implements OnInit {
   }
 
   protected readonly ETipoUsuario = ETipoUsuario;
+  protected readonly EPerfilUsuario = EPerfilUsuario;
 }
