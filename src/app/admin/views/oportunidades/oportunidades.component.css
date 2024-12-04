@@ -34,17 +34,20 @@
 }
 
 .container-oportunidades {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  max-width: 1200;
 }
 
 .body-card {
   background: var(--font-color-light);
   border-radius: 16px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 1rem;
-  padding: 2rem;
-  width: 400px;
-  height: 230px;
+  margin: 0.2rem;
+  padding: 1rem;
+  width: auto;
+  height: 220px;
   display: flex;
   gap: 32px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -53,6 +56,12 @@
 .body-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.col-img img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
 .col-dados {
@@ -78,9 +87,10 @@
 .col-dados button {
   background: var(--gradient-primary);
   color: var(--font-color-dark);
-  padding: 4px 32px;
+  font-size: 14px;
+  padding: 4px 26px;
   border-radius: 32px;
-  height: 38px;
+  height: 32px;
 }
 
 .col-dados button:hover {
@@ -119,6 +129,26 @@
 .user-name p {
   font-size: 16px;
   font-weight: 100;
+}
+
+.pagination {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pagination button {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.pagination button.active {
+  background: var(--bg-color-dark);
+  color: var(--font-color-light);
 }
 
 /* DETALHES PROJETOS */

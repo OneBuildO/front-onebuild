@@ -9,6 +9,7 @@ Chart.register(...registerables);
 
 import {ClienteResumoDTO} from "src/app/_core/models/clienteResumo";
 import {ClienteService} from "src/app/_core/services/cliente.service";
+import { ETipoUsuario, TipoUsuarioArr } from "src/app/_core/enums/e-tipo-usuario";
 
 @Component({
   selector: 'app-dashboard',
@@ -28,6 +29,9 @@ export class DashboardComponent implements OnInit {
   sortDirectionNome: boolean = true;
   sortDirectionProjeto: boolean = true;
 
+  tipoUsuario!: ETipoUsuario;
+
+
   constructor(
     private readonly serviceUsuario : UsuarioService,
     private serviceCliente: ClienteService,
@@ -35,6 +39,16 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.showModal = false;
+    this.serviceUsuario.getEstatisticResumeUser().subscribe({
+      next: (data: any) => {
+        this.dadosPerfil = data;
+        this.tipoUsuario = data.tipoUsuario as ETipoUsuario;
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
+
     this.serviceUsuario.getEstatisticResumeUser()
       .subscribe({
         next: (data: any) => {
@@ -107,4 +121,6 @@ export class DashboardComponent implements OnInit {
     });
     this.sortDirectionProjeto = !this.sortDirectionProjeto; // Toggle the sort direction
   }
+
+  protected readonly ETipoUsuario = ETipoUsuario;
 }

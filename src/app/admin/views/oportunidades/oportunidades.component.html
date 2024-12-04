@@ -8,7 +8,7 @@
 
   <div class="body-oportunidade">
     <div class="container-oportunidades">
-      <div *ngFor="let projeto of listaProjetosDisponiveis" class="body-card">
+      <div *ngFor="let projeto of projetosPaginados" class="body-card">
         <div class="col-dados">
           <div class="container-info">
             <div class="col-img">
@@ -31,6 +31,23 @@
         </div>
       </div>
     </div>
+    <div class="pagination">
+      <!-- Botão Anterior -->
+      <button (click)="previousPageProjetos()" [disabled]="currentPageProjetos === 1">
+        <span>&lt;</span>
+      </button>
+      <button 
+        *ngFor="let page of [].constructor(totalPaginasProjetos); let i = index" 
+        (click)="mudarPaginaProjetos(i + 1)"
+        [class.active]="currentPageProjetos  === i + 1">
+        {{ i + 1 }}
+      </button>
+      <!-- Botão Próximo -->
+      <button (click)="nextPageProjetos()" [disabled]="currentPageProjetos === totalPaginasProjetos">
+        <span>&gt;</span>
+      </button>
+    </div>
+    
     <h2>Promoções</h2>
     <div class="bodyOfertas">
       <div *ngFor="let promocao of paginatedPromocoes" class="card-sale">
