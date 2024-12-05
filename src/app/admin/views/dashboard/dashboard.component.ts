@@ -13,6 +13,10 @@ import {ETipoUsuario} from "src/app/_core/enums/e-tipo-usuario";
 import {EPerfilUsuario} from "src/app/_core/enums/e-perfil-usuario";
 import {UsuarioModel} from "src/app/_core/models/usuario.model";
 import {AuthService} from "src/app/_core/services/auth.service";
+import { CommonService } from 'src/app/_core/services/common.service';
+import { NavigationEnd, Router } from '@angular/router';
+import { AppRoutes } from 'src/app/app.routes';
+import { AdminRoutes, ElementRoutes, SettingRoutes } from '../../admin.routes';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +25,9 @@ import {AuthService} from "src/app/_core/services/auth.service";
   animations: [pageTransition]
 })
 export class DashboardComponent implements OnInit {
+  readonly appRoutes = AppRoutes;
+  readonly adminRoutes = AdminRoutes;
+
   eventDate: any = formatDate(new Date(), 'MMM dd, yyyy', 'en');
   dadosPerfil!: DadosEstatisticaUsuario;
   showModal: boolean = false;
@@ -41,6 +48,8 @@ export class DashboardComponent implements OnInit {
     private readonly serviceUsuario : UsuarioService,
     private serviceCliente: ClienteService,
     protected authService : AuthService,
+    public readonly commonServices: CommonService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {

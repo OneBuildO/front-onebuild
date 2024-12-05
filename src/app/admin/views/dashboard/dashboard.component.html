@@ -12,7 +12,7 @@
   </div>
 
   <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-    <!-- Dashboard de userGeral -->
+    <!-- Dashboard do projestista -->
     <ng-container *ngIf="userLogged?.perfilUsuario == EPerfilUsuario.PROJETISTA">
       <div class="card flex items-center card-dashboard" (click)="openClientesPopup()">
         <div class="info-card">
@@ -50,7 +50,7 @@
           <p class="text-md text-gray-400">Projetos Finalizados</p>
         </div>
         <span class="text-3xl">
-          <img src="assets/icons/clipboard-pen.svg" alt="Prancheta com Caneta">
+          <img src="assets/icons/prancheta-check.svg" alt="Prancheta Check">
         </span>
       </div>
   
@@ -73,16 +73,16 @@
           <p>Total de Clientes</p>
         </div>
         <span class="text-3xl">
-          <img src="assets/icons/store.svg" alt="store">
+          <img src="assets/icons/users.svg" alt="Clientes">
         </span>
       </div>
-      <div class="card flex items-center card-dashboard">
+      <div class="card flex items-center card-dashboard" [routerLink]="commonServices.prepareRoute(appRoutes.Admin, adminRoutes.Oportunidades)">
         <div class="info-card">
           <h4>{{ dadosPerfil.qtdTotalFornecedores }}</h4>
           <p>Projetos em Cotação</p>
         </div>
         <span class="text-3xl">
-          <img src="assets/icons/store.svg" alt="store">
+          <img src="assets/icons/clipboard-pen.svg" alt="Prancheta com Caneta">
         </span>
       </div>
       <div class="card flex items-center card-dashboard">
@@ -91,7 +91,7 @@
           <p>Projeto em Andamento</p>
         </div>
         <span class="text-3xl">
-          <img src="assets/icons/store.svg" alt="store">
+          <img src="assets/icons/clipboard-user.svg" alt="Prancheta com cliente">
         </span>
       </div>
       <div class="card flex items-center card-dashboard">
@@ -100,7 +100,7 @@
           <p>Projeto Finalizado</p>
         </div>
         <span class="text-3xl">
-          <img src="assets/icons/store.svg" alt="store">
+          <img src="assets/icons/prancheta-check.svg" alt="Prancheta Check">
         </span>
       </div>
     </ng-container>
