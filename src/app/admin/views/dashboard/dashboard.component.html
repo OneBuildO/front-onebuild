@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+  <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
     <!-- Dashboard do projestista -->
     <ng-container *ngIf="userLogged?.perfilUsuario == EPerfilUsuario.PROJETISTA">
       <div class="card flex items-center card-dashboard" (click)="openClientesPopup()">
@@ -64,7 +64,8 @@
         </span>
       </div>
     </ng-container>
-
+  </section>
+  <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
     <!-- Dashboard de fornecedor -->
     <ng-container *ngIf="userLogged?.perfilUsuario == EPerfilUsuario.FORNECEDOR">
       <div class="card flex items-center card-dashboard">
