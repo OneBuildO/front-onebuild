@@ -5,6 +5,9 @@ import {first} from "rxjs";
 import {CadastroUsuarioDTO} from "../models/cadastro.model";
 import {AuthService} from "./auth.service";
 import {DadosEstatisticaUsuario, UsuarioModel, ValidacaoEmailDTO} from "../models/usuario.model";
+import { catchError, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
+
 
 @Injectable({ providedIn: 'root' })
 export class UsuarioService {
@@ -21,6 +24,17 @@ export class UsuarioService {
       headers : this.authService.generateHeader()
     })
   }
+
+  getObterTipoUsuario() {
+    return this.httpClient.get(`${this._apiBaseUrl}/usuario/obterTipoUsuario`, {
+      headers: this.authService.generateHeader(),
+      responseType: 'text',
+    }).pipe(
+      catchError(err => {
+        return of('');
+      })
+    );
+  }  
 
   saveUser(newUser : CadastroUsuarioDTO){
     return this.httpClient.post(`${this._apiBaseUrl}/usuario/novoUsuario`, newUser, {responseType: "text"})
