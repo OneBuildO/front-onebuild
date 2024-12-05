@@ -22,19 +22,18 @@
 
 /* LISTA */
 .body-kanban {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   margin: 0 auto;
   gap: 24px;
 }
 
 .list {
-  background-color: #ffffff;
+  background: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 10px;
-  width: 30%;
+  width: 100%;
   max-height: 800px;
   min-height: auto;
 }
@@ -45,32 +44,52 @@
 }
 
 .card-kanban {
-  background-color: #f9f9f9;
+  background: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 16px;
   margin: 10px 0;
   transition: background-color 0.3s ease;
+  min-height: 100px;
 }
 
 .card-kanban:hover {
-  background-color: #e6f7ff;
+  border: 3px solid #9b9b9b;
+  cursor: pointer;
 }
 
 .header-card-Afazer {
   background: #ffcc00;
-  border-radius: 8px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  height: 40px;
+}
+
+.header-card-Emandamento {
+  background: #2196f3;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  height: 40px;
+}
+
+.header-card-pausado {
+  background: #ff5722;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  height: 40px;
 }
 
 .header-card-concluido {
-    background: #4caf50;
-    border-radius: 8px;
-  }
+  background: #4caf50;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  height: 40px;
+}
 
-.card-kanban h3 {
+.card-kanban h4 {
   margin: 0;
   color: #000000;
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 400;
   padding: 0.5rem;
 }
 
@@ -89,16 +108,6 @@
   color: #fff;
   padding: 5px;
   border-radius: 4px;
-}
-
-.status-em-andamento {
-  background-color: #2196f3;
-}
-.status-pausado {
-  background-color: #ff5722;
-}
-.status-concluido {
-  background-color: #4caf50;
 }
 
 .card img {
