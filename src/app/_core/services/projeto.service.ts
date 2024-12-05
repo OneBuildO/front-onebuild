@@ -140,6 +140,11 @@ export class ProjetoService {
   );
   return this.httpClient.get(url);
 }
+
+contarProjetosFinalizados(): Observable<any> {
+  const url = `${this._apiBaseUrl}/projetos-finalizados`;
+  return this.httpClient.get(url);
+}
     
   
 }

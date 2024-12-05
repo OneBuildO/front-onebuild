@@ -3,7 +3,7 @@ import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { pageTransition } from 'src/app/shared/utils/animations';
 import {DadosEstatisticaUsuario} from "../../../_core/models/usuario.model";
-import {CategoriasProjetoArr} from "../../../_core/enums/e-categorias-projeto";
+import {ProjetoService} from "../../../_core/services/projeto.service";
 import {UsuarioService} from "../../../_core/services/usuario.service";
 Chart.register(...registerables);
 
@@ -14,9 +14,9 @@ import {EPerfilUsuario} from "src/app/_core/enums/e-perfil-usuario";
 import {UsuarioModel} from "src/app/_core/models/usuario.model";
 import {AuthService} from "src/app/_core/services/auth.service";
 import { CommonService } from 'src/app/_core/services/common.service';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AppRoutes } from 'src/app/app.routes';
-import { AdminRoutes, ElementRoutes, SettingRoutes } from '../../admin.routes';
+import { AdminRoutes } from '../../admin.routes';
 
 @Component({
   selector: 'app-dashboard',
@@ -43,10 +43,13 @@ export class DashboardComponent implements OnInit {
   @Input()
   userLogged? : UsuarioModel | null;
 
+  projetosFinalizados: number = 0;
+
 
   constructor(
     private readonly serviceUsuario : UsuarioService,
     private serviceCliente: ClienteService,
+    private projetoService: ProjetoService,
     protected authService : AuthService,
     public readonly commonServices: CommonService,
     private router: Router,
@@ -83,6 +86,16 @@ export class DashboardComponent implements OnInit {
           console.error(err);
         }
       });
+
+      this.projetoService.contarProjetosFinalizados().subscribe(
+        (data) => {
+          this.projetosFinalizados = data;
+          console.log('Projetos finalizados:', this.projetosFinalizados);
+        },
+        (error) => {
+          console.error('Erro ao buscar projetos finalizados:', error);
+        }
+      );
     }
 
   handleModal() {
