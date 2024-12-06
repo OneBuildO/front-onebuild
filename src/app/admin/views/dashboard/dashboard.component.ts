@@ -1,5 +1,5 @@
 import { formatDate } from '@angular/common';
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Renderer2 } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { pageTransition } from 'src/app/shared/utils/animations';
 import {DadosEstatisticaUsuario} from "../../../_core/models/usuario.model";
@@ -76,7 +76,7 @@ export class DashboardComponent implements OnInit {
   public barChartLegend = true;
   public barChartData: ChartDataset<'bar'>[] = [
     {
-      data: [5], // Valor para "Cotação"
+      data: [0], // Valor para "Cotação"
       label: 'Cotação', // Rótulo clicável
       backgroundColor: '#FFA500',
       borderColor: '#FFA500',
@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit {
       minBarLength: 2,
     },
     {
-      data: [10], // Valor para "Andamento"
+      data: [0], // Valor para "Andamento"
       label: 'Andamento', // Rótulo clicável
       backgroundColor: '#004590',
       borderColor: '#004590',
@@ -92,7 +92,7 @@ export class DashboardComponent implements OnInit {
       minBarLength: 2,
     },
     {
-      data: [15], // Valor para "Finalizado"
+      data: [0], // Valor para "Finalizado"
       label: 'Finalizado', // Rótulo clicável
       backgroundColor: '#008000',
       borderColor: '#008000',
@@ -109,7 +109,8 @@ export class DashboardComponent implements OnInit {
     protected authService : AuthService,
     public readonly commonServices: CommonService,
     private router: Router,
-    private graficoService: GraficoService
+    private graficoService: GraficoService,
+    private renderer: Renderer2
   ) {}
 
   ngOnInit(): void {
@@ -187,6 +188,17 @@ export class DashboardComponent implements OnInit {
   onBackgroundClick(event: MouseEvent): void {
     if ((event.target as HTMLElement).classList.contains('popup')) {
       this.closeClientesPopup();
+    }
+  }
+
+  positionPopup(): void {
+    const card = document.getElementById('totalClientesCard');
+    const popup = document.getElementById('clientesPopup');
+    if (card && popup) {
+      const rect = card.getBoundingClientRect();
+      this.renderer.setStyle(popup, 'top', `${rect.bottom + window.scrollY}px`);
+      this.renderer.setStyle(popup, 'left', `${rect.left + window.scrollX}px`);
+      this.renderer.setStyle(popup, 'width', `${rect.width}px`);
     }
   }
 
