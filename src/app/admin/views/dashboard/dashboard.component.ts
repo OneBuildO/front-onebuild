@@ -17,12 +17,15 @@ import { CommonService } from 'src/app/_core/services/common.service';
 import { Router } from '@angular/router';
 import { AppRoutes } from 'src/app/app.routes';
 import { AdminRoutes } from '../../admin.routes';
+import { ChartType, ChartOptions, ChartData, ChartDataset } from 'chart.js';
+import { NgChartsModule } from 'ng2-charts';
+import { GraficoService } from 'src/app/_core/services/grafico.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  animations: [pageTransition]
+  animations: [pageTransition],
 })
 export class DashboardComponent implements OnInit {
   readonly appRoutes = AppRoutes;
@@ -44,6 +47,59 @@ export class DashboardComponent implements OnInit {
   userLogged? : UsuarioModel | null;
 
   projetosFinalizados: number = 0;
+  projetosStatus: { [key: string]: number } = {};
+
+  public barChartPlugins = [];
+  public barChartOptions: ChartOptions = {
+    responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: '',
+      }
+    },
+    scales: {
+      xAxes: {
+        beginAtZero: true,
+        ticks: {
+          stepSize: 1,
+          maxRotation: 90,
+          font: {
+            size: 10,
+          }
+        },
+      },
+    },
+  };
+  public barChartLabels: string[] = ['Status dos Projetos'];
+  public barChartType: ChartType = 'bar';
+  public barChartLegend = true;
+  public barChartData: ChartDataset<'bar'>[] = [
+    {
+      data: [5], // Valor para "Cotação"
+      label: 'Cotação', // Rótulo clicável
+      backgroundColor: '#FFA500',
+      borderColor: '#FFA500',
+      maxBarThickness: 80,
+      minBarLength: 2,
+    },
+    {
+      data: [10], // Valor para "Andamento"
+      label: 'Andamento', // Rótulo clicável
+      backgroundColor: '#004590',
+      borderColor: '#004590',
+      maxBarThickness: 80,
+      minBarLength: 2,
+    },
+    {
+      data: [15], // Valor para "Finalizado"
+      label: 'Finalizado', // Rótulo clicável
+      backgroundColor: '#008000',
+      borderColor: '#008000',
+      maxBarThickness: 80,
+      minBarLength: 2,
+    },
+  ];
 
 
   constructor(
@@ -53,6 +109,7 @@ export class DashboardComponent implements OnInit {
     protected authService : AuthService,
     public readonly commonServices: CommonService,
     private router: Router,
+    private graficoService: GraficoService
   ) {}
 
   ngOnInit(): void {
@@ -94,6 +151,19 @@ export class DashboardComponent implements OnInit {
         },
         (error) => {
           console.error('Erro ao buscar projetos finalizados:', error);
+        }
+      );
+
+      this.graficoService.contarProjetosPorStatus().subscribe(
+        (data) => {
+          this.barChartData[0].data = [
+            data['Cotação'] || 0,
+            data['Andamento'] || 0,
+            data['Finalizado'] || 0
+          ];
+        },
+        (error) => {
+          console.error('Erro ao buscar dados do gráfico:', error);
         }
       );
     }

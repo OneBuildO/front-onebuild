@@ -188,3 +188,17 @@
 .header-item button img.desc {
   transform: rotate(180deg);
 }
+
+/* GRAFICO */
+.chart-container {
+  display: block;
+  width: 800px;
+  height: auto;
+  position: relative;
+  padding-top: 5rem;
+}
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
