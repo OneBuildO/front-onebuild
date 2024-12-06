@@ -44,4 +44,8 @@ export const iconsArray: customIcon[] = [
     iconName: 'minhas-ofertas',
     iconPath: './assets/icons/oferta.svg',
   },
+  {
+    iconName: 'kanban',
+    iconPath: './assets/icons/kanban.svg',
+  },
 ];
