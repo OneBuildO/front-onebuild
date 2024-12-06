@@ -23,7 +23,7 @@
           </div>
           <div class="info-detail">
             <div class="user-name">
-              <h3>{{  projeto.nomeUsuario }}</h3>
+              <h3>{{ projeto.nomeUsuario && projeto.nomeUsuario.length > 20 ? (projeto.nomeUsuario | slice:0:20) + '...' : projeto.nomeUsuario }}</h3>
               <p>{{ projeto.tipoUsuario }}</p>
             </div>
             <button (click)="detailsModal(projeto)">Saiba mais</button>
@@ -56,11 +56,13 @@
           <div class="discount-badge">-{{ promocao.porcentagemDesconto }}%</div>
         </div>
         <div class="sale-info">
-          <h3>{{ promocao.titulo }}</h3>
-          <div class="price">
-            <span class="currency">R$</span>
-            <span class="current-price">{{ promocao.valor | currency: 'BRL':'symbol':'1.2-2' }}</span>
-            <span class="old-price">De: {{ promocao.valorOriginal | currency: 'BRL':'symbol':'1.2-2' }}</span>
+          <div>
+            <h3>{{ promocao.titulo }}</h3>
+            <div class="price">
+              <span class="currency">R$</span>
+              <span class="current-price">{{ promocao.valor | currency: 'BRL':'symbol':'1.2-2' }}</span>
+              <span class="old-price">De: {{ promocao.valorOriginal | currency: 'BRL':'symbol':'1.2-2' }}</span>
+            </div>
           </div>
           <button>Ver mais</button>
         </div>
