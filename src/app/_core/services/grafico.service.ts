@@ -29,6 +29,19 @@ export class GraficoService {
       );
   }
 
+  contarProjetosPorStatus(): Observable<{ [key: string]: number }> {
+    const headers = this.authService.generateHeader();
+    return this.httpClient
+      .get<{ [key: string]: number }>(
+        `${this._apiBaseUrl}/projetos-status`,
+        { headers }
+      )
+      .pipe(
+        first(),
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: HttpErrorResponse) {
     console.error('Erro ao buscar dados do gráfico:', error);
     return throwError(

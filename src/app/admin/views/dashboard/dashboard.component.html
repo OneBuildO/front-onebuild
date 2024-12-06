@@ -11,145 +11,152 @@
     </div>
   </div>
 
+  <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
+    <!-- Dashboard do projestista -->
+    <ng-container *ngIf="userLogged?.perfilUsuario == EPerfilUsuario.PROJETISTA">
+      <div class="card flex items-center card-dashboard p-abso" (click)="openClientesPopup()">
+        <div class="info-card">
+          <h4>{{ dadosPerfil.qtdTotalClientes }}</h4>
+          <p>Total de Clientes</p>
+        </div>
+        <span class="text-3xl">
+          <img src="assets/icons/users.svg" alt="Clientes">
+        </span>
+      </div>
+
+      <!-- Popup para lista de clientes -->
+      <div *ngIf="showClientesPopup" class="popup" (click)="onBackgroundClick($event)">
+        <div class="popup-content" (click)="$event.stopPropagation()">
+          <span class="close" (click)="closeClientesPopup()">&times;</span>
+          <h2>Lista de Clientes</h2>
+          <hr class="line">
+          <div class="dados-client">
+            <div class="header">
+              <div class="header-item">
+                <span>Nome</span>
+                <button (click)="sortByNome()">
+                  <div [ngClass]="{'asc': sortDirectionNome, 'desc': !sortDirectionNome}">
+                    <img [ngClass]="{'asc': sortDirectionNome, 'desc': !sortDirectionNome}" src="assets/icons/order-up.svg" alt="seta de ordenação" style="width: 10px;">
+                  </div>
+                </button>
+              </div>
+              <div class="header-item">
+                <span>Projeto</span>
+                <button (click)="sortByProjeto()">
+                  <img [ngClass]="{'asc': sortDirectionProjeto, 'desc': !sortDirectionProjeto}" src="assets/icons/order-up.svg" alt="seta de ordenação" style="width: 10px;">
+                </button>
+              </div>
+            </div>
+            <hr>
+            <div class="content">
+              <div class="column">
+                <ul>
+                  <li *ngFor="let cliente of listaClientes">{{ cliente.nome }}</li>
+                </ul>
+              </div>
+              <div class="column">
+                <ul>
+                  <li *ngFor="let cliente of listaClientes">{{ cliente.projeto }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="card flex items-center card-dashboard">
+        <div class="info-card">
+          <h4 class="text-xl font-bold">{{ dadosPerfil.qtdTotalProjetos }}</h4>
+          <p class="text-md text-gray-400">Projetos em Cotação</p>
+        </div>
+        <span class="text-3xl">
+          <img src="assets/icons/clipboard-pen.svg" alt="Prancheta com Caneta">
+        </span>
+      </div>
+  
+      <div class="card flex items-center card-dashboard">
+        <div class="info-card">
+          <h4>{{ dadosPerfil.qtdProjetosEmAndamento }}</h4>
+          <p>Projetos em andamento</p>
+        </div>
+        <span class="text-3xl">
+          <img src="assets/icons/clipboard-user.svg" alt="Prancheta com cliente">
+        </span>
+      </div>
+  
+      <div class="card flex items-center card-dashboard">
+        <div class="info-card">
+          <h4 class="text-xl font-bold">{{ projetosFinalizados }}</h4>
+          <p class="text-md text-gray-400">Projetos Finalizados</p>
+        </div>
+        <span class="text-3xl">
+          <img src="assets/icons/prancheta-check.svg" alt="Prancheta Check">
+        </span>
+      </div>
+  
+      <div class="card flex items-center card-dashboard">
+        <div class="info-card">
+          <h4>{{ dadosPerfil.qtdTotalFornecedores }}</h4>
+          <p>Fornecedores</p>
+        </div>
+        <span class="text-3xl">
+          <img src="assets/icons/store.svg" alt="store">
+        </span>
+      </div>
+    </ng-container>
+  </section>
+  
   <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-    <div class="card flex items-center card-dashboard" (click)="openClientesPopup()">
-      <div class="info-card">
-        <h4>{{ dadosPerfil.qtdTotalClientes }}</h4>
-        <p>Total de Clientes</p>
+    <!-- Dashboard de fornecedor -->
+    <ng-container *ngIf="userLogged?.perfilUsuario == EPerfilUsuario.FORNECEDOR">
+      <div class="card flex items-center card-dashboard">
+        <div class="info-card">
+          <h4>{{ dadosPerfil.qtdTotalFornecedores }}</h4>
+          <p>Total de Clientes</p>
+        </div>
+        <span class="text-3xl">
+          <img src="assets/icons/users.svg" alt="Clientes">
+        </span>
       </div>
-      <span class="text-3xl">
-        <img src="assets/icons/users.svg" alt="Clientes">
-      </span>
-    </div>
-
-    <div class="card flex items-center card-dashboard">
-      <div class="info-card">
-        <h4 class="text-xl font-bold">{{ dadosPerfil.qtdTotalProjetos }}</h4>
-        <p class="text-md text-gray-400">Total de Projetos</p>
+      <div class="card flex items-center card-dashboard" [routerLink]="commonServices.prepareRoute(appRoutes.Admin, adminRoutes.Oportunidades)">
+        <div class="info-card">
+          <h4>{{ dadosPerfil.qtdTotalFornecedores }}</h4>
+          <p>Projetos em Cotação</p>
+        </div>
+        <span class="text-3xl">
+          <img src="assets/icons/clipboard-pen.svg" alt="Prancheta com Caneta">
+        </span>
       </div>
-      <span class="text-3xl">
-        <img src="assets/icons/clipboard-pen.svg" alt="Prancheta com Caneta">
-      </span>
-    </div>
-
-    <div class="card flex items-center card-dashboard">
-      <div class="info-card">
-        <h4>{{ dadosPerfil.qtdProjetosEmAndamento }}</h4>
-        <p>Projetos em andamento</p>
+      <div class="card flex items-center card-dashboard">
+        <div class="info-card">
+          <h4>{{ dadosPerfil.qtdTotalFornecedores }}</h4>
+          <p>Projeto em Andamento</p>
+        </div>
+        <span class="text-3xl">
+          <img src="assets/icons/clipboard-user.svg" alt="Prancheta com cliente">
+        </span>
       </div>
-      <span class="text-3xl">
-        <img src="assets/icons/clipboard-user.svg" alt="Prancheta com cliente">
-      </span>
-    </div>
-
-    <div class="card flex items-center card-dashboard">
-      <div class="info-card">
-        <h4>{{ dadosPerfil.qtdTotalFornecedores }}</h4>
-        <p>Fornecedores</p>
+      <div class="card flex items-center card-dashboard">
+        <div class="info-card">
+          <h4>{{ dadosPerfil.qtdTotalFornecedores }}</h4>
+          <p>Projeto Finalizado</p>
+        </div>
+        <span class="text-3xl">
+          <img src="assets/icons/prancheta-check.svg" alt="Prancheta Check">
+        </span>
       </div>
-      <span class="text-3xl">
-        <img src="assets/icons/store.svg" alt="store">
-      </span>
-    </div>
+    </ng-container>
   </section>
 
   <div class="my-5"></div>
 
-<!--  <section class="grid grid-cols-1 my-4 xl:grid-cols-2 2xl:grid-cols-3 gap-5">-->
-<!--    <div class="card p-8 2xl:col-span-2">-->
-<!--      <div class="card-title flex justify-between items-center mb-4">-->
-<!--        <h3 class="text-xl font-bold leading-none">Upcoming Events</h3>-->
-<!--      </div>-->
-<!--      <div class="overflow-y-auto overflow-x-hidden pr-4" style="max-height: 500px;">-->
-<!--        <div class="block md:flex md:items-center gap-6 py-3 my-3 border-b" *ngFor="let i of [1, 2, 3, 4, 5, 6]">-->
-<!--          <div class="hidden relative lg:block">-->
-<!--            <img src="https://placehold.co/600x400" alt="event image" class="w-48 rounded-lg">-->
-<!--            <span-->
-<!--              class="bi bi-calendar2-event absolute bottom-0 right-0 w-10 h-7 bg-emerald-500 text-center border rounded-tl-lg rounded-br-lg text-white"></span>-->
-<!--          </div>-->
-<!--          <div class="flex-1 my-3">-->
-<!--            <h4 class="text-lg font-semibold leading-none">-->
-<!--              Envato International Online Meetup 2020-->
-<!--            </h4>-->
-<!--            <p class="my-1 text-emerald-500">California, USA</p>-->
-<!--            <p class="text-xs text-justify">-->
-<!--              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint ipsa vero illum quos vitae-->
-<!--              dolorum, earum-->
-<!--              recusandae est modi ea possimus nihil aspernatur-->
-<!--              libero unde itaque error quis, sit tenetur esse quam harum corrupti! Quia, tenetur provident,-->
-<!--              vero, recusandae-->
-<!--              aliquam possimus at mollitia quo perspiciatis-->
-<!--              adipisci in? Odio, impedit cumque.-->
-<!--            </p>-->
-<!--          </div>-->
-<!--          <div class="w-80 flex justify-between">-->
-<!--            <div class="text-center text-emerald-600">-->
-<!--              <div-->
-<!--                class="flex items-center justify-center bg-emerald-50 rounded-full shadow-sm shadow-gray-200 w-12 h-12 xl:w-16 xl:h-16">-->
-<!--                <i class="bi bi-cash text-2xl block"></i>-->
-<!--              </div>-->
-<!--              <p class="text-sm mt-3">$200</p>-->
-<!--            </div>-->
-<!--            <div class="text-center text-emerald-600">-->
-<!--              <div-->
-<!--                class="flex items-center justify-center bg-gray-50 rounded-full shadow-sm shadow-gray-200 w-12 h-12 xl:w-16 xl:h-16">-->
-<!--                <i class="bi-ticket-perforated text-2xl block"></i>-->
-<!--              </div>-->
-<!--              <p class="text-sm mt-3">150 pcs left</p>-->
-<!--            </div>-->
-<!--            <div class="text-center text-emerald-600">-->
-<!--              <div-->
-<!--                class="flex items-center justify-center bg-emerald-50 rounded-full shadow-sm shadow-gray-200 w-12 h-12 xl:w-16 xl:h-16">-->
-<!--                <i class="bi bi-calendar2-check text-2xl block"></i>-->
-<!--              </div>-->
-<!--              <p class="text-sm mt-3">{{ eventDate }}</p>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="text-center">-->
-<!--          <i class="bi bi-arrow-clockwise"></i>-->
-<!--          loading...-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </section>-->
-
-  <!-- Popup para lista de clientes -->
-<div *ngIf="showClientesPopup" class="popup" (click)="onBackgroundClick($event)">
-  <div class="popup-content" (click)="$event.stopPropagation()">
-    <span class="close" (click)="closeClientesPopup()">&times;</span>
-    <h2>Lista de Clientes</h2>
-    <hr class="line">
-    <div class="dados-client">
-      <div class="header">
-        <div class="header-item">
-          <span>Nome</span>
-          <button (click)="sortByNome()">
-            <div [ngClass]="{'asc': sortDirectionNome, 'desc': !sortDirectionNome}">
-              <img [ngClass]="{'asc': sortDirectionNome, 'desc': !sortDirectionNome}" src="assets/icons/order-up.svg" alt="seta de ordenação" style="width: 10px;">
-            </div>
-          </button>
-        </div>
-        <div class="header-item">
-          <span>Projeto</span>
-          <button (click)="sortByProjeto()">
-            <img [ngClass]="{'asc': sortDirectionProjeto, 'desc': !sortDirectionProjeto}" src="assets/icons/order-up.svg" alt="seta de ordenação" style="width: 10px;">
-          </button>
-        </div>
-      </div>
-      <hr>
-      <div class="content">
-        <div class="column">
-          <ul>
-            <li *ngFor="let cliente of listaClientes">{{ cliente.nome }}</li>
-          </ul>
-        </div>
-        <div class="column">
-          <ul>
-            <li *ngFor="let cliente of listaClientes">{{ cliente.projeto }}</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="chart-container" style="display: block;">
+  <canvas baseChart
+    [datasets]="barChartData"
+    [labels]="barChartLabels"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [legend]="barChartLegend"
+    [type]="barChartType">
+  </canvas>
 </div>

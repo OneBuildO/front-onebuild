@@ -1,0 +1,126 @@
+<div [@pageTransition]>
+    <div class="title-header">
+      <h1>
+        <span>|</span>
+        Quadro Kanban
+      </h1>
+    </div>
+    <div class="body-kanban">
+        <!-- A Fazer -->
+        <div class="list">
+            <h2>A Fazer</h2>
+            <div class="card-kanban" (click)="detailsModal()">
+                <div class="header-card-Afazer"></div>
+                <div class="observations">
+                    <h4>Projeto de Reforma de Escritório</h4>
+                </div>
+                <div class="icone-info">
+                    <img src="assets/icons/info-mais.svg" alt="mais">
+                </div>
+            </div>
+            <div class="card-kanban">
+                <div class="header-card-Afazer"></div>
+                <div class="observations">
+                    <h4>Projeto de Reforma da Lavanderia</h4>
+                </div>
+                <div class="icone-info">
+                    <img src="assets/icons/info-mais.svg" alt="mais">
+                </div>
+            </div>
+        </div>
+    
+        <!-- Em Andamento -->
+        <div class="list">
+            <div class="list-header">
+                <h2>Em Andamento</h2>
+            </div>
+            <div class="card-kanban">
+                <div class="header-card-Emandamento"></div>
+                <div class="observations">
+                    <h4>Projeto de Reforma de Escritório</h4>
+                </div>
+                <div class="icone-info">
+                    <img src="assets/icons/info-mais.svg" alt="mais">
+                </div>
+            </div>
+        </div>
+    
+        <!-- Pausado -->
+        <div class="list">
+            <div class="list-header">
+                <h2>Pausado</h2>
+            </div>
+            <div class="card-kanban">
+                <div class="header-card-pausado"></div>
+                <div class="observations">
+                    <h4>Projeto de Reforma de Escritório</h4>
+                </div>
+                <div class="icone-info">
+                    <img src="assets/icons/info-mais.svg" alt="mais">
+                </div>
+            </div>
+        </div>
+    
+        <!-- Concluído -->
+        <div class="list">
+            <div class="list-header">
+                <h2>Concluído</h2>
+            </div>
+            <div class="card-kanban">
+                <div class="header-card-concluido"></div>
+                <div class="observations">
+                    <h4>Projeto de Reforma de Escritório</h4>
+                </div>
+                <div class="icone-info">
+                    <img src="assets/icons/info-mais.svg" alt="mais">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Details Modal -->
+   <app-modal [show]="showDetailModal" [footer]="false" (closeModal)="onModalDetailsHandler($event)" class="custom-modal custom-pad">
+    <div class="container-modal">
+      <div class="modal-header">
+        <div class="close-modal">
+          <button type="button" class="close" aria-label="Close" (click)="detailsModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+      <div class="body-details">
+        <div class="title-projeto">
+            <div class="tag-titulo">
+                <img src="assets/icons/trello-k.svg" alt="Descrição">
+                <div class="text-container">
+                    <h3>Projeto de Reforma de Escritório</h3>
+                    <span>dd/mm/aaaa</span>
+                </div>
+            </div>
+        </div>
+        <div class="detail-item">
+            <div class="tag-projeto">
+                <img src="assets/icons/info-mais.svg" alt="Descrição">
+                <div class="text-container">
+                    <h4>Descrição</h4>
+                    <div class="conteudo-desc">
+                        <p>
+                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of.
+                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="detail-item">
+            <div class="tag-projeto">
+                <img src="assets/icons/galeria.svg" alt="Descrição">
+                <div class="text-container">
+                    <h4>Imagens</h4>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+   </app-modal>
+</div>

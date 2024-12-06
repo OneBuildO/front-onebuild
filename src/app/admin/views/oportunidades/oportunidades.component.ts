@@ -62,7 +62,8 @@ export class OportunidadesComponent implements OnInit {
   showDetailModal: boolean = false;
   promocoes: MinhasOfertasDTO[] = [];
   currentPage: number = 1;
-  itemsPerPage: number = 5;
+  currentPageProjetos: number = 1;
+  itemsPerPage: number = 12;
 
   ngOnInit() {
     this.listaProjetosDisponiveis = [];
@@ -70,6 +71,7 @@ export class OportunidadesComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           this.listaProjetosDisponiveis = data
+          console.log('Projetos Disponíveis:', this.listaProjetosDisponiveis);
         },
         error: (err) => {
         }
@@ -119,5 +121,35 @@ export class OportunidadesComponent implements OnInit {
     if (this.currentPage > 1) {
       this.currentPage--;
     }
+  }
+
+  nextPageProjetos(): void {
+    if ((this.currentPageProjetos * this.itemsPerPage) < this.listaProjetosDisponiveis.length) {
+      this.currentPageProjetos++;
+    }
+  }
+
+  previousPageProjetos(): void {
+    if (this.currentPageProjetos > 1) {
+      this.currentPageProjetos--;
+    }
+  }
+
+  get projetosPaginados() {
+    const inicio = (this.currentPageProjetos - 1) * this.itemsPerPage;
+    const fim = inicio + this.itemsPerPage;
+    console.log('Projetos na Página:', this.listaProjetosDisponiveis.slice(inicio, fim));
+    return this.listaProjetosDisponiveis.slice(inicio, fim);
+  }
+  
+
+  mudarPaginaProjetos(novaPagina: number) {
+    if (novaPagina >= 1 && novaPagina <= this.totalPaginasProjetos) {
+      this.currentPageProjetos = novaPagina;
+    }
+  }
+
+  get totalPaginasProjetos() {
+    return Math.ceil(this.listaProjetosDisponiveis.length / this.itemsPerPage);
   }
 }

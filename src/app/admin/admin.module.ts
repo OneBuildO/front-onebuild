@@ -11,7 +11,8 @@ import { EventsComponent } from './views/events/events.component';
 import { SettingsModule } from './views/settings/settings.module';
 import { ElementsModule } from './views/elements/elements.module';
 import {ModalComponent} from "../shared/components/modal/modal.component";
-
+import { GraficoUmComponent } from '../shared/components/grafico-um/grafico-um.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,8 @@ import {ModalComponent} from "../shared/components/modal/modal.component";
     SettingsModule,
     ElementsModule,
     ModalComponent,
+    NgChartsModule,
+    GraficoUmComponent
   ]
 })
 export class AdminModule { }
